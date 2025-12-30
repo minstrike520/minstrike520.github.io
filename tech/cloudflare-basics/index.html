@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.blade520.com","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="在沒有固定外部 IP（Public IP）且位於 NAT（如宿舍、公司內部網路）後方的環境下，最現代、安全且簡單的解決方案是使用 Cloudflare Tunnel。 這項技術會在你的樹莓派與 Cloudflare 伺服器之間建立一條加密通道。當使用者訪問你的網域時，Cloudflare 會將流量透過這條通道導向你的樹莓派，你完全不需要在路由器上設定網址轉發（Port Forwarding）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cloudflare Basics">
+<meta property="og:url" content="https://blog.blade520.com/tech/cloudflare-basics/index.html">
+<meta property="og:site_name" content="Blade&#39;s Blog">
+<meta property="og:description" content="在沒有固定外部 IP（Public IP）且位於 NAT（如宿舍、公司內部網路）後方的環境下，最現代、安全且簡單的解決方案是使用 Cloudflare Tunnel。 這項技術會在你的樹莓派與 Cloudflare 伺服器之間建立一條加密通道。當使用者訪問你的網域時，Cloudflare 會將流量透過這條通道導向你的樹莓派，你完全不需要在路由器上設定網址轉發（Port Forwarding）。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2025-12-30T15:41:00.000Z">
+<meta property="article:modified_time" content="2025-12-30T15:41:00.000Z">
+<meta property="article:author" content="Blade Yang">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.blade520.com/tech/cloudflare-basics/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://blog.blade520.com/tech/cloudflare-basics/","path":"tech/cloudflare-basics/","title":"Cloudflare Basics"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Cloudflare Basics | Blade's Blog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blade's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C%E6%AD%A5%E9%A9%9F%E6%8C%87%E5%8D%97"><span class="nav-text">實作步驟指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-cloudflared-%E4%BB%A3%E7%90%86%E7%A8%8B%E5%BC%8F"><span class="nav-text">1. 安裝 Cloudflared 代理程式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BB%E5%85%A5-cloudflare-%E5%B8%B3%E6%88%B6"><span class="nav-text">2. 登入 Cloudflare 帳戶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-tunnel-%E9%9A%A7%E9%81%93"><span class="nav-text">3. 建立 Tunnel 隧道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E8%A8%AD%E5%AE%9A%E6%AA%94-config.yml"><span class="nav-text">4. 設定設定檔 (config.yml)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B6%81%E5%AE%9A-dns-%E8%88%87%E5%95%9F%E5%8B%95"><span class="nav-text">5. 綁定 DNS 與啟動</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E9%81%B8%E6%93%87-cloudflare-tunnel"><span class="nav-text">為什麼選擇 Cloudflare
+Tunnel？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%B2%E9%9A%8E%E5%BB%BA%E8%AD%B0"><span class="nav-text">進階建議</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%E4%BD%BF%E7%94%A8%E5%85%A7%E5%BB%BA%E6%8C%87%E4%BB%A4%E8%87%AA%E5%8B%95%E5%AE%89%E8%A3%9D-%E6%9C%80%E6%8E%A8%E8%96%A6"><span class="nav-text">方法一：使用內建指令自動安裝
+(最推薦)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%E9%80%8F%E9%81%8E-cloudflare-dashboard-zero-trust-%E9%81%A0%E7%AB%AF%E7%AE%A1%E7%90%86"><span class="nav-text">方法二：透過
+Cloudflare Dashboard (Zero Trust) 遠端管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84-systemctl-%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4"><span class="nav-text">常用的 systemctl 操作指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85"><span class="nav-text">注意事項</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%E5%AE%A2%E6%88%B6%E7%AB%AF%E4%B9%9F%E5%AE%89%E8%A3%9D-cloudflared-%E6%9C%80%E7%A9%A9%E5%AE%9A"><span class="nav-text">方法一：客戶端也安裝
+cloudflared (最穩定)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%E4%BD%BF%E7%94%A8%E7%80%8F%E8%A6%BD%E5%99%A8%E7%B5%82%E7%AB%AF%E6%A9%9F-%E7%84%A1%E9%A0%88%E5%AE%89%E8%A3%9D%E5%B7%A5%E5%85%B7"><span class="nav-text">方法二：使用瀏覽器終端機
+(無須安裝工具)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E6%9C%83%E5%8D%A1%E4%BD%8F%E6%8A%80%E8%A1%93%E7%B4%B0%E7%AF%80"><span class="nav-text">為什麼會卡住？（技術細節）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AA%A2%E6%9F%A5%E6%B8%85%E5%96%AE-troubleshooting"><span class="nav-text">檢查清單 (Troubleshooting)</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Blade Yang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://blog.blade520.com/tech/cloudflare-basics/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Blade Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blade's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Cloudflare Basics | Blade's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Cloudflare Basics
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2025-12-30 23:41:00" itemprop="dateCreated datePublished" datetime="2025-12-30T23:41:00+08:00">2025-12-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>在沒有固定外部 IP（Public IP）且位於
+NAT（如宿舍、公司內部網路）後方的環境下，最現代、安全且簡單的解決方案是使用
+<strong>Cloudflare Tunnel</strong>。</p>
+<p>這項技術會在你的樹莓派與 Cloudflare
+伺服器之間建立一條加密通道。當使用者訪問你的網域時，Cloudflare
+會將流量透過這條通道導向你的樹莓派，你<strong>完全不需要</strong>在路由器上設定網址轉發（Port
+Forwarding）。</p>
+<hr />
+<h2 id="實作步驟指南">實作步驟指南</h2>
+<h3 id="安裝-cloudflared-代理程式">1. 安裝 Cloudflared 代理程式</h3>
+<p>首先，你需要在樹莓派上安裝 Cloudflare 提供的工具
+<code>cloudflared</code>。</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 更新系統並安裝必要套件</span><br><span class="line">sudo apt update &amp;&amp; sudo apt install curl -y</span><br><span class="line"></span><br><span class="line"># 下載並安裝 cloudflared (適用於樹莓派 ARM 架構)</span><br><span class="line">curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb -o cloudflared.deb</span><br><span class="line">sudo dpkg -i cloudflared.deb</span><br></pre></td></tr></table></figure>
+<h3 id="登入-cloudflare-帳戶">2. 登入 Cloudflare 帳戶</h3>
+<p>執行以下指令會產生一個連結，請在瀏覽器中開啟並選擇你要使用的網域：</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared tunnel login</span><br></pre></td></tr></table></figure>
+<h3 id="建立-tunnel-隧道">3. 建立 Tunnel 隧道</h3>
+<p>建立一個隧道並給它一個名字（例如 <code>pi-server</code>）：</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared tunnel create pi-server</span><br></pre></td></tr></table></figure>
+<p>執行後會得到一個 <strong>Tunnel
+ID</strong>（一串長代碼），請記下來。</p>
+<h3 id="設定設定檔-config.yml">4. 設定設定檔 (config.yml)</h3>
+<p>在 <code>~/.cloudflared/</code> 資料夾下建立設定檔，告訴 Cloudflare
+如何轉發流量：</p>
+<p>YAML</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tunnel: &lt;您的 Tunnel ID&gt;</span><br><span class="line">credentials-file: /home/pi/.cloudflared/&lt;您的 Tunnel ID&gt;.json</span><br><span class="line"></span><br><span class="line">ingress:</span><br><span class="line">  - hostname: yourdomain.com  # 您的網域</span><br><span class="line">    service: http://localhost:80  # 樹莓派上 Web Server 執行的埠位</span><br><span class="line">  - service: http_status:404</span><br></pre></td></tr></table></figure>
+<h3 id="綁定-dns-與啟動">5. 綁定 DNS 與啟動</h3>
+<p>將你的網域指向這個隧道，並啟動它：</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 綁定 DNS</span><br><span class="line">cloudflared tunnel route dns pi-server yourdomain.com</span><br><span class="line"></span><br><span class="line"># 啟動隧道</span><br><span class="line">cloudflared tunnel run pi-server</span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="為什麼選擇-cloudflare-tunnel">為什麼選擇 Cloudflare
+Tunnel？</h2>
+<ul>
+<li><p><strong>無需對外 IP：</strong>
+即使是移動網路或嚴格的宿舍防火牆也能穿透。</p></li>
+<li><p><strong>安全性極高：</strong>
+你不需要開啟任何路由器埠位（Port），減少被攻擊的風險。</p></li>
+<li><p><strong>內建 SSL：</strong> Cloudflare 會自動幫你的網域加上 HTTPS
+憑證。</p></li>
+<li><p><strong>隱藏真實 IP：</strong>
+駭客無法直接探測到你宿舍的網路位置。</p></li>
+</ul>
+<hr />
+<h2 id="進階建議">進階建議</h2>
+<ol type="1">
+<li><p><strong>設定為系統服務：</strong> 使用
+<code>sudo cloudflared service install</code>
+讓隧道在樹莓派開機時自動啟動。</p></li>
+<li><p><strong>Web 控制台：</strong> 你也可以直接在 <a
+target="_blank" rel="noopener" href="https://one.dash.cloudflare.com/">Cloudflare Zero Trust
+Dashboard</a>
+透過網頁介面建立隧道，完全不需要在終端機寫設定檔，這對新手更友好。</p></li>
+</ol>
+<p><strong>需要我為您示範如何在 Cloudflare Zero Trust
+網頁後台進行「視覺化」的設定步驟嗎？</strong></p>
+<blockquote>
+<p>cloudflared 可以用 systemctl 控制嗎？</p>
+</blockquote>
+<p>可以的，<code>cloudflared</code> 完整支援 <code>systemd</code> (即
+<code>systemctl</code>)，這也是在伺服器環境中確保服務穩定、開機自動啟動的最佳實踐。</p>
+<p>以下是將 Cloudflare Tunnel 設定為系統服務的兩種主要方法：</p>
+<h3 id="方法一使用內建指令自動安裝-最推薦">方法一：使用內建指令自動安裝
+(最推薦)</h3>
+<p>如果你已經手動建立了 <code>config.yml</code>
+並測試成功，可以使用以下指令將其安裝為系統服務：</p>
+<ol type="1">
+<li><p><strong>執行安裝指令：</strong></p>
+<p>Bash</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cloudflared service install</span><br></pre></td></tr></table></figure></p></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cloudflared --config /home/username/.cloudflared/config.yml service install</span><br></pre></td></tr></table></figure>
+<pre><code>_這個指令會自動根據你的設定檔，在 `/etc/systemd/system/` 下建立一個名為 `cloudflared.service` 的檔案，並將設定檔拷貝到 `/etc/cloudflared/`。_</code></pre>
+<ol start="2" type="1">
+<li><p><strong>啟動並設定開機自啟：</strong></p>
+<p>Bash</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl enable cloudflared</span><br><span class="line">sudo systemctl start cloudflared</span><br></pre></td></tr></table></figure></p></li>
+<li><p><strong>檢查狀態：</strong></p>
+<p>Bash</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status cloudflared</span><br></pre></td></tr></table></figure></p></li>
+</ol>
+<hr />
+<h3
+id="方法二透過-cloudflare-dashboard-zero-trust-遠端管理">方法二：透過
+Cloudflare Dashboard (Zero Trust) 遠端管理</h3>
+<p>如果你是在 Cloudflare 官網後台的 <strong>Zero Trust -&gt; Networks
+-&gt; Tunnels</strong> 建立隧道，設定過程會更簡單。當你點擊 “Create a
+tunnel” 並選擇 Linux 時，網頁會直接提供你一段類似這樣的指令：</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cloudflared service install [YOUR_TOKEN_HERE]</span><br></pre></td></tr></table></figure>
+<p><strong>這種方式的優點：</strong></p>
+<ul>
+<li><p><strong>自動化：</strong> 它會自動下載必要檔案並直接註冊成
+<code>systemctl</code> 服務。</p></li>
+<li><p><strong>免設定檔：</strong> 你不需要在樹莓派上手寫
+<code>config.yml</code>，所有的網址對應 (Ingress Rules) 都可以直接在
+Cloudflare 網頁上修改，修改後即刻生效，無需重啟服務。</p></li>
+</ul>
+<hr />
+<h3 id="常用的-systemctl-操作指令">常用的 systemctl 操作指令</h3>
+<p>一旦安裝完成，你就可以像管理其他 Linux 服務一樣操作它：</p>
+<ul>
+<li><p><strong>重啟服務：</strong>
+<code>sudo systemctl restart cloudflared</code>
+(修改設定後常用)</p></li>
+<li><p><strong>停止服務：</strong>
+<code>sudo systemctl stop cloudflared</code></p></li>
+<li><p>查看即時日誌：</p>
+<p>如果隧道連線有問題，可以透過這條指令查看詳細報錯：</p>
+<p>Bash</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">journalctl -u cloudflared -f</span><br></pre></td></tr></table></figure></p></li>
+</ul>
+<h3 id="注意事項">注意事項</h3>
+<ul>
+<li><p><strong>權限問題：</strong>
+以系統服務執行時，<code>cloudflared</code> 通常會以 <code>root</code>
+或專屬帳號運行，請確保你的憑證檔案 (cert.pem 或 json 檔)
+的路徑是全域可讀取的（通常放在
+<code>/etc/cloudflared/</code>）。</p></li>
+<li><p><strong>路徑偏移：</strong> 使用 <code>service install</code>
+指令後，預設的設定檔位置會從 <code>~/.cloudflared/</code> 移至
+<code>/etc/cloudflared/</code>。如果你手動修改了原本家目錄下的設定，記得同步到
+<code>/etc/</code> 下。</p></li>
+</ul>
+<p>這是非常經典的問題！SSH
+和網頁（HTTP）的運作方式不同，不能直接用瀏覽器或一般的 SSH
+指令連線。</p>
+<p>原因是 <strong>Cloudflare 預設只處理 HTTP/HTTPS
+流量</strong>。當你嘗試 <code>ssh user@ssh.yourdomain.com</code>
+時，Cloudflare 會認為這是網頁請求，導致連線被阻斷。</p>
+<p>要解決這個問題，你有兩種主要方式：</p>
+<hr />
+<h3 id="方法一客戶端也安裝-cloudflared-最穩定">方法一：客戶端也安裝
+cloudflared (最穩定)</h3>
+<p>這是 Cloudflare 官方推薦的做法。你的連線邏輯會變成：</p>
+<p>你的電腦 (SSH Client) &lt;-&gt; cloudflared &lt;-&gt; Cloudflare
+&lt;-&gt; 樹莓派 (Server)</p>
+<ol type="1">
+<li><p><strong>在你的電腦（Client）安裝 cloudflared：</strong></p>
+<ul>
+<li><p><strong>Windows (PowerShell):</strong>
+<code>winget install Cloudflare.cloudflared</code></p></li>
+<li><p><strong>Mac (Homebrew):</strong>
+<code>brew install cloudflared</code></p></li>
+</ul></li>
+<li><p>修改你的 SSH 設定檔：</p>
+<p>在你的電腦（不是樹莓派）編輯 ~/.ssh/config（Windows 通常在
+C:.ssh），加入以下內容：</p>
+<p>Plaintext</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Host ssh.yourdomain.com</span><br><span class="line">    ProxyCommand cloudflared access ssh --hostname %h</span><br></pre></td></tr></table></figure></p></li>
+<li><p>直接連線：</p>
+<p>現在你只需要輸入原本的指令，它就會自動透過隧道連線了：</p>
+<p>Bash</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh pi@ssh.yourdomain.com</span><br></pre></td></tr></table></figure></p></li>
+</ol>
+<hr />
+<h3 id="方法二使用瀏覽器終端機-無須安裝工具">方法二：使用瀏覽器終端機
+(無須安裝工具)</h3>
+<p>如果你在別人的電腦上，無法安裝 <code>cloudflared</code>，你可以開啟
+Cloudflare 的「網頁版 SSH」。</p>
+<ol type="1">
+<li><p>登入 <strong>Cloudflare Zero Trust Dashboard</strong>。</p></li>
+<li><p>前往 <strong>Access</strong> -&gt; <strong>Applications</strong>
+-&gt; <strong>Add an application</strong>。</p></li>
+<li><p>選擇 <strong>Self-hosted</strong>，設定名稱並輸入你的子網域
+<code>ssh.yourdomain.com</code>。</p></li>
+<li><p>在 <strong>Settings</strong> 分頁中，找到
+<strong>Browser-rendered terminal</strong> 並將其勾選開啟。</p></li>
+<li><p>設定完成後，你只要在瀏覽器輸入
+<code>https://ssh.yourdomain.com</code>，通過身分驗證後，網頁就會直接跳出一個終端機視窗供你操作。</p></li>
+</ol>
+<hr />
+<h3 id="為什麼會卡住技術細節">為什麼會卡住？（技術細節）</h3>
+<p>當你使用網域連線時，封包會先到達 Cloudflare 的邊緣伺服器。</p>
+<ul>
+<li><p><strong>HTTP:</strong> Cloudflare 知道如何拆解並轉發。</p></li>
+<li><p><strong>SSH:</strong> 這是一種非 HTTP 的 TCP 協議。Cloudflare
+為了安全，預設不會隨便轉發 TCP 封包，除非你使用 <code>cloudflared</code>
+工具將 SSH 封包封裝在 WebSocket 隧道中（這就是方法一
+<code>ProxyCommand</code> 在做的事）。</p></li>
+</ul>
+<hr />
+<h3 id="檢查清單-troubleshooting">檢查清單 (Troubleshooting)</h3>
+<p>如果還是連不上，請確認：</p>
+<ol type="1">
+<li><p><strong>樹莓派端設定：</strong> 在 <code>config.yml</code> 或
+Dashboard 中，<code>service</code> 是否正確指向
+<code>ssh://localhost:22</code>。</p></li>
+<li><p><strong>防火牆：</strong> 樹莓派本身的 <code>ufw</code> 或
+<code>iptables</code> 是否允許本機 22 埠（通常預設是開的）。</p></li>
+<li><p><strong>Zero Trust 策略：</strong> 如果你在後台設定了
+<strong>Access Policy</strong>（例如限制只有你的 Email
+能登入），請確保你在連線時有完成身分驗證。</p></li>
+</ol>
+<p><strong>您目前的客戶端（你的電腦）是 Windows 還是
+Mac/Linux？我可以提供更詳細的 <code>~/.ssh/config</code>
+設定說明。</strong></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/tech/docker-basics/" rel="prev" title="Docker Basics">
+                  <i class="fa fa-angle-left"></i> Docker Basics
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Blade Yang</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

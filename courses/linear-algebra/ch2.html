@@ -20,22 +20,27 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.blade520.com","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"}}</script><script src="/js/config.js" defer></script>
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Blade&#39;s Blog">
-<meta property="og:url" content="https://blog.blade520.com/archives/2023/index.html">
+    <meta name="description" content="2-1 Matrix Multiplication  矩陣乘法可以用 matrix-vector product 來定義。 矩陣沒有交換律。 \(\mathbf{u}^{T}\mathbf{v}\) 所得為一個 \(1\times 1\) 矩陣 \([ \mathbf{u} \cdot \mathbf{v}]\)。所以要取純量時記得用點積，不要用矩陣乘法。 對稱矩陣：\(A^{T}&#x3D;A\)  2-">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Linear Algebra - Chapter 2: Matrices and Linear Transformations">
+<meta property="og:url" content="https://blog.blade520.com/courses/linear-algebra/ch2.html">
 <meta property="og:site_name" content="Blade&#39;s Blog">
+<meta property="og:description" content="2-1 Matrix Multiplication  矩陣乘法可以用 matrix-vector product 來定義。 矩陣沒有交換律。 \(\mathbf{u}^{T}\mathbf{v}\) 所得為一個 \(1\times 1\) 矩陣 \([ \mathbf{u} \cdot \mathbf{v}]\)。所以要取純量時記得用點積，不要用矩陣乘法。 對稱矩陣：\(A^{T}&#x3D;A\)  2-">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2025-10-21T02:00:00.000Z">
+<meta property="article:modified_time" content="2025-12-29T14:10:48.009Z">
 <meta property="article:author" content="Blade Yang">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://blog.blade520.com/archives/2023/">
+<link rel="canonical" href="https://blog.blade520.com/courses/linear-algebra/ch2">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-TW","comments":"","permalink":"","path":"archives/2023/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-TW","comments":true,"permalink":"https://blog.blade520.com/courses/linear-algebra/ch2.html","path":"courses/linear-algebra/ch2.html","title":"Linear Algebra - Chapter 2: Matrices and Linear Transformations"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>歸檔 | Blade's Blog</title>
+<title>Linear Algebra - Chapter 2: Matrices and Linear Transformations | Blade's Blog
+</title>
   
 
 
@@ -88,7 +93,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Blade's Blog</h1>
+      <p class="site-title">Blade's Blog</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -110,7 +115,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目錄
@@ -123,6 +128,10 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#matrix-multiplication"><span class="nav-text">2-1 Matrix Multiplication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#invertibility-and-elementary-matrices"><span class="nav-text">2-3 Invertibility and
+Elementary Matrices</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%86%E7%9F%A9%E9%99%A3%E7%9A%84%E5%94%AF%E4%B8%80%E6%80%A7"><span class="nav-text">逆矩陣的唯一性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E7%B4%A0%E7%9F%A9%E9%99%A3"><span class="nav-text">元素矩陣</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#a-1b-%E7%89%B9%E6%AE%8A%E7%AE%97%E6%B3%95"><span class="nav-text">\(A^{-1}B\)
+特殊算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linear-transformation"><span class="nav-text">Linear Transformation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#standard-matrix"><span class="nav-text">Standard Matrix</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#composition-and-invertibility-of-linear-transformations"><span class="nav-text">2.8
+Composition and Invertibility of Linear Transformations</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -152,49 +161,89 @@
 
     </div>
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner page posts-expand">
 
 
-  
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共有 4 篇文章。 繼續努力。</span>
-      </div>
+    
+    
+    
+    <div class="post-block" lang="zh-TW"><header class="post-header">
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2023<span class="collection-year-count">1</span></span>
-    </div>
+<h1 class="post-title" itemprop="name headline">Linear Algebra - Chapter 2: Matrices and Linear Transformations
+</h1>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2023-10-27T10:00:00+08:00"
-              content="2023-10-27">
-          10-27
-        </time>
-      </div>
+<div class="post-meta-container">
+  <ul class="breadcrumb">
+            <li><a href="/courses/">COURSES</a></li>
+            <li><a href="/courses/linear-algebra/">LINEAR-ALGEBRA</a></li>
+            <li>CH2</li>
+  </ul>
+</div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/math-test/" itemprop="url">
-            <span itemprop="name">Math Test</span>
-          </a>
-      </div>
+</header>
 
       
-    </header>
-  </article>
+      
+      
+      <div class="post-body">
+          <h2 id="matrix-multiplication">2-1 Matrix Multiplication</h2>
+<ul>
+<li>矩陣乘法可以用 matrix-vector product 來定義。</li>
+<li>矩陣沒有交換律。</li>
+<li><span class="math inline">\(\mathbf{u}^{T}\mathbf{v}\)</span>
+所得為一個 <span class="math inline">\(1\times 1\)</span> 矩陣 <span
+class="math inline">\([ \mathbf{u} \cdot
+\mathbf{v}]\)</span>。所以要取純量時記得用點積，不要用矩陣乘法。</li>
+<li>對稱矩陣：<span class="math inline">\(A^{T}=A\)</span></li>
+</ul>
+<h2 id="invertibility-and-elementary-matrices">2-3 Invertibility and
+Elementary Matrices</h2>
+<blockquote>
+<p>[!Abstract] DEF. Inverse <span class="math display">\[
+A A^{-1} = A^{-1} A = I_{n}
+\]</span></p>
+</blockquote>
+<h3 id="逆矩陣的唯一性">逆矩陣的唯一性</h3>
+<p>證明方法：先假設他不唯一，設第三個矩陣也符合逆矩陣的定義，然後推得它與原本的逆矩陣相等。</p>
+<h3 id="元素矩陣">元素矩陣</h3>
+<p>即從單位矩陣進行一次 e.r.o. 得來。</p>
+<h3 id="a-1b-特殊算法"><span class="math inline">\(A^{-1}B\)</span>
+特殊算法</h3>
+<p><span class="math display">\[
+[A\ B] \to [I_{n}\ C], \ C = A^{-1} B
+\]</span></p>
+<h2 id="linear-transformation">Linear Transformation</h2>
+<p>定義：「保留<strong>向量加法</strong>與<strong>純量乘法</strong>者為線性變換。」
+向量加法 vector addition <span class="math display">\[
+T(\mathbf{u} + \mathbf{v}) = T(\mathbf{u}) + T(\mathbf{v})
+\]</span> 純量乘法 scalar multiplication <span class="math display">\[
+T(c \mathbf{u}) = c \cdot T(\mathbf{u})
+\]</span> 零向量 <span class="math display">\[
+T(\mathbf{0}) = \mathbf{0}
+\]</span> 然而，反過來則不一定： <span class="math display">\[
+T(X) = \mathbf{0} \not\implies X = \mathbf{0}
+\]</span></p>
+<h3 id="standard-matrix">Standard Matrix</h3>
+<p>此詞彙沒有在 <span class="math display">\[
+A = [T(\mathbf{e}_{1}) T(\mathbf{e}_{2}) \dots T(\mathbf{e}_{n})]
+\]</span></p>
+<h2 id="composition-and-invertibility-of-linear-transformations">2.8
+Composition and Invertibility of Linear Transformations</h2>
 
-
+      </div>
+      
+      
+      
     </div>
-  </div>
-  
-  
-  
+  <ul class="breadcrumb">
+            <li><a href="/courses/">COURSES</a></li>
+            <li><a href="/courses/linear-algebra/">LINEAR-ALGEBRA</a></li>
+            <li>CH2</li>
+  </ul>
+
+    
+    
+
 
 </div>
   </main>

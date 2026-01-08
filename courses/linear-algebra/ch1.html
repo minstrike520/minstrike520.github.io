@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.blade520.com","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":true,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="註：本文中行＝row，列＝column。 1.1 Matrices SPEC. Matrix 直排的是 row vector，橫排的是 column vector。 vector 預設為 column vector。 在矩陣 \[ A &#x3D; [a_{i,j}]_{m \times n} \] 中，我們會說 \(m\) 是矩陣的「行數」，而 \(n\) 是「列數」；\(a_{i,j}\) 是矩陣第 \">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Linear Algebra - Chapter 1: Matrices and Linear Transformations">
+<meta property="og:url" content="https://blog.blade520.com/courses/linear-algebra/ch1.html">
+<meta property="og:site_name" content="Blade&#39;s Blog">
+<meta property="og:description" content="註：本文中行＝row，列＝column。 1.1 Matrices SPEC. Matrix 直排的是 row vector，橫排的是 column vector。 vector 預設為 column vector。 在矩陣 \[ A &#x3D; [a_{i,j}]_{m \times n} \] 中，我們會說 \(m\) 是矩陣的「行數」，而 \(n\) 是「列數」；\(a_{i,j}\) 是矩陣第 \">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-01-08T00:36:32.394Z">
+<meta property="article:modified_time" content="2026-01-08T00:36:32.394Z">
+<meta property="article:author" content="Blade Yang">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.blade520.com/courses/linear-algebra/ch1">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-TW","comments":true,"permalink":"https://blog.blade520.com/courses/linear-algebra/ch1.html","path":"courses/linear-algebra/ch1.html","title":"Linear Algebra - Chapter 1: Matrices and Linear Transformations"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Linear Algebra - Chapter 1: Matrices and Linear Transformations | Blade's Blog
+</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blade's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-archives"><a href="/timeline/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#matrices"><span class="nav-text">1.1 Matrices</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linear-combinations"><span class="nav-text">1.2 Linear Combinations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systems-of-equations"><span class="nav-text">1.3 Systems of Equations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gaussian-elimination"><span class="nav-text">1.4 Gaussian Elimination</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#span-of-a-set-of-vectors---vector-space"><span class="nav-text">1.5 Span of A Set of
+Vectors - Vector Space</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linear-independence"><span class="nav-text">1.6 Linear Independence</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B7%9A%E6%80%A7%E7%8D%A8%E7%AB%8B%E7%9A%84%E7%AD%89%E5%83%B9%E6%95%98%E8%BF%B0"><span class="nav-text">線性獨立的等價敘述</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Blade Yang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/timeline/">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分類</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-TW"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">Linear Algebra - Chapter 1: Matrices and Linear Transformations
+</h1>
+
+<div class="post-meta-container">
+  <ul class="breadcrumb">
+            <li><a href="/courses/">COURSES</a></li>
+            <li><a href="/courses/linear-algebra/">LINEAR-ALGEBRA</a></li>
+            <li>CH1</li>
+  </ul>
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <p>註：本文中行＝row，列＝column。</p>
+<h2 id="matrices">1.1 Matrices</h2>
+<p><strong>SPEC.</strong> Matrix 直排的是 row vector，橫排的是 column
+vector。 vector 預設為 column vector。 在矩陣 <span
+class="math display">\[
+A = [a_{i,j}]_{m \times n}
+\]</span> 中，我們會說 <span class="math inline">\(m\)</span>
+是矩陣的「行數」，而 <span class="math inline">\(n\)</span>
+是「列數」；<span class="math inline">\(a_{i,j}\)</span> 是矩陣第 <span
+class="math inline">\(i\)</span> 行第 <span
+class="math inline">\(j\)</span>
+列的「entry」。總的來說，對行列的敘述遵循著<strong>先行後列</strong>的規則。
+英文中稱此為「dimension = <span class="math inline">\(m\)</span> by
+<span class="math inline">\(n\)</span>」的矩陣。</p>
+<blockquote>
+<p>[!Abstract] DEF. Submatrix
+子矩陣指的是原矩陣「刪去任意數量的行或列」。舉一個極端例：空矩陣為任意矩陣的子矩陣。</p>
+</blockquote>
+<blockquote>
+<p>[!Abstract] DEF. Row Vector and Column Vector 行數為一（<span
+class="math inline">\(m = 1\)</span>）時，<span
+class="math inline">\(A\)</span> 為一個行向量；列數為一（<span
+class="math inline">\(n = 1\)</span>）時，<span
+class="math inline">\(A\)</span> 為一個列向量。
+由此可知，向量在結構上是矩陣的子集合。</p>
+</blockquote>
+<blockquote>
+<p>[!Abstract] DEF. Equality of Two Matrices 兩個矩陣若大小相同且對應的
+entry 皆相等，則兩者相等。 <span class="math inline">\(A = B\)</span> if
+<span class="math inline">\(a_{i,j} = b_{i, j}\)</span> for every <span
+class="math inline">\(i\)</span> and <span
+class="math inline">\(j\)</span>.</p>
+</blockquote>
+<p><strong>SKIPPED.</strong> Transpose of Matrices</p>
+<h2 id="linear-combinations">1.2 Linear Combinations</h2>
+<blockquote>
+<p>[!Abstract] DEF. Linear Combination 給予一個 <span
+class="math inline">\(k\)</span> 個元素的集合 <span
+class="math inline">\(S\)</span> 以及元素 <span
+class="math inline">\(u\)</span>。若存在 <span
+class="math inline">\(k\)</span> 個實數 <span
+class="math inline">\(\alpha_{1}, \alpha_{2}, \dots, \alpha_{n}\)</span>
+使得 <span class="math display">\[
+u = \alpha_{1} s_{1} + \alpha_{2} s_{2} + \dots \alpha_{n} s_{n},
+\]</span> 則<span class="math inline">\(u\)</span> 為 <span
+class="math inline">\(S\)</span> 的一個線性組合。</p>
+</blockquote>
+<blockquote>
+<p>[!Note] Theorem 若 <span class="math inline">\(v\)</span> 跟 <span
+class="math inline">\(w\)</span> 皆為 <span
+class="math inline">\(S\)</span> 的線性組合，則任何 <span
+class="math inline">\(\{ v,w \}\)</span> 的線性組合皆為 <span
+class="math inline">\(S\)</span> 的線性組合。</p>
+</blockquote>
+<p>饒舌版：則 <span class="math inline">\(\{ v, w \}\)</span>
+的線性組合集合必為 <span class="math inline">\(S\)</span>
+的線性組合集合的子集合。 span 版： <span class="math display">\[
+v, w \in \text{span}(S) \implies \text{span}(\{ v, w \}) \subseteq
+\text{span}(S)
+\]</span></p>
+<p><strong>SKIPPED.</strong> Identity Matrices</p>
+<blockquote>
+<p>[!Abstract] DEF. Rotation Matrix <span class="math display">\[
+R_{\theta} = \begin{bmatrix}
+\cos \theta  &amp;  -\sin \theta \\
+\sin \theta &amp; \cos \theta
+\end{bmatrix}
+\]</span></p>
+</blockquote>
+<blockquote>
+<p>[!Quote] Matrix-vector Product <span class="math display">\[
+A \mathbf{b} = \mathbf{a}_{1} \mathbf{b} + \mathbf{a}_{2} \mathbf{b} +
+\dots + \mathbf{a}_{n} \mathbf{b}
+\]</span> where <span class="math inline">\(\mathbf{a}_{i}\)</span>
+denotes <span class="math inline">\(i\)</span>-th row of matrix <span
+class="math inline">\(A\)</span>.</p>
+</blockquote>
+<h2 id="systems-of-equations">1.3 Systems of Equations</h2>
+<p><strong>SKIPPED.</strong> Elementary Row Operations</p>
+<blockquote>
+<p>[!Abstract] DEF. Reduced Row Echelon Form (RREF) 1. Leading entries
+皆為 1 2. Zero rows 在下方 3. staircase property 4. pivot columns 中除
+leading entry 之外皆為 0</p>
+</blockquote>
+<p>若只滿足敘述 2, 3，則為 REF。</p>
+<p>註。關於「階梯形」的形式定義 &gt; The leading entry of a nonzero row
+<strong>lies in a column</strong> to the right of the column containing
+the leading entry of any preceding row.</p>
+<p>每個 leading entry 所在的 column，都在上方（preceding）的 leading
+entry 的 column 的右邊。</p>
+<p>（<strong>特例</strong>）結合下一節所述，可以說若一個 <span
+class="math inline">\(n\times n\)</span> 的矩陣 rank 為 <span
+class="math inline">\(n\)</span>，則其 RREF 為 <span
+class="math inline">\(I_{n}\)</span>。</p>
+<h2 id="gaussian-elimination">1.4 Gaussian Elimination</h2>
+<ul>
+<li>Pivot Position; Pivot Column</li>
+</ul>
+<p>Rank and nullity 一個矩陣的 rank 是在他變為 RREF 之後擁有幾個非零列。
+nullity 則相反，算的是該情況下擁有幾個零列。</p>
+<span class="math display">\[\begin{array}{ccccccc} &amp; &amp; j &amp;
+&amp; j&#39; &amp; &amp; \\ &amp; &amp; \vdots &amp; &amp; \vdots &amp;
+&amp; \\ i &amp; \cdots &amp; a_{i,j} &amp; \cdots &amp; a_{i,j&#39;}
+&amp; \cdots &amp; \\ &amp; &amp; \vdots &amp; &amp; \vdots &amp; &amp;
+\\ &amp; &amp; \vdots &amp; &amp; \vdots &amp; &amp; \\ i&#39; &amp;
+\cdots &amp; a_{i&#39;,j} &amp; \cdots &amp; a_{i&#39;,j&#39;} &amp;
+&amp; = a_{i&#39;,j&#39;} - \dfrac{a_{i&#39;,j} \times
+a_{i,j&#39;}}{a_{i,j}} \\ &amp; &amp; \vdots &amp; &amp; \vdots &amp;
+&amp; \\ &amp; &amp; &amp; &amp; &amp; &amp; j&#39; = j, j+1, \dots, n+1
+\\ \end{array}\]</span>
+<center>
+<i> Schematic Diagram of Gaussian Elimination </i>
+</center>
+<h2 id="span-of-a-set-of-vectors---vector-space">1.5 Span of A Set of
+Vectors - Vector Space</h2>
+<p><span class="math display">\[
+\text{span}(S)
+\]</span> Span 代表的是一個集合的所有可能的線性組合。</p>
+<p>或說， <span class="math display">\[
+\text{span}(S) := \{ c_{1} s_{1} + c_{2} s_{2} + \dots + c_{n} s_{n} \ |
+\ c_{1}, c_{2}, \dots, c_{n} \in \mathbb{R} \}.
+\]</span></p>
+<p>反過來說，如果對於一個集合 <span
+class="math inline">\(V\)</span>，存在若干 <span
+class="math inline">\(g_{i}\)</span> 使得 <span class="math display">\[
+V = \{ c_{1}g_{1} + c_{2} g_{2} + \dots + c_{n} g_{n} \ | \ c_{1},
+c_{2}, \dots, c_{n} \in \mathbb{R} \}\
+\]</span> 那麼 <span class="math inline">\(G\)</span> 就是 <span
+class="math inline">\(V\)</span> 的生成集。</p>
+<h2 id="linear-independence">1.6 Linear Independence</h2>
+<blockquote>
+<p>[!Abstract] DEF. Linear Independence 如果對於一組向量 <span
+class="math inline">\(\{ \mathbf{v}_{1}, \mathbf{v}_{2}, \dots,
+\mathbf{v}_{n} \}\)</span> 而言， <span class="math display">\[
+c_{1} \mathbf{v}_{1} + c_{2} \mathbf{v}_{2} + \dots + c_{n}
+\mathbf{v}_{n} = \mathbf{0}
+\]</span> 中的 <span class="math inline">\(c_{1}, c_{2}, \dots,
+c_{n}\)</span>
+的唯一解為全零的話，則稱這組向量線性獨立。否則他們線性相依。</p>
+</blockquote>
+<h3 id="線性獨立的等價敘述">線性獨立的等價敘述</h3>
+<ol type="1">
+<li>矩陣 <span class="math inline">\(A\)</span> 的 columns
+是線性獨立的。</li>
+<li>對於 <span class="math inline">\(\mathbf{R}^m\)</span> 中的每個
+<span class="math inline">\(\mathbf{b}\)</span>，方程 <span
+class="math inline">\(\mathbf{A}\mathbf{x} = \mathbf{b}\)</span>
+至多只有一個解。</li>
+<li>矩陣 <span class="math inline">\(A\)</span> 的 nullity 為零。</li>
+<li>矩陣 <span class="math inline">\(A\)</span> 的 rank 為 <span
+class="math inline">\(n\)</span>，即 <span
+class="math inline">\(A\)</span> 的 column 數。</li>
+<li>矩陣 <span class="math inline">\(A\)</span> 的 RREF 的列是 <span
+class="math inline">\(\mathbf{R}^m\)</span> 中相異的標準向量。</li>
+<li>方程 <span class="math inline">\(\mathbf{A}\mathbf{x} =
+\mathbf{0}\)</span> 的唯一解是 <span
+class="math inline">\(\mathbf{0}\)</span>。</li>
+<li>矩陣 <span class="math inline">\(A\)</span> 的每一列中都有一個 pivot
+column。</li>
+</ol>
+
+      </div>
+      
+      
+      
+    </div>
+  <ul class="breadcrumb">
+            <li><a href="/courses/">COURSES</a></li>
+            <li><a href="/courses/linear-algebra/">LINEAR-ALGEBRA</a></li>
+            <li>CH1</li>
+  </ul>
+
+    
+    
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Blade Yang</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

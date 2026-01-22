@@ -20,22 +20,27 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.blade520.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":true,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":120,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"}}</script><script src="/js/config.js" defer></script>
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Blade&#39;s Blog">
-<meta property="og:url" content="https://blog.blade520.com/tags/IT-Basics/index.html">
+    <meta name="description" content="可以參考 Arch Wiki: PKGBUILD。 參考別人的 PKGBUILD 在 Arch Linux 的 package 或 AUR 包預覽頁面中，有「view PKGBUILD」一欄。裡面可以清楚看到這個包的安裝過程做的所有事情，尤其是 AUR 包可以看到完整的編譯流程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Notes] Pacman System">
+<meta property="og:url" content="https://blog.blade520.com/posts/arch-packages/index.html">
 <meta property="og:site_name" content="Blade&#39;s Blog">
+<meta property="og:description" content="可以參考 Arch Wiki: PKGBUILD。 參考別人的 PKGBUILD 在 Arch Linux 的 package 或 AUR 包預覽頁面中，有「view PKGBUILD」一欄。裡面可以清楚看到這個包的安裝過程做的所有事情，尤其是 AUR 包可以看到完整的編譯流程。">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-01-08T00:51:00.000Z">
+<meta property="article:modified_time" content="2026-01-08T00:51:00.000Z">
 <meta property="article:author" content="Blade Yang">
+<meta property="article:tag" content="Arch_Linux">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://blog.blade520.com/tags/IT-Basics/">
+<link rel="canonical" href="https://blog.blade520.com/posts/arch-packages/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-TW","comments":"","permalink":"","path":"tags/IT-Basics/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://blog.blade520.com/posts/arch-packages/","path":"posts/arch-packages/","title":"[Notes] Pacman System"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>標籤: IT-Basics | Blade's Blog</title>
+<title>[Notes] Pacman System | Blade's Blog</title>
   
 
 
@@ -175,110 +180,107 @@
 
     </div>
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">IT-Basics
-          <small>標籤</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://blog.blade520.com/posts/arch-packages/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Blade Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blade's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="[Notes] Pacman System | Blade's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Notes] Pacman System
         </h1>
-      </div>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2025</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2026-01-08 08:51:00" itemprop="dateCreated datePublished" datetime="2026-01-08T08:51:00+08:00">2026-01-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/IT%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">IT筆記</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>可以參考 <a target="_blank" rel="noopener" href="https://wiki.archlinuxcn.org/zh-tw/PKGBUILD">Arch
+Wiki: PKGBUILD</a>。</p>
+<p><strong>參考別人的 PKGBUILD</strong></p>
+<p>在 Arch Linux 的 package 或 AUR 包預覽頁面中，有「view
+PKGBUILD」一欄。裡面可以清楚看到這個包的安裝過程做的所有事情，尤其是 AUR
+包可以看到完整的編譯流程。</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2025-12-31T10:24:00+08:00"
-              content="2025-12-31">
-          12-31
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/headscale-basics/" itemprop="url">
-            <span itemprop="name">Headscale Basics</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Arch-Linux/" rel="tag"># Arch_Linux</a>
+          </div>
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/vim-tricks/" rel="prev" title="[Notes] Vim Tricks">
+                  <i class="fa fa-angle-left"></i> [Notes] Vim Tricks
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/arch-pacman/" rel="next" title="[Notes] Pacman Commands">
+                  [Notes] Pacman Commands <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2025-12-31T00:00:00+08:00"
-              content="2025-12-31">
-          12-31
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/hexo-basics/" itemprop="url">
-            <span itemprop="name">Hexo Basics</span>
-          </a>
-      </div>
 
-      
-    </header>
-  </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2025-12-30T23:41:00+08:00"
-              content="2025-12-30">
-          12-30
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/cloudflare-basics/" itemprop="url">
-            <span itemprop="name">Cloudflare Basics</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2025-12-30T16:04:00+08:00"
-              content="2025-12-30">
-          12-30
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/docker-basics/" itemprop="url">
-            <span itemprop="name">Docker Basics</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-    </div>
-  </div>
-  
-  
-  
 
 </div>
   </main>

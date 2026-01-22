@@ -20,22 +20,27 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.blade520.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":true,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":120,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"}}</script><script src="/js/config.js" defer></script>
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Blade&#39;s Blog">
-<meta property="og:url" content="https://blog.blade520.com/tags/IT-Basics/index.html">
+    <meta name="description" content="https:&#x2F;&#x2F;headscale.net&#x2F;stable&#x2F;setup&#x2F;install&#x2F;container https:&#x2F;&#x2F;ettoreciarcia.com&#x2F;publication&#x2F;26-network-overlay&#x2F; 官方的教學中有提供跑 docker container 的腳本。 1234567891011docker run \  --name headscale \  --detach">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Headscale Basics">
+<meta property="og:url" content="https://blog.blade520.com/posts/headscale-basics/index.html">
 <meta property="og:site_name" content="Blade&#39;s Blog">
+<meta property="og:description" content="https:&#x2F;&#x2F;headscale.net&#x2F;stable&#x2F;setup&#x2F;install&#x2F;container https:&#x2F;&#x2F;ettoreciarcia.com&#x2F;publication&#x2F;26-network-overlay&#x2F; 官方的教學中有提供跑 docker container 的腳本。 1234567891011docker run \  --name headscale \  --detach">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2025-12-31T02:24:00.000Z">
+<meta property="article:modified_time" content="2025-12-31T02:24:00.000Z">
 <meta property="article:author" content="Blade Yang">
+<meta property="article:tag" content="IT-Basics">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://blog.blade520.com/tags/IT-Basics/">
+<link rel="canonical" href="https://blog.blade520.com/posts/headscale-basics/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-TW","comments":"","permalink":"","path":"tags/IT-Basics/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://blog.blade520.com/posts/headscale-basics/","path":"posts/headscale-basics/","title":"Headscale Basics"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>標籤: IT-Basics | Blade's Blog</title>
+<title>Headscale Basics | Blade's Blog</title>
   
 
 
@@ -118,7 +123,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目錄
@@ -131,6 +136,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A6%8B%E6%8C%87%E4%BB%A4"><span class="nav-text">常見指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tailscale-%E5%B0%8D%E6%87%89"><span class="nav-text">Tailscale 對應</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E6%A9%9F%E5%8A%A0%E5%85%A5-headscale-%E7%B6%B2%E8%B7%AF"><span class="nav-text">手機加入 Headscale 網路</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -175,110 +181,131 @@
 
     </div>
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">IT-Basics
-          <small>標籤</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://blog.blade520.com/posts/headscale-basics/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Blade Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blade's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Headscale Basics | Blade's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Headscale Basics
         </h1>
-      </div>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2025</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2025-12-31 10:24:00" itemprop="dateCreated datePublished" datetime="2025-12-31T10:24:00+08:00">2025-12-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/IT%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">IT筆記</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>https://headscale.net/stable/setup/install/container</p>
+<p>https://ettoreciarcia.com/publication/26-network-overlay/</p>
+<p>官方的教學中有提供跑 docker container 的腳本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">docker run \</span><br><span class="line">  --name headscale \</span><br><span class="line">  --detach \</span><br><span class="line">  --volume <span class="string">&quot;<span class="subst">$(pwd)</span>/config:/etc/headscale&quot;</span> \</span><br><span class="line">  --volume <span class="string">&quot;<span class="subst">$(pwd)</span>/lib:/var/lib/headscale&quot;</span> \</span><br><span class="line">  --volume <span class="string">&quot;<span class="subst">$(pwd)</span>/run:/var/run/headscale&quot;</span> \</span><br><span class="line">  --publish 127.0.0.1:8080:8080 \</span><br><span class="line">  --publish 127.0.0.1:9090:9090 \</span><br><span class="line">  --health-cmd <span class="string">&quot;CMD headscale health&quot;</span> \</span><br><span class="line">  docker.io/headscale/headscale:&lt;VERSION&gt; \</span><br><span class="line">  serve --</span><br></pre></td></tr></table></figure>
+<p>確認有跑起來之後，可以使用以下 docker 指令執行 headscale 操作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it headscale headscale [<span class="built_in">command</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="常見指令">常見指令</h2>
+<p>常用的指令如下所列。（以下內容應填入 <code>[command]</code>）</p>
+<ul>
+<li>列出使用者 <code>users ls</code></li>
+<li>新增使用者 <code>users create &lt;USER_NAME&gt;</code></li>
+<li>註冊節點
+<code>nodes register --key &lt;CLIENT_KEY&gt; --user &lt;USER_NAME&gt;</code></li>
+<li>列出節點 <code>nodes ls</code></li>
+</ul>
+<h2 id="tailscale-對應">Tailscale 對應</h2>
+<ul>
+<li>上線
+<code>tailscale up --login-server &lt;SERVER_ADDRESS&gt;</code></li>
+<li>下線 <code>tailscale down</code></li>
+<li>登入 <code>tailscale login</code>
+<ul>
+<li>雖然這個是拿來連接官方 VPN 的，但無意間發現，當 <code>up</code>
+指令的 <code>to authenticate...</code>
+提示消失時，執行這個指令之後好像會重設。</li>
+</ul></li>
+</ul>
+<h2 id="手機加入-headscale-網路">手機加入 Headscale 網路</h2>
+<p>設定圖標 &gt; Accounts &gt; 右上角按鈕 &gt; Use an alternate
+server</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2025-12-31T10:24:00+08:00"
-              content="2025-12-31">
-          12-31
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/headscale-basics/" itemprop="url">
-            <span itemprop="name">Headscale Basics</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/IT-Basics/" rel="tag"># IT-Basics</a>
+          </div>
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/hexo-basics/" rel="prev" title="Hexo Basics">
+                  <i class="fa fa-angle-left"></i> Hexo Basics
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/tailscale-route-traffic/" rel="next" title="Routing Interet Traffic Using Tailscale">
+                  Routing Interet Traffic Using Tailscale <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2025-12-31T00:00:00+08:00"
-              content="2025-12-31">
-          12-31
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/hexo-basics/" itemprop="url">
-            <span itemprop="name">Hexo Basics</span>
-          </a>
-      </div>
 
-      
-    </header>
-  </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2025-12-30T23:41:00+08:00"
-              content="2025-12-30">
-          12-30
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/cloudflare-basics/" itemprop="url">
-            <span itemprop="name">Cloudflare Basics</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2025-12-30T16:04:00+08:00"
-              content="2025-12-30">
-          12-30
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/docker-basics/" itemprop="url">
-            <span itemprop="name">Docker Basics</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-    </div>
-  </div>
-  
-  
-  
 
 </div>
   </main>

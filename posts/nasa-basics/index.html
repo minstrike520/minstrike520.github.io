@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#1c1d22" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/thumb.jpg" color="#1c1d22">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.blade520.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":true,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":120,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="資料參考：  howarde8 - iThome 鐵人賽：網路通訊隨意聊 Johnny Huang - 網路概論  OSI Model OSI：Open Systems Interconnection (Model) 本模型將資料劃分成七個 layer：  Physical Layer Data Layer Network Layer Transport Layer Session Layer P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="網管筆記">
+<meta property="og:url" content="https://blog.blade520.com/posts/nasa-basics/index.html">
+<meta property="og:site_name" content="Blade&#39;s Blog">
+<meta property="og:description" content="資料參考：  howarde8 - iThome 鐵人賽：網路通訊隨意聊 Johnny Huang - 網路概論  OSI Model OSI：Open Systems Interconnection (Model) 本模型將資料劃分成七個 layer：  Physical Layer Data Layer Network Layer Transport Layer Session Layer P">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-01-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-23T01:45:03.241Z">
+<meta property="article:author" content="Blade Yang">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.blade520.com/posts/nasa-basics/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://blog.blade520.com/posts/nasa-basics/","path":"posts/nasa-basics/","title":"網管筆記"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>網管筆記 | Blade's Blog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blade's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/thumb.jpg" alt="Blade's Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#osi-model"><span class="nav-text">OSI Model</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#l2mac"><span class="nav-text">L2&#x2F;MAC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#l2-switch"><span class="nav-text">L2 Switch</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#l3ip"><span class="nav-text">L3&#x2F;IP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ip-address"><span class="nav-text">IP Address</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ip-%E5%AD%98%E5%9C%A8%E7%9A%84%E6%84%8F%E7%BE%A9"><span class="nav-text">IP 存在的意義</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B6%B2%E6%AE%B5"><span class="nav-text">網段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#arp"><span class="nav-text">ARP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gateway"><span class="nav-text">Gateway</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#routing-table"><span class="nav-text">routing table</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dhcp"><span class="nav-text">DHCP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#routing"><span class="nav-text">Routing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#nat"><span class="nav-text">NAT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#port-forwarding"><span class="nav-text">Port Forwarding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nat-traversal"><span class="nav-text">NAT Traversal</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Blade Yang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/minstrike520" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;minstrike520" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://blog.blade520.com/posts/nasa-basics/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Blade Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blade's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="網管筆記 | Blade's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          網管筆記
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2026-01-06 00:00:00" itemprop="dateCreated datePublished" datetime="2026-01-06T00:00:00+08:00">2026-01-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2026-01-23 09:45:03" itemprop="dateModified" datetime="2026-01-23T09:45:03+08:00">2026-01-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/IT%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">IT筆記</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>資料參考：</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/users/20128159/ironman/6699">howarde8
+- iThome 鐵人賽：網路通訊隨意聊</a></li>
+<li><a target="_blank" rel="noopener" href="https://jonny-huang.github.io/else/01_net_01/">Johnny Huang
+- 網路概論</a></li>
+</ul>
+<h1 id="osi-model">OSI Model</h1>
+<p>OSI：Open Systems Interconnection (Model)</p>
+<p>本模型將資料劃分成七個 layer：</p>
+<ol type="1">
+<li>Physical Layer</li>
+<li>Data Layer</li>
+<li>Network Layer</li>
+<li>Transport Layer</li>
+<li>Session Layer</li>
+<li>Presentation Layer</li>
+<li>Application Layer</li>
+</ol>
+<h1 id="l2mac">L2/MAC</h1>
+<h2 id="l2-switch">L2 Switch</h2>
+<p>點對點的連接。按照來源地址（MAC）將資料往相鄰的裝置發送。管理一張
+<strong>MAC-埠表</strong>表示相鄰的裝置。</p>
+<h1 id="l3ip">L3/IP</h1>
+<h2 id="ip-address">IP Address</h2>
+<p>IP：Internet Protocol Address</p>
+<h2 id="ip-存在的意義">IP 存在的意義</h2>
+<p>MAC 只能根據埠來尋找裝置，而當連接組態有所變動時就會失效。而 IP
+是一種層級式的位址，讓我們可以根據需要劃分分區。</p>
+<h2 id="網段">網段</h2>
+<p>網段即一段連續的 IP 位址。例：<code>0.0.0.0/8</code> 即限制前 8
+位元的網段；<code>192.168.0.0/24</code> 即限制前 24 位元的網段。</p>
+<h2 id="arp">ARP</h2>
+<p>ARP：Addresss Resolution Protocol</p>
+<p>ARP 表示將 IP「解析」為 MAC。在一台裝置上會儲存自己所連接的裝置的
+MAC-IP 表。當系統內有人請求一個沒儲存過的
+IP，該裝置就會在網路中發起廣播，請求該 IP 的
+MAC，然後再新增進表格中。</p>
+<h1 id="gateway">Gateway</h1>
+<h2 id="routing-table">routing table</h2>
+<p>表示特定 IP
+的資料所需經過的節點。表格的鍵是「位址／網段（DST）」，值是「出口
+IP（PERFSRC）」。</p>
+<p>除此之外，表格還有一欄顯示「Gateway」。無顯示或顯示「on
+link」的表示該裝置可以直接取得 MAC；除此之外有顯示 IP
+者，則表示會送往該閘道器進行轉送。</p>
+<h1 id="dhcp">DHCP</h1>
+<p>DHCP：Dynamic Host Configuration Protocol</p>
+<ol type="1">
+<li>DHCP Discover (C)</li>
+<li>DHCP Offer (S)</li>
+<li>DHCP Request (C)</li>
+<li>DHCP ACK (S)</li>
+</ol>
+<h1 id="routing">Routing</h1>
+<p>傳統的 (L2) Switch
+只能點對點進行資料交換，針對一個「從起點到終點有很多路徑可以選擇」的情境則無法應對；這種情況則需要
+router。</p>
+<h2 id="nat">NAT</h2>
+<p>NAT：Network Address Translation</p>
+<p>路由器在轉送封包之前，會先將來源 IP 轉成外部
+IP，這樣遠端才能正常地將回應封包傳回來。</p>
+<p>一個路由器會連接多個裝置，此時從外部來的封包要傳給哪個裝置，是路由器需要處理的事。注意到以
+TCP/IP
+協定傳送的封包會註記埠號，遠端便能根據來源標記的埠號回傳，接著路由器便能轉送到該埠號對應的裝置。</p>
+<blockquote>
+<p>雖然 IP 位址是遠端主機，但是從目的端的 MAC
+位址就知道，其實我們電腦面對的始終都是路由器。</p>
+</blockquote>
+<blockquote>
+<p>雖然地址填寫的是門牌號碼，但我們寄送者要寄東西時，去的始終都是郵局。</p>
+</blockquote>
+<p>注意到 router 跟 gateway 主要的差別是，router 會將資料中的 IP
+改掉再發送，而 gateway 只會將資料直接轉發。</p>
+<h2 id="port-forwarding">Port Forwarding</h2>
+<p>當我們有 router 的存取權時，可以在 routing table
+上加入一個固定規則：當接收到特定埠號的封包時，便用 NAT
+解析成特定裝置。</p>
+<p>例：固定將目標埠號為 443 的外部請求轉發到某一台伺服器。</p>
+<h2 id="nat-traversal">NAT Traversal</h2>
+<p>例：ngrok</p>
+<ol type="1">
+<li>建立通道。伺服器向 ngrok 發送「開始連線」的封包。</li>
+<li>取得網址。ngrok 為伺服器分配一個網址。</li>
+<li>轉發。網際網路中有人向該網址發出請求時，ngrok
+會透過通道將該請求轉發給裝伺服器。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/tailscale-route-traffic/" rel="prev" title="Routing Interet Traffic Using Tailscale">
+                  <i class="fa fa-angle-left"></i> Routing Interet Traffic Using Tailscale
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/organization-obsession/" rel="next" title="關於整理">
+                  關於整理 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Blade Yang</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

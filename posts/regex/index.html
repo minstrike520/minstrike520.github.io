@@ -20,26 +20,26 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.blade520.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":true,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":120,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"path":"search.json"}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="暫放一些還沒有整理的筆記。  EFI Microsoft is Lost Use Windows installation medium to “Repair my PC” Pyright Setup in uv 123[tool.pyright]venvPath &#x3D; &quot;&quot;venv &#x3D; &quot;.venv&quot; Arch Linux Update Pacman Key">
+    <meta name="description" content="表示式參照表 字元指定        名稱 用處     ^ 字串開始處   $ 字串結束處   . 非換行任意字元   \d &#x3D; [0-9] 數字   [a-z], [A-Z] 英文   \D 等價 [^\d]   \s 空白字元   \w 單詞字元    字元集合    名稱 用處     [abc] a 或 b 或 c   [^abc] a,b,c 以外的任意字元    次數指定    名稱">
 <meta property="og:type" content="article">
-<meta property="og:title" content="雜項筆記">
-<meta property="og:url" content="https://blog.blade520.com/posts/misc/index.html">
+<meta property="og:title" content="正則表達式—速查">
+<meta property="og:url" content="https://blog.blade520.com/posts/regex/index.html">
 <meta property="og:site_name" content="Blade&#39;s Blog">
-<meta property="og:description" content="暫放一些還沒有整理的筆記。  EFI Microsoft is Lost Use Windows installation medium to “Repair my PC” Pyright Setup in uv 123[tool.pyright]venvPath &#x3D; &quot;&quot;venv &#x3D; &quot;.venv&quot; Arch Linux Update Pacman Key">
+<meta property="og:description" content="表示式參照表 字元指定        名稱 用處     ^ 字串開始處   $ 字串結束處   . 非換行任意字元   \d &#x3D; [0-9] 數字   [a-z], [A-Z] 英文   \D 等價 [^\d]   \s 空白字元   \w 單詞字元    字元集合    名稱 用處     [abc] a 或 b 或 c   [^abc] a,b,c 以外的任意字元    次數指定    名稱">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2026-01-22T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-01-23T01:51:24.382Z">
+<meta property="article:published_time" content="2026-01-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-26T05:31:08.290Z">
 <meta property="article:author" content="Blade Yang">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://blog.blade520.com/posts/misc/">
+<link rel="canonical" href="https://blog.blade520.com/posts/regex/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://blog.blade520.com/posts/misc/","path":"posts/misc/","title":"雜項筆記"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://blog.blade520.com/posts/regex/","path":"posts/regex/","title":"正則表達式—速查"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>雜項筆記 | Blade's Blog</title>
+<title>正則表達式—速查 | Blade's Blog</title>
   
 
 
@@ -164,10 +164,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#efi-microsoft-is-lost"><span class="nav-text">EFI Microsoft is Lost</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pyright-setup-in-uv"><span class="nav-text">Pyright Setup in uv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#arch-linux-update-pacman-keys"><span class="nav-text">Arch Linux Update Pacman
-Keys</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#termux-nerdfont-oneline-setup"><span class="nav-text">Termux Nerdfont Oneline
-Setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ext4-diskrecover"><span class="nav-text">Ext4 DiskRecover</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#i-should-not-write-flash-disk-mounting-data-in-etcfstab"><span class="nav-text">I
-should not write flash disk mounting data in &#x2F;etc&#x2F;fstab</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA%E5%BC%8F%E5%8F%83%E7%85%A7%E8%A1%A8"><span class="nav-text">表示式參照表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E5%85%83%E6%8C%87%E5%AE%9A"><span class="nav-text">字元指定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E5%85%83%E9%9B%86%E5%90%88"><span class="nav-text">字元集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AC%A1%E6%95%B8%E6%8C%87%E5%AE%9A"><span class="nav-text">次數指定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E5%AD%97%E4%B8%B2"><span class="nav-text">子字串</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-%E7%95%8C%E9%9D%A2%E5%8F%83%E7%85%A7%E8%A1%A8"><span class="nav-text">Python 界面參照表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B"><span class="nav-text">Python 實作範例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%9C%E5%B0%8Bsearch"><span class="nav-text">搜尋（search）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E7%AC%A6%E5%90%88match"><span class="nav-text">完全符合（match）</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -229,7 +226,7 @@ should not write flash disk mounting data in &#x2F;etc&#x2F;fstab</span></a></li
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://blog.blade520.com/posts/misc/">
+    <link itemprop="mainEntityOfPage" href="https://blog.blade520.com/posts/regex/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -242,12 +239,12 @@ should not write flash disk mounting data in &#x2F;etc&#x2F;fstab</span></a></li
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="雜項筆記 | Blade's Blog">
+      <meta itemprop="name" content="正則表達式—速查 | Blade's Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          雜項筆記
+          正則表達式—速查
         </h1>
 
         <div class="post-meta-container">
@@ -259,16 +256,7 @@ should not write flash disk mounting data in &#x2F;etc&#x2F;fstab</span></a></li
       <span class="post-meta-item-text">發表於</span>
       
 
-      <time title="創建時間：2026-01-23 00:00:00 / 修改時間：09:51:24" itemprop="dateCreated datePublished" datetime="2026-01-23T00:00:00+08:00">2026-01-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分類於</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/IT%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">IT筆記</span></a>
-        </span>
+      <time title="創建時間：2026-01-26 00:00:00 / 修改時間：13:31:08" itemprop="dateCreated datePublished" datetime="2026-01-26T00:00:00+08:00">2026-01-26</time>
     </span>
 
   
@@ -280,25 +268,187 @@ should not write flash disk mounting data in &#x2F;etc&#x2F;fstab</span></a></li
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>暫放一些還沒有整理的筆記。</p>
-<hr />
-<h3 id="efi-microsoft-is-lost">EFI Microsoft is Lost</h3>
-<p>Use Windows installation medium to “Repair my PC”</p>
-<h3 id="pyright-setup-in-uv">Pyright Setup in uv</h3>
-<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[tool.pyright]</span></span><br><span class="line"><span class="attr">venvPath</span> = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="attr">venv</span> = <span class="string">&quot;.venv&quot;</span></span><br></pre></td></tr></table></figure>
-<h3 id="arch-linux-update-pacman-keys">Arch Linux Update Pacman
-Keys</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen  </span><br><span class="line"><span class="built_in">sudo</span> pacman-key --init  </span><br><span class="line"><span class="built_in">sudo</span> pacman-key --populate  </span><br><span class="line"><span class="built_in">sudo</span> pacman -S archlinux-keyring  </span><br></pre></td></tr></table></figure>
-<h3 id="termux-nerdfont-oneline-setup">Termux Nerdfont Oneline
-Setup</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/; wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip; unzip -d jfonts JetBrainsMono.zip; <span class="built_in">cp</span> JetBrainsMonoNerdFontMono-Medium.ttf ~/.termux/font.ttf</span><br></pre></td></tr></table></figure>
-<h3 id="ext4-diskrecover">Ext4 DiskRecover</h3>
-<p>Software: <a
-target="_blank" rel="noopener" href="https://gist.github.com/coldfix/21c16e066b3ff05aa34c553d65a39e34">Ext4Magic</a></p>
-<h3 id="i-should-not-write-flash-disk-mounting-data-in-etcfstab">I
-should not write flash disk mounting data in /etc/fstab</h3>
-<p>比如 <code>/dev/sda1</code>
-如果你先寫入說他是ntfs，然後下次開機你第一個插入的是ext4，那不是就衝突了？</p>
+    <div class="post-body" itemprop="articleBody"><h2 id="表示式參照表">表示式參照表</h2>
+<h3 id="字元指定">字元指定</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">名稱</th>
+<th style="text-align: left;">用處</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>^</code></td>
+<td style="text-align: left;">字串開始處</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>$</code></td>
+<td style="text-align: left;">字串結束處</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>.</code></td>
+<td style="text-align: left;">非換行任意字元</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>\d</code> = <code>[0-9]</code></td>
+<td style="text-align: left;">數字</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>[a-z]</code>,
+<code>[A-Z]</code></td>
+<td style="text-align: left;">英文</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>\D</code></td>
+<td style="text-align: left;">等價 <code>[^\d]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>\s</code></td>
+<td style="text-align: left;">空白字元</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>\w</code></td>
+<td style="text-align: left;">單詞字元</td>
+</tr>
+</tbody>
+</table>
+<h3 id="字元集合">字元集合</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">名稱</th>
+<th style="text-align: left;">用處</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>[abc]</code></td>
+<td style="text-align: left;">a 或 b 或 c</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>[^abc]</code></td>
+<td style="text-align: left;">a,b,c 以外的任意字元</td>
+</tr>
+</tbody>
+</table>
+<h3 id="次數指定">次數指定</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">名稱</th>
+<th style="text-align: left;">用處</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>{n}</code></td>
+<td style="text-align: left;">發生 <span
+class="math inline">\(n\)</span> 次</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>{n,}</code></td>
+<td style="text-align: left;">至少發生 <span
+class="math inline">\(n\)</span> 次</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>{n,m}</code></td>
+<td style="text-align: left;">至少發生 <span
+class="math inline">\(n\)</span> 次，至多發生 <span
+class="math inline">\(m\)</span> 次</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>+</code></td>
+<td style="text-align: left;">等價 <code>{0,}</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>*</code></td>
+<td style="text-align: left;">等價 <code>{1,}</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>?</code></td>
+<td style="text-align: left;">等價 <code>{0,1}</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="子字串">子字串</h3>
+<p><code>\1</code>：Python, sed</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">名稱</th>
+<th style="text-align: left;">用處</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>()</code></td>
+<td style="text-align: left;">取得</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>(?:)</code></td>
+<td style="text-align: left;">非取得</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>(?=)</code></td>
+<td style="text-align: left;">向前預查</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>(?!)</code></td>
+<td style="text-align: left;">向前反預查</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>(?&lt;=)</code></td>
+<td style="text-align: left;">向後預查</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>(?&lt;!)</code></td>
+<td style="text-align: left;">向後反預查</td>
+</tr>
+</tbody>
+</table>
+<h2 id="python-界面參照表">Python 界面參照表</h2>
+<p><strong>搜尋</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">名稱</th>
+<th style="text-align: left;">用處</th>
+<th style="text-align: left;">回傳</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>re.compile()</code></td>
+<td style="text-align: left;">獲得可復用的表達式物件</td>
+<td style="text-align: left;"><code>re.Pattern</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>(re\|pat).match()</code></td>
+<td style="text-align: left;">從字串頭開始配對</td>
+<td style="text-align: left;"><code>re.Match</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>(re\|pat).search()</code></td>
+<td style="text-align: left;">搜尋第一個出現</td>
+<td style="text-align: left;"><code>re.Match</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>(re\|pat).findall()</code></td>
+<td style="text-align: left;">搜尋所有出現</td>
+<td style="text-align: left;"><code>List[re.Match]</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="python-實作範例">Python 實作範例</h2>
+<h3 id="搜尋search">搜尋（search）</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">m = re.search(<span class="string">r&quot;(myapp) ([0-9]\.[0-9])&quot;</span>, <span class="string">&quot;program version: myapp 5.5&quot;</span>, re.NOFLAG)</span><br><span class="line"><span class="built_in">print</span>(m.group()) <span class="comment"># myapp 5.5</span></span><br><span class="line"><span class="built_in">print</span>(m.group(<span class="number">2</span>)) <span class="comment"># 5.5</span></span><br><span class="line"><span class="built_in">print</span>(m.groups()) <span class="comment"># (&quot;myapp&quot;, 5.5) # (type: tuple)</span></span><br></pre></td></tr></table></figure>
+<h3 id="完全符合match">完全符合（match）</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">m = re.<span class="keyword">match</span>(<span class="string">&quot;AB&quot;</span>, <span class="string">&quot;ABCDE&quot;</span>) <span class="comment"># m = None</span></span><br><span class="line">m = re.<span class="keyword">match</span>(<span class="string">&quot;ABCDE&quot;</span>, <span class="string">&quot;ABCDE&quot;</span>) <span class="comment"># m = &lt;re.Match object...&gt;</span></span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -312,13 +462,13 @@ should not write flash disk mounting data in /etc/fstab</h3>
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/posts/windows-app-list/" rel="prev" title="Windows 11 軟體備忘">
-                  <i class="fa fa-angle-left"></i> Windows 11 軟體備忘
+                <a href="/posts/adb-and-scrcpy/" rel="prev" title="ADB 的妙用：手機投影與控制">
+                  <i class="fa fa-angle-left"></i> ADB 的妙用：手機投影與控制
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/posts/adb-and-scrcpy/" rel="next" title="ADB 的妙用：手機投影與控制">
-                  ADB 的妙用：手機投影與控制 <i class="fa fa-angle-right"></i>
+                <a href="/posts/linux-misc/" rel="next" title="Linux 雜項">
+                  Linux 雜項 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>

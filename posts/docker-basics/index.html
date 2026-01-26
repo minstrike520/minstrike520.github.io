@@ -20,15 +20,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.blade520.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":true,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":120,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"path":"search.json"}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="更新 官網有對個別系統的安裝方式做出解釋，比如 Debian。 啟用 啟動 docker.service（使用 systemd 的場合）。這邊也可以執行一次 enable 或 enable --now，就會開機自動啟動。不過我個人習慣手動開啟。（應該多少能加快一點開機速度吧？） 1systemctl start docker 映像檔管理 從官方「映像檔倉庫registry」下載現成的 image。">
+    <meta name="description" content="更新 官網有對個別系統的安裝方式做出解釋，比如 Debian。 啟用 啟動 docker.service（使用 systemd 的場合）。這邊也可以執行一次 enable 或 enable --now，就會開機自動啟動。不過我個人習慣手動開啟。（應該多少能加快一點開機速度吧？） 1systemctl start docker 權限設定 如果沒有特別設定，Docker 的執行是需要 root 權限的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker Basics">
 <meta property="og:url" content="https://blog.blade520.com/posts/docker-basics/index.html">
 <meta property="og:site_name" content="Blade&#39;s Blog">
-<meta property="og:description" content="更新 官網有對個別系統的安裝方式做出解釋，比如 Debian。 啟用 啟動 docker.service（使用 systemd 的場合）。這邊也可以執行一次 enable 或 enable --now，就會開機自動啟動。不過我個人習慣手動開啟。（應該多少能加快一點開機速度吧？） 1systemctl start docker 映像檔管理 從官方「映像檔倉庫registry」下載現成的 image。">
+<meta property="og:description" content="更新 官網有對個別系統的安裝方式做出解釋，比如 Debian。 啟用 啟動 docker.service（使用 systemd 的場合）。這邊也可以執行一次 enable 或 enable --now，就會開機自動啟動。不過我個人習慣手動開啟。（應該多少能加快一點開機速度吧？） 1systemctl start docker 權限設定 如果沒有特別設定，Docker 的執行是需要 root 權限的">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2025-12-30T08:04:00.000Z">
-<meta property="article:modified_time" content="2026-01-23T01:35:18.942Z">
+<meta property="article:modified_time" content="2026-01-26T01:49:04.606Z">
 <meta property="article:author" content="Blade Yang">
 <meta property="article:tag" content="IT-Basics">
 <meta name="twitter:card" content="summary">
@@ -165,7 +165,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0"><span class="nav-text">更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%95%9F%E7%94%A8"><span class="nav-text">啟用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%A0%E5%83%8F%E6%AA%94%E7%AE%A1%E7%90%86"><span class="nav-text">映像檔管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E7%AE%A1%E7%90%86"><span class="nav-text">容器管理</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0"><span class="nav-text">更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%95%9F%E7%94%A8"><span class="nav-text">啟用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AC%8A%E9%99%90%E8%A8%AD%E5%AE%9A"><span class="nav-text">權限設定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%A0%E5%83%8F%E6%AA%94%E7%AE%A1%E7%90%86"><span class="nav-text">映像檔管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E7%AE%A1%E7%90%86"><span class="nav-text">容器管理</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -178,7 +178,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -189,7 +189,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -197,6 +197,12 @@
   <div class="links-of-author animated">
       <span class="links-of-author-item">
         <a href="https://github.com/minstrike520" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;minstrike520" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:minstrike520@gmail.com" title="E-Mail → mailto:minstrike520@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/blado.tf" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;blado.tf" rel="noopener me" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
       </span>
   </div>
 
@@ -257,7 +263,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2026-01-23 09:35:18" itemprop="dateModified" datetime="2026-01-23T09:35:18+08:00">2026-01-23</time>
+      <time title="修改時間：2026-01-26 09:49:04" itemprop="dateModified" datetime="2026-01-26T09:49:04+08:00">2026-01-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -286,6 +292,21 @@ target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/debi
 <code>enable</code> 或
 <code>enable --now</code>，就會開機自動啟動。不過我個人習慣手動開啟。（應該多少能加快一點開機速度吧？）</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
+<h2 id="權限設定">權限設定</h2>
+<p>如果沒有特別設定，Docker 的執行是需要 root
+權限的。但是每次執行指令，就算只是
+<code>docker ps</code>　這樣微不足道的指令也要 root 實在是有點麻煩。為此
+Docker
+有一個特別機制，它會在系統裡面使用「Docker」群組，只要是加入了這個群組的使用者，使用
+<code>docker</code> 指令都不用 <code>sudo</code>。</p>
+<p>首先，檢查系統是否已經有名為 <code>docker</code>
+的群組。如果沒有就手動新增一個：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd docker</span><br></pre></td></tr></table></figure>
+<p>將使用者加入 <code>docker</code> 群組：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker $USER</span><br></pre></td></tr></table></figure>
+<p>系統要重新啟動，設定才會永久生效。如果想要暫時生效，可以臨時以
+<code>docker</code> 群組身份登入（只在當前的 shell 環境有效）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">newgrp docker</span><br></pre></td></tr></table></figure>
 <h2 id="映像檔管理">映像檔管理</h2>
 <p>從官方「<ruby>映像檔倉庫<rt>registry</rt></ruby>」下載現成的
 image。</p>

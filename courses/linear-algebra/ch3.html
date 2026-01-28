@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#1c1d22" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/thumb.jpg" color="#1c1d22">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.blade520.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":true,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":120,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"path":"search.json"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="3-1 Cofactors Motivation: Determinants in 2x2 Matrices \[ \begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix} \begin{bmatrix} d &amp; -b \\ -c &amp; a \end{bmatrix} &#x3D; \begin{bmatrix} a d - b c  &amp;">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Linear Algebra - Chapter 3: Determinants">
+<meta property="og:url" content="https://blog.blade520.com/courses/linear-algebra/ch3.html">
+<meta property="og:site_name" content="Blade&#39;s Blog">
+<meta property="og:description" content="3-1 Cofactors Motivation: Determinants in 2x2 Matrices \[ \begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix} \begin{bmatrix} d &amp; -b \\ -c &amp; a \end{bmatrix} &#x3D; \begin{bmatrix} a d - b c  &amp;">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2025-10-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-28T06:51:29.364Z">
+<meta property="article:author" content="Blade Yang">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.blade520.com/courses/linear-algebra/ch3">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-TW","comments":true,"permalink":"https://blog.blade520.com/courses/linear-algebra/ch3.html","path":"courses/linear-algebra/ch3.html","title":"Linear Algebra - Chapter 3: Determinants"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Linear Algebra - Chapter 3: Determinants | Blade's Blog
+</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blade's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/thumb.jpg" alt="Blade's Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-課程筆記"><a href="/courses/" rel="section"><i class="fa fa-pen fa-fw"></i>課程筆記</a></li><li class="menu-item menu-item-創作"><a href="/gallery/" rel="section"><i class="fa fa-palette fa-fw"></i>創作</a></li><li class="menu-item menu-item-=====-索引-======"><a href="/404/" rel="section"><i class="fa fa-dash fa-fw"></i>===== 索引 ======</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#cofactors"><span class="nav-text">3-1 Cofactors</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#motivation-determinants-in-2x2-matrices"><span class="nav-text">Motivation:
+Determinants in 2x2 Matrices</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#defninition-of-determinant"><span class="nav-text">Defninition of Determinant</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cofactor-expansion"><span class="nav-text">Cofactor Expansion</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#triangular-matrices"><span class="nav-text">Triangular Matrices</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#properties-of-determinants"><span class="nav-text">3-2 Properties of Determinants</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#elementary-operations-and-determinants"><span class="nav-text">Elementary Operations
+and Determinants</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#four-properties-of-determinants"><span class="nav-text">Four Properties of
+Determinants</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Blade Yang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/minstrike520" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;minstrike520" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:minstrike520@gmail.com" title="E-Mail → mailto:minstrike520@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/blado.tf" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;blado.tf" rel="noopener me" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-TW"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">Linear Algebra - Chapter 3: Determinants
+</h1>
+
+<div class="post-meta-container">
+  <ul class="breadcrumb">
+            <li><a href="/courses/">課程筆記</a></li>
+            <li><a href="/courses/linear-algebra/">LINEAR-ALGEBRA</a></li>
+            <li>CH3</li>
+  </ul>
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h2 id="cofactors">3-1 Cofactors</h2>
+<h3 id="motivation-determinants-in-2x2-matrices">Motivation:
+Determinants in 2x2 Matrices</h3>
+<p><span class="math display">\[
+\begin{bmatrix}
+a &amp; b \\
+c &amp; d
+\end{bmatrix} \begin{bmatrix}
+d &amp; -b \\
+-c &amp; a
+\end{bmatrix} = \begin{bmatrix}
+a d - b c  &amp; 0 \\
+0 &amp; a d - b c
+\end{bmatrix} = (ad - b c) I_{2}
+\]</span> 左右顛倒，關係依舊。由此可證得二階反方陣公式，並將係數 <span
+class="math inline">\(ad - b c\)</span> 命名為「determinant」。</p>
+<h3 id="defninition-of-determinant">Defninition of Determinant</h3>
+<p>一階 determinant 就是該元素自身。 二階 determinant 為 <span
+class="math inline">\(ad -bc\)</span>。</p>
+<h3 id="cofactor-expansion">Cofactor Expansion</h3>
+<p>定義一個新的表記：<span class="math inline">\(A_{ij}\)</span> 表示將
+<span class="math inline">\(A\)</span> 之第 <span
+class="math inline">\(i\)</span> row 跟第 <span
+class="math inline">\(j\)</span> column
+移除所得之新矩陣。如此即可形式化定義三階以上的 determinant： <span
+class="math display">\[
+\det A = a_{11} A_{11} - a_{12} A_{12} + \dots + (-1)^{1+n} \cdot a_{1n}
+A_{1n}
+\]</span> - <span class="math inline">\((-1)^{1+n}\)</span>
+說了一件事，正負相間是從 <span class="math inline">\(1,1\)</span>
+i.e. 左上角開始起算，從別的角度算的話，只要該邊大小為偶數就會算錯喔。</p>
+<p><strong>Cofactor</strong>: 以上 <span
+class="math inline">\(A_{ij}\)</span> 的值還可以表記為 <span
+class="math inline">\(c_{ij}\)</span>，讀做「<span
+class="math inline">\((i,j)\)</span> cofactor of <span
+class="math inline">\(A\)</span>」。（CALLOUT: <em>p203</em>） <span
+class="math display">\[
+c_{i j } = (-1)^{i + j}
+\]</span> ### A Special Case &gt; [!Note] Theorem &gt; <span
+class="math display">\[
+&gt; M = \begin{bmatrix}
+&gt; A &amp; B \\
+&gt; O &amp; I_{n}
+&gt; \end{bmatrix}
+&gt; \]</span> &gt; 對於以上形式的矩陣，當 <span
+class="math inline">\(A\)</span> 為方陣，則 <span
+class="math inline">\(\det M = \det A\)</span> 成立。</p>
+<p>再舉個 trivial case： &gt; [!Quote] 類對角矩陣 &gt; &gt; <span
+class="math display">\[
+&gt; \det \begin{bmatrix}
+&gt; C &amp; O \\
+&gt; O&#39; &amp;  I_{n}
+&gt; \end{bmatrix} = \det \begin{bmatrix}
+&gt; I_{m} &amp; O&#39; \\
+&gt; O  &amp; C
+&gt; \end{bmatrix} = \det C
+&gt; \]</span></p>
+<h3 id="triangular-matrices">Triangular Matrices</h3>
+<blockquote>
+<p>[!Note] Theorem 對於上下三角矩陣 <span
+class="math inline">\(M\)</span>，其 determinant
+為其對角線項目的積。</p>
+</blockquote>
+<h2 id="properties-of-determinants">3-2 Properties of Determinants</h2>
+<h3 id="elementary-operations-and-determinants">Elementary Operations
+and Determinants</h3>
+<table>
+<thead>
+<tr>
+<th>運算</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>行交換</td>
+<td>變號</td>
+</tr>
+<tr>
+<td>同行縮放</td>
+<td>縮放</td>
+</tr>
+<tr>
+<td>異行消長</td>
+<td>不變</td>
+</tr>
+</tbody>
+</table>
+<p>依照這些性質，結合 3-1 所述三角矩陣，可以得到以下計算 determinant
+的方法： &gt; [!Quote] 利用上三角矩陣計算 determinant &gt; 透過對 <span
+class="math inline">\(R\)</span> 進行一系列基礎列運算，可得上三角矩陣
+<span class="math inline">\(U\)</span>，而 &gt; <span
+class="math display">\[
+&gt; \det R = (-1)^{r} \cdot u_{11} u_{22} \dots u_{nn}
+&gt; \]</span> &gt; <span class="math inline">\(r\)</span>
+是行交換的次數。</p>
+<h3 id="four-properties-of-determinants">Four Properties of
+Determinants</h3>
+<ol type="1">
+<li>若且唯若：「可逆」與「determinant 不為零」</li>
+<li>對方陣乘法具有分配律</li>
+<li>轉置不改變</li>
+<li>反方陣變倒數</li>
+</ol>
+<blockquote>
+<p>[!Quote]
+利用<strong>分配律</strong>以及<strong>基礎運算矩陣</strong>對矩陣進行元素化
+已知列運算可用矩陣來表示，又，列運算必能將矩陣化為 <span
+class="math inline">\(I_{n}\)</span>，則 <span class="math display">\[
+A = E_{k} E_{k-1} \dots E_{2}E_{1}
+\]</span> 再根據 determinant 對方陣乘法的分配律， <span
+class="math display">\[
+\det A = (\det E_{k}) (\det E_{k - 1})\dots (\det E_{2})(\det E_{1})
+\]</span></p>
+</blockquote>
+<ul>
+<li>同理，「轉置不改變」這個性質也可以透過這樣的關係式證得。 ## Cramer’s
+Rule &gt; [!Note] Theorem &gt; <span class="math inline">\(A\)</span>,
+<span class="math inline">\(\mathbf{b}\)</span>; <span
+class="math inline">\(M_{i}\)</span>: replace column <span
+class="math inline">\(i\)</span> of <span
+class="math inline">\(A\)</span> by <span
+class="math inline">\(\mathbf{b}\)</span>. &gt; Then, equation <span
+class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> has unique
+solution <span class="math inline">\(\mathbf{u}\)</span> where <span
+class="math inline">\(u_{j} = \frac{\det M_{j}}{\det A} \forall
+j\)</span>.</li>
+</ul>
+<p><strong>PROOF</strong> <span class="math display">\[
+A\mathbf{u} = \mathbf{b}. \ \mathbf{u} = A^{-1} \mathbf{b}.
+\]</span> Let <span class="math inline">\(U_{i}\)</span>: replace column
+<span class="math inline">\(i\)</span> of <span
+class="math inline">\(I_{n}\)</span> bt <span
+class="math inline">\(\mathbf{u}\)</span>. Then <span
+class="math display">\[
+\begin{aligned}
+AU_{i} &amp; = A[\mathbf{e}_{1}\ \mathbf{e}_{2} \dots  \mathbf{e}_{i -
+1}\ \mathbf{u}\ \mathbf{e}_{i+1}  \dots \mathbf{e}_{n} ]  \\
+&amp; = [A\mathbf{e}_{1} \ A\mathbf{e}_{2} \dots A \mathbf{u}  \dots
+A\mathbf{e}_{n}] \\
+&amp; = [\mathbf{a}_{1} \ \mathbf{a}_{2} \dots \mathbf{b} \
+\mathbf{a}_{n}] \\
+&amp; = M_{i}
+\end{aligned}
+\]</span> (cofactor expansion) <span class="math display">\[
+\det U_{i} = u_{i} \cdot \det I_{n - 1} = u_{i}
+\]</span> <span class="math display">\[
+(\det A)(\det U_{i} )  = \det M_{i}
+\]</span> <span class="math display">\[
+u_{i} = \frac{\det A}{\det M_{i}} \ \blacksquare
+\]</span></p>
+
+      </div>
+      
+      
+      
+    </div>
+  <ul class="breadcrumb">
+            <li><a href="/courses/">課程筆記</a></li>
+            <li><a href="/courses/linear-algebra/">LINEAR-ALGEBRA</a></li>
+            <li>CH3</li>
+  </ul>
+
+    
+    
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Blade Yang</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/minstrike520" class="github-corner" title="在 GitHub 上關注我" aria-label="在 GitHub 上關注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

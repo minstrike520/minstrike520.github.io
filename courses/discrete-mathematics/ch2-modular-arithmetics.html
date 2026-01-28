@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#1c1d22" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/thumb.jpg" color="#1c1d22">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.blade520.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":true,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":120,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"path":"search.json"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="Congruence 同餘是數論中很重要的一環。同餘關係的使用，代表我們討論的數學不再僅限整數、實數等無限長的域，而討論一個會「循環」的域。這一點在計算機中尤其重要。現代計算機的本質是位元操作，其在實際上總是只能代表「有限」的數字，這體現在「溢位」這個現象，而同餘關係很適合用來為這樣的系統建模。〔個人心得〕 ## Compatibilities towards Basic Arithmetic 模">
+<meta property="og:type" content="website">
+<meta property="og:title" content="02 Modular Arithmetics">
+<meta property="og:url" content="https://blog.blade520.com/courses/discrete-mathematics/ch2-modular-arithmetics.html">
+<meta property="og:site_name" content="Blade&#39;s Blog">
+<meta property="og:description" content="Congruence 同餘是數論中很重要的一環。同餘關係的使用，代表我們討論的數學不再僅限整數、實數等無限長的域，而討論一個會「循環」的域。這一點在計算機中尤其重要。現代計算機的本質是位元操作，其在實際上總是只能代表「有限」的數字，這體現在「溢位」這個現象，而同餘關係很適合用來為這樣的系統建模。〔個人心得〕 ## Compatibilities towards Basic Arithmetic 模">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://blog.blade520.com/courses/discrete-mathematics/exteuclidmethod.png">
+<meta property="article:published_time" content="2025-04-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-28T07:35:17.208Z">
+<meta property="article:author" content="Blade Yang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.blade520.com/courses/discrete-mathematics/exteuclidmethod.png">
+
+
+<link rel="canonical" href="https://blog.blade520.com/courses/discrete-mathematics/ch2-modular-arithmetics">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-TW","comments":true,"permalink":"https://blog.blade520.com/courses/discrete-mathematics/ch2-modular-arithmetics.html","path":"courses/discrete-mathematics/ch2-modular-arithmetics.html","title":"02 Modular Arithmetics"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>02 Modular Arithmetics | Blade's Blog
+</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blade's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/thumb.jpg" alt="Blade's Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-課程筆記"><a href="/courses/" rel="section"><i class="fa fa-pen fa-fw"></i>課程筆記</a></li><li class="menu-item menu-item-創作"><a href="/gallery/" rel="section"><i class="fa fa-palette fa-fw"></i>創作</a></li><li class="menu-item menu-item-=====-索引-======"><a href="/404/" rel="section"><i class="fa fa-dash fa-fw"></i>===== 索引 ======</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#congruence"><span class="nav-text">Congruence</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#other-trivial-cases"><span class="nav-text">Other Trivial Cases</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bezouts-identity"><span class="nav-text">Bezout’s Identity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#extended-euclidean-algorithm"><span class="nav-text">Extended Euclidean Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#use-cases"><span class="nav-text">Use Cases</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#modular-multiplicative-inverse"><span class="nav-text">Modular Multiplicative
+Inverse</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#proof-by-bezouts-identity"><span class="nav-text">Proof by Bezout’s Identity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#a-corollary"><span class="nav-text">A Corollary</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rsa"><span class="nav-text">RSA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#preprocessing"><span class="nav-text">Preprocessing</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chinese-remainder-theorem"><span class="nav-text">Chinese Remainder Theorem</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#proposition-modulo-factorization"><span class="nav-text">Proposition: Modulo
+Factorization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#proof"><span class="nav-text">Proof</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#uniqueness-proof"><span class="nav-text">Uniqueness Proof</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#proof-of-c.r.t."><span class="nav-text">Proof of C.R.T.</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Blade Yang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/minstrike520" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;minstrike520" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:minstrike520@gmail.com" title="E-Mail → mailto:minstrike520@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/blado.tf" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;blado.tf" rel="noopener me" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-TW"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">02 Modular Arithmetics
+</h1>
+
+<div class="post-meta-container">
+  <ul class="breadcrumb">
+            <li><a href="/courses/">課程筆記</a></li>
+            <li><a href="/courses/discrete-mathematics/">DISCRETE-MATHEMATICS</a></li>
+            <li>CH2-MODULAR-ARITHMETICS</li>
+  </ul>
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="congruence">Congruence</h1>
+<p>同餘是數論中很重要的一環。同餘關係的使用，代表我們討論的數學不再僅限整數、實數等無限長的域，而討論一個會「循環」的域。這一點在計算機中尤其重要。現代計算機的本質是位元操作，其在實際上總是只能代表「有限」的數字，這體現在「溢位」這個現象，而同餘關係很適合用來為這樣的系統建模。〔個人心得〕
+## Compatibilities towards Basic Arithmetic
+模運算適用許多基本運算，如加法、減法、同乘等等。</p>
+<p><strong>Proposition</strong> <span class="math display">\[
+a\equiv b \,( \text{mod }m ) , c\equiv d \,( \text{mod }m ) \implies
+\left\{\begin{aligned}
+(a+c)  &amp; \equiv (b + d) \,( \text{mod }m ) &amp; (1)  \\
+a \cdot c  &amp; \equiv b \cdot d \,( \text{mod }m ) &amp; (2)
+\end{aligned}\right.
+\]</span></p>
+<p><strong>Proof(1)</strong> 根據定義，<span
+class="math inline">\(m\)</span>整除<span
+class="math inline">\(a-b\)</span>跟<span
+class="math inline">\(c-d\)</span>，因此我們可以設任意整數<span
+class="math inline">\(k_{1},k_{2}\)</span>使得 <span
+class="math display">\[
+(a - b)=  k_{1} m ;(c- d) = k_{2} m.
+\]</span> 則我們可以將兩式合併，得<span class="math inline">\({(a - b) +
+(c - d) = (k_{1} + k_{2})m}\)</span>，重新整理得<span
+class="math inline">\({(a + c) - (b + d) = (k_{1} +
+k_{2})m}\)</span>，便符合同餘的定義。<span
+class="math inline">\(\blacksquare\)</span></p>
+<p><strong>Proof(2)</strong> 略，跟Proof(1)操作方式相似。<span
+class="math inline">\(\square\)</span></p>
+<h3 id="other-trivial-cases">Other Trivial Cases</h3>
+<p>模<span class="math inline">\((c\cdot m)\)</span>除以任意因數<span
+class="math inline">\(c\)</span>，同餘式仍成立： <span
+class="math display">\[
+a \equiv b \,( \text{mod } c\cdot m )  \implies a \equiv b \,( \text{mod
+} m )
+\]</span></p>
+<h2 id="bezouts-identity">Bezout’s Identity</h2>
+<p>任意兩個數的<strong>線性組合</strong>必可以組出他們的最大公因數：
+<span class="math display">\[
+(\forall a, b \ \exists x,y)\ a\cdot x + b \cdot y = \text{gcd}(a, b),
+\]</span> 而這個計算可以透過extended Euclidean algorithm求得。</p>
+<h2 id="extended-euclidean-algorithm">Extended Euclidean Algorithm</h2>
+<p><strong>Example</strong> 找31, 17的線性組合。即解<span
+class="math inline">\({31x + 17y = \text{gcd}(31, 17)}\)</span>。</p>
+<p>首先用輾轉相除法，求得<span class="math inline">\({\text{gcd}(31,
+17)}\)</span>。其計算過程對於extended Euclidean是有幫助的。 <span
+class="math display">\[
+\begin{aligned}
+31 &amp;  = 17 \cdot 1 + 14 \\
+17  &amp; = 14 \cdot 1 + 3 \\
+14  &amp; = 3 \cdot 4 + 2 \\
+3  &amp; = 2 \cdot 1 + 1 \\
+2 &amp; = 1 \cdot 2 + 0
+\end{aligned}
+\]</span> 若寫成直式就是：</p>
+<p><img class="centered-wrapper" src="exteuclidmethod.png"/></p>
+<hr />
+<p>得到算式與最大公因數後，接著執行extended
+Euclidean，有點像是「逆推」： <span class="math display">\[
+\begin{aligned}
+\text{gcd}(31, 17) &amp; =1 \\
+&amp; =3 - 2\cdot 1 \\
+&amp; = 3 - (14 - 3 \cdot 4) \cdot 1  &amp; &amp;  = -14 + 3 \cdot 5 \\
+&amp; = - 14 + (17 - 14 \cdot 1) \cdot 5   &amp; &amp; = 17\cdot 5 + 14
+\cdot (-6) \\
+&amp; = 17\cdot 5 + (31 - 17 \cdot 1) \cdot (-6)  &amp;  &amp; = 31
+\cdot (-6) + 17 \cdot 11
+\end{aligned}
+\]</span> <span class="math inline">\(\therefore\)</span>我們得到<span
+class="math inline">\({x = -6, y = 11}\)</span> <span
+class="math inline">\(\blacksquare\)</span></p>
+<h3 id="use-cases">Use Cases</h3>
+<p>我們可以利用extended Euclidean來求某些「同餘方程式」，比如： <span
+class="math display">\[
+17 x = 8 ( \text{mod }31 )
+\]</span> &gt; 透過同餘的定義，我們知道<span
+class="math inline">\(31\)</span>整除<span class="math inline">\(17x -
+8\)</span>，寫作<span class="math inline">\({31 | (17x -
+8)}\)</span>；再根據整除的定義，又可用一任意整數<span
+class="math inline">\(k\)</span>，寫作<span class="math inline">\({17x -
+8 = 31k}\)</span>。 &gt; 經過整理可得<span class="math inline">\({17x +
+31(-k) = 8}\)</span>，則此形式已經有點像是extended
+Euclidean可以處理的對象了。 &gt; 然而，<span
+class="math inline">\({\text{gcd}(17, 31) \ne
+8}\)</span>，這個式子無法直接求解。<em>此路不通</em>。</p>
+<p>根據前一小節舉例所得成果，已知<span class="math inline">\({31\cdot
+(-6) + 17\cdot 11 = 1}\)</span>。重新寫成同餘式，則： <span
+class="math display">\[
+17 \cdot 11 \equiv 1( \text{mod } 31 )
+\]</span>
+根據同餘保持基本運算的特性，我們可以再度重寫同餘方程式（兩邊同乘）：
+<span class="math display">\[
+17\cdot 8\cdot 11 \equiv 8( \text{mod }31 )
+\]</span> 故可以解得<span class="math inline">\({x \equiv
+88}\)</span>，取其最小正整數解<span class="math inline">\({x =
+26}\)</span>。<span class="math inline">\(\blacksquare\)</span></p>
+<h2 id="modular-multiplicative-inverse">Modular Multiplicative
+Inverse</h2>
+<p>對於一數<span class="math inline">\(a\)</span>，若且唯若<span
+class="math inline">\(a\)</span>與<span
+class="math inline">\(m\)</span>互質，其模反元素<span
+class="math inline">\(a^{-1}\)</span>存在。定義如下： <span
+class="math display">\[
+\text{gcd}(a, m) = 1\Longleftrightarrow a^{-1}: a\cdot a^{-1} \equiv 1
+\,( \text{mod }m ).
+\]</span> 由上可知反元素與所討論的域<span
+class="math inline">\(\mathbb{Z}_{n}\)</span>有關。</p>
+<h3 id="proof-by-bezouts-identity">Proof by Bezout’s Identity</h3>
+<p>設<span class="math inline">\({d =
+\text{gcd}(a,m)}\)</span>。根據Bezout’s identity，若<span
+class="math inline">\(d = 1\)</span>，則存在<span
+class="math inline">\(x,y\)</span>使得 <span class="math display">\[
+a\cdot x + m \cdot y = 1,
+\]</span> 因為以<span class="math inline">\(m\)</span>為模，可以重寫為
+<span class="math display">\[
+a\cdot x \equiv 1 \,( \text{mod }m ) .
+\]</span> 使用extended Euclidean algorithm便可求得<span
+class="math inline">\(x\)</span>，而依據定義，<span
+class="math inline">\(x\)</span>即為<span
+class="math inline">\(a\)</span>的乘法反元素。 若<span
+class="math inline">\(d\ne 1\)</span>，該數<span
+class="math inline">\(a\)</span>不互質模<span
+class="math inline">\(m\)</span>，則Bezout’s identity不成立，<span
+class="math inline">\(a^{-1}\)</span>不存在。 ## Fermat’s Little Theorem
+Let <span class="math inline">\(p\)</span> be a prime. Then <span
+class="math display">\[
+\forall a \in \mathbb{Z}, \text{gcd}(a, p) = 1 \implies a^{p - 1} \equiv
+1 \ ( \text{mod } p ) .
+\]</span> <strong>Example</strong> <span class="math inline">\({p= 3, a
+= 5}\)</span> 依照費馬小定理，可得<span class="math inline">\({5^{3 - 1}
+= 25 \equiv 1\,( \text{mod } 3 )}\)</span>。 ### Explanation with
+Abstract Algebra 乘法群<span
+class="math inline">\({\mathbb{Z}_{p}}^{*}\)</span>的階為<span
+class="math inline">\(p-1\)</span>，因此任意元素的<span
+class="math inline">\(p-1\)</span>次方當然會回到單位元1。</p>
+<h3 id="a-corollary">A Corollary</h3>
+<p><span class="math display">\[
+a^{p} \equiv a \,( \text{mod } p ) .
+\]</span> 從費馬小定理的原方程式開始： 1. 如果<span
+class="math inline">\(a\)</span>與<span
+class="math inline">\(p\)</span>互質，則代表同餘式兩邊可以相乘<span
+class="math inline">\(a\)</span> 2. 如果不互質，<span
+class="math inline">\(p|a\)</span>，則<span class="math inline">\({a^{p}
+\equiv 0 \equiv a \,( \text{mod } p )}\)</span></p>
+<h1 id="rsa">RSA</h1>
+<h2 id="preprocessing">Preprocessing</h2>
+<ol type="1">
+<li>Choose 2 big prime numbers <span class="math inline">\(p\)</span>
+and <span class="math inline">\(q\)</span>.</li>
+<li>Choose a pair of numbers <span class="math inline">\(e\)</span> and
+<span class="math inline">\(d\)</span> such that
+<ol type="1">
+<li><span class="math inline">\(d\cdot e = 1(\text{mod}\ (p -
+1)(q-1))\)</span>, when <span class="math inline">\(e\)</span> is public
+and <span class="math inline">\(d\)</span> is private.</li>
+</ol></li>
+<li>Announce <span class="math inline">\((pq, e)\)</span>; keep <span
+class="math inline">\((p, q, d)\)</span>. ## Encryption and Decryption
+Encrypting message <span class="math inline">\(m\)</span> as code <span
+class="math inline">\(c\)</span>: <span class="math display">\[
+c \equiv m^{e} (\text{mod}\ pq),\ m&lt; pq, c &lt; pq.
+\]</span> Decrypting <span class="math inline">\(c\)</span> as <span
+class="math inline">\(m\)</span>: <span class="math display">\[
+m \equiv c^{d} (\text{mod}\ pq).
+\]</span> ## Verification We set a symbol for the modulo: <span
+class="math display">\[
+r := (p-1)(q - 1);
+\]</span> also, for the product of two big primes: <span
+class="math display">\[
+n:= p\cdot q,
+\]</span> then we can describe the decrypting equations as <span
+class="math inline">\(m \equiv c^{d}(\text{mod}\ n)\)</span>.</li>
+</ol>
+<p>For the convenience of the proof, we set an arbitary number <span
+class="math inline">\(k\)</span> such that <span class="math display">\[
+e \cdot d \equiv 1 (\text{mod}\ r) \implies r | (e\cdot d - 1)
+\implies  ed = 1 + kr.
+\]</span> So that according to the proccess of encryption and
+decryption, we can say that <span class="math display">\[
+c^{d} \equiv (m^{e})^{d} \equiv m^{(e\cdot d)} \equiv m^{1 + kr}
+(\text{mod}\ n),
+\]</span> and in order to prove that this process really lead us to
+transfer the correct message, we need to check if <span
+class="math display">\[
+c^{d} \equiv m^{ed} \equiv m^{1+kr} \equiv m (\text{mod}\ n).
+\]</span> 將式子重新整理，得： <span class="math display">\[
+m\cdot m^{k(p-1)(q - 1)} \equiv m \,( \text{mod } pq )
+\]</span> 根據同餘保持基本運算的特性，兩邊同除<span
+class="math inline">\(m\)</span>： <span class="math display">\[
+m^{k(p - 1)(q - 1)} \equiv 1 \,( \text{mod }pq )
+\]</span> <span class="math display">\[
+m^{k(p - 1)(q - 1)} \equiv 1\ \,( \text{mod } pq )
+\]</span> ### Verification Practice &gt; 如果縮減模，得<span
+class="math inline">\({(m^{k(q - 1)})^{p - 1} \equiv 1 \,( \text{mod } p
+)}\)</span>，則依照費馬小定理便可得解。 &gt; 但是<span
+class="math inline">\({\text{gcd}(m,p) \underset{?}{=}
+1}\)</span>，條件沒有說。<em>此路不通</em>。</p>
+<p><strong>分項討論</strong> - Case 1: <span
+class="math inline">\({\text{gcd}(m,p) = 1 \land \text{gcd}(m, q) =
+1}\)</span> - Case 2: <span class="math inline">\({\text{gcd}(m, p) \ne
+1 \underline{\lor} \text{gcd}(m, q) \ne 1}\)</span></p>
+<blockquote>
+<p><span class="math inline">\({\text{gcd}(m,p) \ne 1 \land
+\text{gcd}(m, q) \ne 1}\)</span>必然不成立： 如果成立，則<span
+class="math inline">\({pq | m}\)</span>，存在正整數<span
+class="math inline">\(k&#39;\)</span>使得<span class="math inline">\({m
+= kpq}\)</span>（因為<span class="math inline">\(m &gt; 0\)</span>）。
+但RSA的前提已經表明<span class="math inline">\({m &lt;
+pq}\)</span>，故不成立。</p>
+</blockquote>
+<p><strong>Case 1</strong> 根據費馬定理， <span class="math display">\[
+m^{p - 1} \equiv 1 \,( \text{mod } p ) \land m^{q - 1} \equiv 1 \,(
+\text{mod } q )
+\]</span> 則依基本運算可輕易得<span
+class="math inline">\({m^{k(p-1)(q-1)} \equiv 1 \,( \text{mod } pq
+)}\)</span></p>
+<p><strong>Case 2</strong> 先以<span
+class="math inline">\(p\)</span>討論： 已知<span
+class="math inline">\(m,p\)</span>不互質，則依照Case 2的假設，<span
+class="math inline">\({\text{gcd}(m,q) = 1}\)</span>（或者<span
+class="math inline">\(m=0\)</span>，不討論）。</p>
+<p>因為<span class="math inline">\(m\)</span>為<span
+class="math inline">\(p\)</span>的倍數，則<span
+class="math inline">\(m\)</span>的任意乘冪皆為<span
+class="math inline">\(p\)</span>的倍數，即 <span class="math display">\[
+m^{1 + k (p - 1)(q - 1)} \equiv m \,( \text{mod } p ),
+\]</span> 則兩者同餘，<span class="math inline">\({m \equiv m^{k(p -
+1)(q - 1)} \,( \text{mod } p )}\)</span>。</p>
+<p>又依據費馬定理， <span class="math display">\[
+m^{q - 1} \equiv 1 \,( \text{mod } q )
+\]</span> 則可推知 <span class="math display">\[
+{m^{k(p-1)(q-1)} \equiv 1 \,( \text{mod } q )}.
+\]</span> 兩邊相乘<span class="math inline">\(m\)</span>即得<span
+class="math inline">\({m^{1 + k(p - 1)(q - 1)} \equiv m\,( \text{mod } q
+)}\)</span>。</p>
+<p>統整得 <span class="math display">\[
+\left\{\begin{aligned}
+&amp; m^{1 + k(p - 1)(q - 1)} \equiv m \,( \text{mod } p )  \\
+&amp; m^{1 + k(p - 1)(q-1)} \equiv m \,( \text{mod } q )
+\end{aligned}\right. \implies m^{1 + k(p - 1)(q - 1)} \equiv m \,(
+\text{mod } pq ) .
+\]</span> 故得證 <span class="math inline">\(\blacksquare\)</span></p>
+<h1 id="chinese-remainder-theorem">Chinese Remainder Theorem</h1>
+<p>今有比1大且兩兩互質的正整數<span
+class="math inline">\({m_{1},m_{2},m_{3},\dots
+m_{n}}\)</span>與任意整數<span
+class="math inline">\({a_{1},a_{2},a_{3},\dots,a_{n}}\)</span>。則聯立同餘方程組
+<span class="math display">\[
+\forall i \in \mathbb{N}_{n}\ x \equiv a_{i} \,( \text{mod } m_{i} )
+\]</span> 模<span class="math inline">\({m_{1}\cdot m_{2}\cdot (\dots)
+\cdot m_{n}}\)</span>時有唯一解 <span class="math display">\[
+x = \sum ^{n}_{i = 1} a_{i} \cdot y_{i} \cdot M_{i},
+\]</span> 其中<span class="math inline">\(y_{i}\)</span>為<span
+class="math inline">\({M_{i} = \frac{m}{m_{i}}}\)</span>的模反元素<span
+class="math inline">\({(M_{i})^{-1}}\)</span>。 白話翻譯：
+該總和式，在模<strong>所有同餘模相乘</strong>時有唯一解；而y_i則是在<strong>該行的模m_i</strong>，取M_i的逆元。</p>
+<h2 id="proposition-modulo-factorization">Proposition: Modulo
+Factorization</h2>
+<p>對於兩個互質的模<span class="math inline">\(m_{1}, m_{2}\)</span>：
+1. 同餘方程<span class="math inline">\(\left\{\begin{aligned}x\equiv
+a_{1} \,( \text{mod }m_{1} )\\ x\equiv a_{2} \,( \text{mod } m_{2}
+)\end{aligned}\right.\)</span>有解 2. 任兩解都會同餘模<span
+class="math inline">\(m_{1} \cdot m_{2}\)</span>。 &gt;
+或者說，對於整數環<span class="math inline">\(\mathbb{Z}_{m_{1}\cdot
+m_{2}}\)</span>會有唯一解。</p>
+<h3 id="proof">Proof</h3>
+<p><span class="math display">\[
+\text{If}\ t \equiv m_{1}^{-1}(a_{2} - a_{1}) \,( \text{mod }m_{2} ) ,\
+\ \text{then} \ \ x = a_{1} + m_{1} t\ \text{is such a solution.}\
+\blacksquare
+\]</span></p>
+<h2 id="uniqueness-proof">Uniqueness Proof</h2>
+<p>假設有兩數<span
+class="math inline">\(x_{1},x_{2}\)</span>均為同餘方程式之解。則對於所有方程式都存在商數<span
+class="math inline">\(r_{i}, r&#39;_{i}\)</span>使得 <span
+class="math display">\[
+x_{1} = r_{i}\cdot m_{i} + a_{i} \ \ \  \text{and}\ \ \ x_{2} =
+r&#39;_{i} \cdot m_{i} + a_{i}
+\]</span> 兩數相減得<span class="math inline">\({x_{1} - x_{2} = (r_{i}
+- r&#39;_{i})\cdot m_{i}}\)</span>，則<span class="math inline">\({m_{i}
+| (x_{1} - x_{2})}\)</span>，即 <span class="math display">\[
+x_{1} \equiv x_{2} \,( \text{mod } m_{1} \cdot m_{2} \cdot (\dots)\cdot
+m_{n} ),
+\]</span> 故知兩數模<span class="math inline">\({m_{1}\cdot m_{2}\cdot
+(\dots)\cdot m_{n}}\)</span>時有唯一解 <span
+class="math inline">\(\blacksquare\)</span></p>
+<h2 id="proof-of-c.r.t.">Proof of C.R.T.</h2>
+<p>設<span class="math inline">\({m = m_{1} \cdot m_{2} \cdot (\dots)
+\cdot m_{n}}\)</span>，並設<span class="math inline">\(M_{i} =
+\frac{m}{m_{i}}\)</span>。 &gt; <span
+class="math inline">\(M_{i}\)</span>的語意為「除了<span
+class="math inline">\({m_{i}}\)</span>以外的所有模」</p>
+<p>因為<span class="math inline">\(m_{i}\)</span>兩兩互質，對於任意<span
+class="math inline">\(k \ne i\)</span>，<span
+class="math inline">\({\text{gcd}(m_{k}, m_{i}) = 1}\)</span>，據此得
+<span class="math display">\[
+\text{gcd}(M_{i}, m_{i}) = 1.
+\]</span> &gt; <span class="math inline">\(M_{i}\)</span>與<span
+class="math inline">\(m_{i}\)</span>互質</p>
+<p>則依模反元素的定義，存在<span
+class="math inline">\(y_{i}\)</span>使得 <span class="math display">\[
+M_{i} \cdot y_{i} \equiv 1 \,( \text{mod } m_{i} ) ,
+\]</span> 或寫作<span class="math inline">\({y_{i} =
+{M_{i}}^{-1}}\)</span>。 假設<span class="math inline">\({x = \sum
+^{n}_{i = 1}a_{i}\cdot y_{i} \cdot M_{i}}\)</span>為解。
+根據定義可知，對於任意<span class="math inline">\({j \ne
+i}\)</span>，<span class="math inline">\(M_{j}\)</span>均可被<span
+class="math inline">\({m_{i}}\)</span>整除，即 <span
+class="math display">\[
+M_{j} \equiv 0 \,( \text{mod }m_{i} ).
+\]</span> 故對於所有<span class="math inline">\(i\)</span>， <span
+class="math display">\[
+x \equiv a_{i} \cdot y_{i} \cdot M_{i} \equiv a_{i} \,( \text{mod }
+m_{i} )
+\]</span> 均成立，符合方程組之敘述，故假說成立 <span
+class="math inline">\(\blacksquare\)</span> &gt; <span
+class="math inline">\(M_{j}=0\)</span>的說明旨在提示<span
+class="math inline">\(x\)</span>的其他所有加法項都會「消去」，只剩下第<span
+class="math inline">\(i\)</span>項。</p>
+
+      </div>
+      
+      
+      
+    </div>
+  <ul class="breadcrumb">
+            <li><a href="/courses/">課程筆記</a></li>
+            <li><a href="/courses/discrete-mathematics/">DISCRETE-MATHEMATICS</a></li>
+            <li>CH2-MODULAR-ARITHMETICS</li>
+  </ul>
+
+    
+    
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Blade Yang</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/minstrike520" class="github-corner" title="在 GitHub 上關注我" aria-label="在 GitHub 上關注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

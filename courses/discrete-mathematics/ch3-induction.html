@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#1c1d22" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/thumb.jpg" color="#1c1d22">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.blade520.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":true,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":120,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"path":"search.json"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="Euclidean Algorithm Basic Recurrence \[ \text{gcd}(a,b) &#x3D; \left\{\begin{aligned} &amp; b &amp; \text{if }r &#x3D; 0 \\ &amp; a &amp; \text{otherwise} \end{aligned}\right.\ \ \ \text{where } a &#x3D; b\cdot k +">
+<meta property="og:type" content="website">
+<meta property="og:title" content="03 Mathematical Induction">
+<meta property="og:url" content="https://blog.blade520.com/courses/discrete-mathematics/ch3-induction.html">
+<meta property="og:site_name" content="Blade&#39;s Blog">
+<meta property="og:description" content="Euclidean Algorithm Basic Recurrence \[ \text{gcd}(a,b) &#x3D; \left\{\begin{aligned} &amp; b &amp; \text{if }r &#x3D; 0 \\ &amp; a &amp; \text{otherwise} \end{aligned}\right.\ \ \ \text{where } a &#x3D; b\cdot k +">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2025-04-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-28T07:28:27.092Z">
+<meta property="article:author" content="Blade Yang">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.blade520.com/courses/discrete-mathematics/ch3-induction">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-TW","comments":true,"permalink":"https://blog.blade520.com/courses/discrete-mathematics/ch3-induction.html","path":"courses/discrete-mathematics/ch3-induction.html","title":"03 Mathematical Induction"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>03 Mathematical Induction | Blade's Blog
+</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blade's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/thumb.jpg" alt="Blade's Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-課程筆記"><a href="/courses/" rel="section"><i class="fa fa-pen fa-fw"></i>課程筆記</a></li><li class="menu-item menu-item-創作"><a href="/gallery/" rel="section"><i class="fa fa-palette fa-fw"></i>創作</a></li><li class="menu-item menu-item-=====-索引-======"><a href="/404/" rel="section"><i class="fa fa-dash fa-fw"></i>===== 索引 ======</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#euclidean-algorithm"><span class="nav-text">Euclidean Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#basic-recurrence"><span class="nav-text">Basic Recurrence</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#estimating-steps-needed-in-euclidean-algorithm"><span class="nav-text">Estimating Steps
+Needed in Euclidean Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weak-mathematical-induction"><span class="nav-text">Weak Mathematical Induction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#strong-mathematical-induction"><span class="nav-text">Strong Mathematical
+Induction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lames-theorem"><span class="nav-text">Lame’s Theorem</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#generating-function"><span class="nav-text">Generating function</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#infinite-sum-vs.-closed-form"><span class="nav-text">Infinite Sum vs. Closed Form</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#solving-linear-recurrence-by-generating-function"><span class="nav-text">Solving Linear
+Recurrence by Generating Function</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Blade Yang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/minstrike520" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;minstrike520" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:minstrike520@gmail.com" title="E-Mail → mailto:minstrike520@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/blado.tf" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;blado.tf" rel="noopener me" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-TW"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">03 Mathematical Induction
+</h1>
+
+<div class="post-meta-container">
+  <ul class="breadcrumb">
+            <li><a href="/courses/">課程筆記</a></li>
+            <li><a href="/courses/discrete-mathematics/">DISCRETE-MATHEMATICS</a></li>
+            <li>CH3-INDUCTION</li>
+  </ul>
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="euclidean-algorithm">Euclidean Algorithm</h1>
+<h2 id="basic-recurrence">Basic Recurrence</h2>
+<p><span class="math display">\[
+\text{gcd}(a,b) = \left\{\begin{aligned}
+&amp; b &amp; \text{if }r = 0 \\
+&amp; a &amp; \text{otherwise}
+\end{aligned}\right.\ \ \ \text{where } a = b\cdot k + r, 0\le r &lt; b
+\]</span> with an arbitary <span class="math inline">\(k\)</span>.
+證明：<span class="math inline">\({\text{gcd}(a,b) =
+\text{gcd}(b,r)}\)</span>. &gt;
+可以將問題拆解為「兩式互相小於等於對方」的兩個小命題，來簡化證明難度。</p>
+<p>命題一，<span class="math inline">\({\text{gcd}(a,b) \le
+\text{gcd}(b,r)}\)</span>. - Let <span class="math inline">\({d \in
+\text{common divisor}(a,b)}\)</span>. - <span
+class="math inline">\({\implies a = k_{1}d \land b = k_{2}d}\)</span>,
+<span class="math inline">\({\exists k_{1}, k_{2} \in
+\mathbb{Z}}\)</span>. - <span class="math inline">\({a = bk + r \implies
+r = (k_{1} - kk_{2})d}\)</span> <span class="math inline">\({\implies d
+| r}\)</span>. - <span class="math inline">\({\implies \forall d&#39;
+\in \text{common divisor(a,b)} \implies d&#39; | r}\)</span>. - Every
+common divisor of <span class="math inline">\(a\)</span> and <span
+class="math inline">\(b\)</span> is a divisor of <span
+class="math inline">\(r\)</span>, which surely contains <span
+class="math inline">\({\text{gcd}(a,b)}\)</span>. （略命題二。）故得證
+<span class="math inline">\(\blacksquare\)</span></p>
+<h2 id="estimating-steps-needed-in-euclidean-algorithm">Estimating Steps
+Needed in Euclidean Algorithm</h2>
+<p>Let <span class="math inline">\({r_{0}  = a}\)</span>, <span
+class="math inline">\({r_{1} = b}\)</span>; <span
+class="math inline">\({r_{0} \ge r_{1}}\)</span>. <span
+class="math display">\[
+\begin{array}.
+r_{0} = r_{1}k_{1} + r_{2} \\
+r_{1} = r_{2}k_{2} + r_{3} \\
+r_{2} = r_{3}k_{3} + r_{4} \\
+\dots \\
+r_{n - 1} = r_{n}k_{n} + 0
+\end{array}
+\]</span> 我們想知道這個遞迴式共花了多少步完成。或者說，我們想求 <span
+class="math inline">\(n\)</span> 的值。
+在以上描述輾轉相除法的遞迴關係式中，我們可以觀察到 <span
+class="math inline">\({r_{i} \ge r_{i + 1} + r_{i + 2}}\)</span>，比如
+<span class="math inline">\({r_{0} \ge r_{1} +
+r_{2}}\)</span>等。這之中還輕易地得到 <span class="math inline">\({r_{i}
+\ge r_{i + 1}}\)</span>，因此可以說： <span class="math display">\[
+r_{n} \ge 2\cdot r_{n + 2},
+\]</span> 或者 <span class="math inline">\({r_{n + 2} \le
+\frac{1}{2}r_{n}}\)</span>。平均來說，也可說 <span
+class="math inline">\(r_{n + 1} \le \frac{1}{2^{ 1/
+2}}r_{n}\)</span>。試著將這個新的遞迴不等式串起來： <span
+class="math display">\[
+r_{n} \le \frac{1}{2^{1/2}} r_{n - 1} \le \frac{1}{2^{2 / 2}} r_{n - 2}
+\le \dots \le \frac{1}{2^{n / 2}}r_{0} ,
+\]</span> 而我們可以單獨將頭尾抽出來看，得一<em>指數遞減關係</em>：
+<span class="math display">\[
+r_{n} \le \frac{r_{0}}{2^{n/2}}.
+\]</span> 設想一數 <span class="math inline">\(x\)</span>，使得 <span
+class="math display">\[
+\frac{r_{0}}{2^{x/2}} &lt; 1
+\]</span> 成立。那麼，考慮原本的遞減關係，當 <span
+class="math inline">\(n\)</span> 等於 <span
+class="math inline">\(x\)</span> 時，遞減關係必然成立： <span
+class="math display">\[
+r_{x} \le \frac{r_{0}}{2^{x/2}} &lt; 1,
+\]</span> 故若一數 <span class="math inline">\(x\)</span> 符合不等式
+<span class="math inline">\({\frac{r_{0}}{2^{x/2}} &lt; 1}\)</span>，則
+<span class="math inline">\(x\)</span> 可作為 <span
+class="math inline">\(n\)</span> 之上界： <span class="math display">\[
+n \le x = 2\log r_{0} + 1.\ \blacksquare
+\]</span> &gt; 可以說，找到的 <span class="math inline">\(x\)</span>
+是一個保守解，這也是他作為「<span class="math inline">\(n\)</span>
+的上界」的含意。 # Mathematical Induction ## Well-ordering Axiom Let
+<span class="math inline">\(S\)</span> be a set with some positive
+integers. Then if <span class="math display">\[
+\left\{\begin{aligned}
+&amp; 1 \in S \\
+&amp; \forall n \in \mathbb{N},\ n \in S \implies n + 1 \in S
+\end{aligned}\right.\ ,
+\]</span> then <span class="math inline">\(S\)</span> is the set of all
+positive integers, namely <span
+class="math inline">\(\mathbb{N}\)</span>.
+在這個公理之中便使用了數學歸納的概念。</p>
+<h2 id="weak-mathematical-induction">Weak Mathematical Induction</h2>
+<p>若要證明一個初階邏輯式<span
+class="math inline">\(P(n)\)</span>對於所有<span class="math inline">\(n
+\ge x\)</span>皆成立，則： <span class="math display">\[
+P(x) = \text{true} \land \forall k &gt; x,\ P(k) \implies P(k + 1)
+\]</span></p>
+<h2 id="strong-mathematical-induction">Strong Mathematical
+Induction</h2>
+<p><span class="math display">\[
+P(x) = \text{true} \land \forall k &gt; x,\ P(x) \land P(x + 1) \land
+\dots \land P(k) \implies P(k + 1)
+\]</span></p>
+<h2 id="lames-theorem">Lame’s Theorem</h2>
+<h1 id="generating-function">Generating function</h1>
+<h2 id="infinite-sum-vs.-closed-form">Infinite Sum vs. Closed Form</h2>
+<ol type="1">
+<li>Infinite sum: <span class="math inline">\({1 + x + x^{2} + \dots +
+x^{n} + \dots}\)</span></li>
+<li>Closed form: <span class="math inline">\(\frac{1}{1 -
+x}\)</span></li>
+</ol>
+<hr />
+<p>例：自然數數列 <span
+class="math inline">\(1,2,3,4,5,\dots\)</span></p>
+<p>列出生成函數 <span class="math inline">\(A(x)= 1 + 2x + 3x^{2} +
+4x^{3} + \dots\)</span> <strong>法一</strong>，轉換為一連串的closed
+form： <span class="math display">\[
+\begin{aligned}
+= 1 + x + x^{2} + x^{3} + \dots &amp;  \left( \frac{1}{1-x} \right)\\
++ x + x^{2} + x^{3} + \dots &amp;  \left( \frac{x}{1 - x} \right)\\
++x^{2} + x^{3} + \dots &amp;  \left( \frac{x^{2}}{1 - x} \right) \\
++\dots.\ \square
+\end{aligned}
+\]</span> <strong>法二</strong>，兩邊微分： <span
+class="math display">\[
+\begin{aligned}
+&amp; (1 + x + x^{2} + x^{3} + x^{4}+ \dots)&#39; \\
+= &amp; 1 + 2x + 3x^{2} + 4x^{3}+ \dots;
+\end{aligned}
+\]</span> 另一邊： <span class="math display">\[
+\left( \frac{1}{1 - x} \right)&#39; = \frac{1}{(1 - x)^{2}}.\ \square
+\]</span></p>
+<h2 id="solving-linear-recurrence-by-generating-function">Solving Linear
+Recurrence by Generating Function</h2>
+<p>數列 <span class="math inline">\(\{ a_{n} \}\)</span>
+之生成函數乃其Formal power series: <span class="math display">\[
+\sum ^{n}_{i=0} a_{i} x^{i} = a_{0} + a_{1}x + a_{2}x^{2} + \dots +
+a_{n}x^{n} + \dots
+\]</span></p>
+<hr />
+<p>例：給予一數列之遞迴關係 <span class="math inline">\({a_{n} = 8 a_{n
+- 1} + 10^{n}, a_{0} = 6}\)</span>，求數列之一般式。</p>
+<p>推導： <span class="math display">\[
+\begin{aligned}
+A(x) &amp; = a_{0} + a_{1}x + \dots \\
+&amp; = a_{0} + \sum ^{\infty}_{i = 1} (8a_{i - 1} + 10^{i}) x_{i} \\
+&amp; = a_{0} + 8\sum ^{\infty}_{i = 1} a_{i-1} x^{i} + \sum
+^{\infty}_{i = 1} 10^{i}x^{i} .\\
+\end{aligned}
+\]</span> 前式的 <span class="math inline">\(a_{i-1}x^{i}\)</span>
+可以寫為 <span class="math inline">\({x\cdot
+a_{i-1}x^{i-1}}\)</span>，可提出 <span
+class="math inline">\(x\)</span>；後式的 <span
+class="math inline">\(10^{i}x^{i}\)</span> 則可寫為 <span
+class="math inline">\({(10x)^{i}}\)</span>，而變成無窮等比級數： <span
+class="math display">\[
+\begin{aligned}
+A(x) &amp; = \dots \\
+&amp; = 6 + 8xA(x) + \frac{10x}{1 - 10x}.
+\end{aligned}
+\]</span> 等式兩邊消除了所有的無窮級數，而兩邊都有 <span
+class="math inline">\(A(x)\)</span>。只消移項整理即可得 <span
+class="math inline">\(A(x)\)</span>： <span class="math display">\[
+\begin{aligned}
+&amp; (1 - 8x) A(x) = 6 + \frac{10x}{1 -10x}, \\
+&amp; A(x) = \frac{6 - 50x}{(1 - 8x)(1 - 10x)} \underset{\text{(1)}}{=}
+\frac{1}{1-8x} + \frac{5}{1 - 10x}.
+\end{aligned}
+\]</span> 接著，即可依照closed form來將其還原為一般項， <span
+class="math display">\[
+\frac{1}{1 - 8x} = 1 + 8x + (8x)^{2} + \dots,
+\]</span> <span class="math display">\[
+\frac{5}{1 - 10x} = 5 + 5\cdot 10x + 5\cdot (10x)^{2} + \dots
+\]</span> 而分別可以還原回一般式 <span
+class="math inline">\({8^{n}}\)</span> 與 <span
+class="math inline">\(5\cdot 10^{n}\)</span>。因此，便可以得一般項 <span
+class="math inline">\({a_{n} = 8^{n} +5\cdot 10^{n}}\)</span>。<span
+class="math inline">\(\blacksquare\)</span></p>
+<p><strong>重點</strong> 1.
+在推導時重複出現原式，可以移項整理，消去麻煩的式子 2. <span
+class="math inline">\(x\)</span>的一次分式是很有價值的。有他就可以構成無窮等比(closed
+form)。因此遇到可以拆分的二次分式（形如<span
+class="math inline">\(\frac{1}{()()}\)</span>）的話要多留意一下。 ##
+Manipulating Generating Function 給兩個生成函式 <span
+class="math inline">\({A(x), B(x)}\)</span> 分別對應到數列 <span
+class="math inline">\(a_{0}, a_{1}, a_{2}, \dots, a_{n}\)</span> 跟
+<span class="math inline">\({b_{0}, b_{1}, b_{2}, \dots,
+b_{n}}\)</span>。 一、乘以 <span class="math inline">\(x\)</span>
+會達成「位移」(shifting)的效果： <span class="math display">\[
+xA(x) \leftrightarrow  0, a_{0}, a_{1}, \dots, a_{n-1}, \dots
+\]</span> 二、生成函式的加法： <span class="math display">\[
+A(x) + B(x) \leftrightarrow  a_{0} + b_{0},\ a_{1} + b_{1},\ a_{2} +
+b_{2}, \dots
+\]</span> 三、生成函數的乘法： <span class="math display">\[
+A(x)\cdot B(x) \leftrightarrow  a_{0}b_{0},\ a_{0} b_{1} + a_{1}b_{0},\
+a_{0}b_{2} + a_{1}b_{1} + a_{2}b_{0}, \dots
+\]</span> 我們可以說，兩個生成函數相乘，即得他們對應數列（此處為 <span
+class="math inline">\({\{ a_{n} \}}\)</span> 與 <span
+class="math inline">\({\{ b_{n}
+\}}\)</span>）的<strong>卷積(convolution)</strong>。 提示：<span
+class="math inline">\({A(x)\cdot B(x) = (a_{0} + a_{1}x + a_{2}x^{2} +
+\dots)(b_{0} + b_{1}x + b_{2}x^{2} + \dots)}\)</span></p>
+<hr />
+<p>例：計算費氏數列 <span class="math inline">\({f_{n} = f_{n - 1} +
+f_{n - 2}; f_{0} = 0, f_{1} = 1}\)</span>的一般項。</p>
+<p><span class="math display">\[
+\begin{aligned}
+F(x) &amp; = \sum ^{\infty}_{i = 0} f_{i}x^{i} \\
+&amp; = f_{0} + f_{1} x + \sum ^{\infty}_{i = 2} f_{i} x^{i} \\
+&amp; = x + \sum ^{\infty}_{i = 2} (f_{i - 1} + f_{i - 2})x^{i} \\
+&amp; = x + \sum ^{\infty}_{i = 2}f_{i - 1} x^{i} + \sum ^{\infty}_{i =
+2}f_{i - 2} x^{i} \\
+&amp; = x + x \sum ^{\infty} _{i=2}f_{i - 1}x^{i - 1} + x^{2} \sum
+^{\infty}_{i = 2}f_{i - 2} x^{i - 2}
+\end{aligned}
+\]</span> 此時，兩個無窮級數事實上都可以轉換為生成函數 <span
+class="math inline">\(F(x)\)</span>。 - 前式：<span
+class="math inline">\({\sum ^{\infty}_{i = 2}f_{i - 1}x^{i - 1} = \sum
+^{\infty}_{i  = 1} f_{i}x^{i} = F(x) - f_{0} = F(x)}\)</span>； -
+後式：<span class="math inline">\({\sum ^{\infty}_{i = 2}f_{i - 2}x^{i -
+2} = \sum ^{\infty}_{i = 0}f_{i}x^{i} = F(x)}\)</span>。 <span
+class="math display">\[
+\begin{aligned}
+F(x) &amp; = \dots \\
+&amp; = x + xF(x) + x^{2} F(x)
+\end{aligned}
+\]</span> 移項之後得 <span class="math inline">\({F(x) = \frac{x}{1 -
+x-x^{2}} = \frac{-x}{x^{2} + x - 1}}\)</span>，有兩個方法可解。</p>
+<p>法一，用公式法分解二次式，然後再拆解分式： <span
+class="math display">\[
+F(x) = \frac{-x}{\left( x - \frac{-1 + \sqrt{ 5 }}{2} \right)\left( x -
+\frac{-1 - \sqrt{ 5 }}{2} \right)} = \frac{c_{1}}{x + \frac{1 - \sqrt{ 5
+}}{2}} + \frac{c_{2}}{x + \frac{1 + \sqrt{ 5 }}{2}}.\ \square
+\]</span></p>
+<p>法二，將式子拆解為兩個乘法項，前後個別求一般式，然後解卷積： <span
+class="math display">\[
+F(x) = \frac{-x}{\left( x - \frac{-1 + \sqrt{ 5 }}{2} \right)\left( x -
+\frac{-1 - \sqrt{ 5 }}{2} \right)} =\frac{-x}{x - \frac{-1 + \sqrt{ 5
+}}{2}} \cdot \frac{1}{x + \frac{1 + \sqrt{ 5 }}{2}} = \frac{\frac{2}{-1
++ \sqrt{ 5 }}x}{1 - \frac{2}{-1 + \sqrt{ 5 }}x}\cdot \frac{1}{1 +
+\frac{2}{1 + \sqrt{ 5 }}x}.
+\]</span> 而這個方法比起法一來說更加麻煩。<span
+class="math inline">\(\square\)</span></p>
+
+      </div>
+      
+      
+      
+    </div>
+  <ul class="breadcrumb">
+            <li><a href="/courses/">課程筆記</a></li>
+            <li><a href="/courses/discrete-mathematics/">DISCRETE-MATHEMATICS</a></li>
+            <li>CH3-INDUCTION</li>
+  </ul>
+
+    
+    
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Blade Yang</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/minstrike520" class="github-corner" title="在 GitHub 上關注我" aria-label="在 GitHub 上關注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

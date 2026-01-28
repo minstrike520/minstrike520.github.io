@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#1c1d22" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/thumb.jpg" color="#1c1d22">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.blade520.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":true,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":120,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"path":"search.json"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="6.1 Geometry of Vectors 6.1.1 Distances DEF. norm \[ \lVert \mathbf{v} \rVert  &#x3D; \sqrt{ {v_{1}}^{2} + {v_{2}}^{2} + \dots + {v_{k}}^{2} } \] DEF. distance \[ \text{distance of } \mathbf{u}, \mathbf{v}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Linear Algebra Chapter 6: Orthogonality">
+<meta property="og:url" content="https://blog.blade520.com/courses/linear-algebra/ch6.html">
+<meta property="og:site_name" content="Blade&#39;s Blog">
+<meta property="og:description" content="6.1 Geometry of Vectors 6.1.1 Distances DEF. norm \[ \lVert \mathbf{v} \rVert  &#x3D; \sqrt{ {v_{1}}^{2} + {v_{2}}^{2} + \dots + {v_{k}}^{2} } \] DEF. distance \[ \text{distance of } \mathbf{u}, \mathbf{v}">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2025-12-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-28T06:55:34.101Z">
+<meta property="article:author" content="Blade Yang">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.blade520.com/courses/linear-algebra/ch6">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-TW","comments":true,"permalink":"https://blog.blade520.com/courses/linear-algebra/ch6.html","path":"courses/linear-algebra/ch6.html","title":"Linear Algebra Chapter 6: Orthogonality"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Linear Algebra Chapter 6: Orthogonality | Blade's Blog
+</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blade's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/thumb.jpg" alt="Blade's Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-課程筆記"><a href="/courses/" rel="section"><i class="fa fa-pen fa-fw"></i>課程筆記</a></li><li class="menu-item menu-item-創作"><a href="/gallery/" rel="section"><i class="fa fa-palette fa-fw"></i>創作</a></li><li class="menu-item menu-item-=====-索引-======"><a href="/404/" rel="section"><i class="fa fa-dash fa-fw"></i>===== 索引 ======</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#geometry-of-vectors"><span class="nav-text">6.1 Geometry of Vectors</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#distances"><span class="nav-text">6.1.1 Distances</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dot-product"><span class="nav-text">6.1.2 Dot Product</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#orthogonal-projection-of-a-vector-on-a-line"><span class="nav-text">Orthogonal
+Projection of a Vector on a Line</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cauchy-schwarz-and-triangle-inequalities"><span class="nav-text">6.1.4 Cauchy-Schwarz
+and Triangle Inequalities</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#orthogonal-vectors"><span class="nav-text">6.2 Orthogonal Vectors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#orthogonal-projections"><span class="nav-text">6.3 Orthogonal Projections</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#least-squares-approximations-and-orthogonal-projection-matrices"><span class="nav-text">6.4
+Least-Squares Approximations and Orthogonal Projection Matrices</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#least-squares-approximations"><span class="nav-text">Least-Squares Approximations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inconsistent-systems-of-linear-equations"><span class="nav-text">Inconsistent Systems
+of Linear Equations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#solutions-of-least-norm"><span class="nav-text">Solutions of Least Norm</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Blade Yang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/minstrike520" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;minstrike520" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:minstrike520@gmail.com" title="E-Mail → mailto:minstrike520@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/blado.tf" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;blado.tf" rel="noopener me" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-TW"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">Linear Algebra Chapter 6: Orthogonality
+</h1>
+
+<div class="post-meta-container">
+  <ul class="breadcrumb">
+            <li><a href="/courses/">課程筆記</a></li>
+            <li><a href="/courses/linear-algebra/">LINEAR-ALGEBRA</a></li>
+            <li>CH6</li>
+  </ul>
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h2 id="geometry-of-vectors">6.1 Geometry of Vectors</h2>
+<h3 id="distances">6.1.1 Distances</h3>
+<p><strong>DEF. norm</strong> <span class="math display">\[
+\lVert \mathbf{v} \rVert  = \sqrt{ {v_{1}}^{2} + {v_{2}}^{2} + \dots +
+{v_{k}}^{2} }
+\]</span></p>
+<p><strong>DEF. distance</strong> <span class="math display">\[
+\text{distance of } \mathbf{u}, \mathbf{v} = \lVert \mathbf{u} -
+\mathbf{v} \rVert
+\]</span> —</p>
+<h3 id="dot-product">6.1.2 Dot Product</h3>
+<p><strong>DEF. dot product</strong> <span class="math display">\[
+\mathbf{u} \cdot \mathbf{v} = u_{1} v_{1} + u_{2} v_{2} + \dots + u_{k}
+v_{k}
+\]</span></p>
+<p><strong>Matrix represntation of dot product</strong> <span
+class="math display">\[
+\mathbf{u} \cdot \mathbf{v} = \mathbf{u}^{T} \mathbf{v}
+\]</span></p>
+<p><strong>THR.</strong> basic properties of dot product operation of
+vectors</p>
+<p>For all vectors <span class="math inline">\(\mathbf{u}\)</span> and
+<span class="math inline">\(\mathbf{v}\)</span>, and <span
+class="math inline">\(\mathbf{w}\)</span> in <span
+class="math inline">\(\mathbb{R}^{n}\)</span> and every scalar <span
+class="math inline">\(c\)</span>, 1. <span
+class="math inline">\(\mathbf{u} \cdot \mathbf{u} = \lVert \mathbf{u}
+\rVert^{2}\)</span> 2. <span class="math inline">\(\mathbf{u}\cdot
+\mathbf{u}=0\)</span> if and only if <span
+class="math inline">\(\mathbf{u}=\mathbf{0}\)</span> 3. <span
+class="math inline">\(\mathbf{u}\cdot \mathbf{v}=\mathbf{v}\cdot
+\mathbf{u}\)</span> 4. <span
+class="math inline">\(\mathbf{u}\cdot(\mathbf{v} + \mathbf{w})
+=\mathbf{u}\cdot \mathbf{v}+\mathbf{u}\cdot \mathbf{w}\)</span> 5. <span
+class="math inline">\((\mathbf{v}+\mathbf{w})\cdot
+\mathbf{u}=\mathbf{v}\cdot \mathbf{u}+\mathbf{w}\cdot
+\mathbf{u}\)</span> 6. <span class="math inline">\((c\mathbf{u})\cdot
+\mathbf{v}=c(\mathbf{u}\cdot
+\mathbf{v})=\mathbf{u}\cdot(c\mathbf{v})\)</span> 7. <span
+class="math inline">\(\lVert c\mathbf{u} \rVert=\left| c \right|\ \lVert
+\mathbf{u} \rVert\)</span></p>
+<p>Note: (3) shows commutative property of dot product; (4), (5)
+together show that dot product distributes over addition.</p>
+<p><strong>THR.</strong> Pythagorean Theorem in <span
+class="math inline">\(\mathbb{R}^{n}\)</span></p>
+<p>Let <span class="math inline">\(\mathbf{u}\)</span> and <span
+class="math inline">\(\mathbf{v}\)</span> be vectors in <span
+class="math inline">\(\mathbb{R}^{n}\)</span>. Then <span
+class="math inline">\(\mathbf{u}\)</span> and <span
+class="math inline">\(\mathbf{v}\)</span> are
+<strong>orthogonal</strong> if and only if <span class="math display">\[
+\lVert \mathbf{u} + \mathbf{v} \rVert ^{2} = \lVert \mathbf{u} \rVert
+^{2} + \lVert \mathbf{v} \rVert ^{2}
+\]</span></p>
+<hr />
+<h3 id="orthogonal-projection-of-a-vector-on-a-line">Orthogonal
+Projection of a Vector on a Line</h3>
+<p><strong>DEF. orthogonal projection</strong></p>
+<p>The orthogonal projection from <span
+class="math inline">\(P(\mathbf{u})\)</span> to <span
+class="math inline">\(\mathcal{L}(\mathbf{v})\)</span> is given by <span
+class="math display">\[
+\mathbf{w} = \left( \frac{\mathbf{u} \cdot \mathbf{v}}{\lVert \mathbf{v}
+\rVert ^{2}} \right)\mathbf{v}
+\]</span></p>
+<p><strong>DEF. distance from a point to a line</strong> <span
+class="math display">\[
+\text{distance from } P(\mathbf{u}) \text{ to } \mathcal{L}
+(\mathbf{v})  = \lVert \mathbf{u} - \mathbf{w} \rVert
+\]</span></p>
+<hr />
+<h3 id="cauchy-schwarz-and-triangle-inequalities">6.1.4 Cauchy-Schwarz
+and Triangle Inequalities</h3>
+<p><strong>THR.</strong> Cauchy-Schwarz Inequality</p>
+<p>For any vectors <span class="math inline">\(\mathbf{u}\)</span> and
+<span class="math inline">\(\mathbf{v}\)</span> in <span
+class="math inline">\(\mathbb{R}^{n}\)</span>, <span
+class="math display">\[
+\left| \mathbf{u} \cdot \mathbf{v} \right|  \le \lVert \mathbf{u}
+\rVert  \lVert \mathbf{v} \rVert .
+\]</span></p>
+<h2 id="orthogonal-vectors">6.2 Orthogonal Vectors</h2>
+<p><strong>DEF. orthogonal set</strong></p>
+<ul>
+<li>every pair of distinct vectors in the set is orthogonal</li>
+</ul>
+<p><strong>DEF. orthonormal set</strong></p>
+<ul>
+<li>the set is an orthogonal one consisting entirely of unit
+vectors</li>
+</ul>
+<p><strong>THR.</strong></p>
+<ul>
+<li>Any orthogonal set of nonzero vectors is linearly independent.</li>
+</ul>
+<p><strong>DEF. orthogonal basis</strong></p>
+<ul>
+<li>an orthogonal set that is also a basis for a subspace of <span
+class="math inline">\(\mathbb{R}^{n}\)</span></li>
+</ul>
+<p>is called ~ for the subspace.</p>
+<p><strong>DEF. orthonormal basis</strong></p>
+<ul>
+<li>an orthonormal set that is also a basis</li>
+</ul>
+<p><strong>THR.</strong> representation of a vector in terms of an
+orthogonal (or orthonormal) basis - Let <span class="math inline">\(\{
+\mathbf{v}_{1}, \mathbf{v}_{2}, \dots, \mathbf{v}_{k} \}\)</span> be an
+orthogonal basis for a subspace <span class="math inline">\(V\)</span>
+of <span class="math inline">\(\mathbb{R}^{n}\)</span>. - Let <span
+class="math inline">\(\mathbf{u}\)</span> be a vector in <span
+class="math inline">\(V\)</span>.</p>
+<p>Then <span class="math display">\[
+\mathbf{u} = \frac{\mathbf{u} \cdot \mathbf{v}_{1}}{\lVert
+\mathbf{v}_{1} \rVert ^{2}} \mathbf{v}_{1} + \frac{\mathbf{u}\cdot
+\mathbf{v}_{2}}{\lVert \mathbf{v}_{2} \rVert ^{2}} \mathbf{v}_{2} +
+\dots +  \frac{\mathbf{u}\cdot \mathbf{v}_{k}}{\lVert \mathbf{v}_{k}
+\rVert ^{2}}\mathbf{v}_{k}
+\]</span></p>
+<p>Furthermore, if the orthogonal basis is an orthonormal basis for
+<span class="math inline">\(V\)</span>, then <span
+class="math display">\[
+\mathbf{u} = (\mathbf{u} \cdot \mathbf{v}_{1}) \mathbf{v}_{1} +
+(\mathbf{u} \cdot \mathbf{v}_{2}) \mathbf{v}_{2} + \dots + (\mathbf{u}
+\cdot \mathbf{v}_{k}) \mathbf{v}_{k}
+\]</span></p>
+<p><strong>THR.</strong></p>
+<p>Every subspace of <span class="math inline">\(\mathbb{R}^{n}\)</span>
+has an orthogonal, and hence an orthogonal, basis.</p>
+<hr />
+<p><strong>DEF. The Gram-Schmidt Process</strong></p>
+<p>The process converts a basis to the orthogonal basis for the same
+subspace of <span class="math inline">\(\mathbb{R}^{n}\)</span>. -
+input: basis <span class="math inline">\(S=\{
+\mathbf{u}_{1},\mathbf{u}_{2},\dots,\mathbf{u}_{k} \}\)</span> - output:
+orthogonal basis <span class="math inline">\(S&#39;=\{ \mathbf{v}_{1} ,
+\mathbf{v}_{2},\dots,\mathbf{v}_{k}\}\)</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; \mathbf{v}_{1} = \mathbf{u}_{1}\\
+&amp; \mathbf{v}_{2} = \mathbf{u}_{2} - \frac{\mathbf{u}_{2} \cdot
+\mathbf{v}_{1}}{\lVert \mathbf{v}_{1} \rVert ^{2}} \mathbf{v_{1} }\\
+&amp; \mathbf{v}_{3} = \mathbf{u}_{3} - \frac{\mathbf{u}_{3}  \cdot
+\mathbf{v}_{1}}{\lVert \mathbf{v}_{1} \rVert ^{2}} \mathbf{v}_{1} -
+\frac{\mathbf{u}_{3} \cdot \mathbf{v}_{2}}{\lVert \mathbf{v}_{2} \rVert
+^{2}} \mathbf{v}_{2}\\
+&amp; \vdots\\
+&amp;
+\mathbf{v}_{k} = \mathbf{u}_{k} - \frac{\mathbf{u}_{k} \cdot
+\mathbf{v}_{1}}{\lVert \mathbf{v}_{1} \rVert ^{2}}\mathbf{v_{1}} -
+\frac{ \mathbf{u}_{k} \cdot \mathbf{v}_{2}}{\lVert \mathbf{v}_{2} \rVert
+^{2}} \mathbf{v}_{2} - \dots - \frac{\mathbf{u}_{k} \cdot \mathbf{v}_{k
+- 1}}{\lVert \mathbf{v}_{k - 1} \rVert ^{2}} \mathbf{v}_{k - 1}
+\end{aligned}
+\]</span></p>
+<p><strong>THR.</strong></p>
+<ul>
+<li>Let <span class="math inline">\(\{
+\mathbf{u}_{1},\mathbf{u}_{2},\dots,\mathbf{u}_{k} \}\)</span> be a
+basis for a subspace <span class="math inline">\(W\)</span> for <span
+class="math inline">\(\mathbb{R}^{n}\)</span>.</li>
+</ul>
+<p>Then the output of the Gram-Schmidt Process <span
+class="math inline">\(\{
+\mathbf{v}_{1},\mathbf{v}_{2},\dots,\mathbf{v}_{k} \}\)</span> is an
+orthogonal set of nonzero vectors such that <span
+class="math display">\[
+\text{span}\{ \mathbf{v}_{1},\mathbf{v}_{2},\dots,\mathbf{v}_{i} \} =
+\text{span}\{ \mathbf{u}_{1},\mathbf{u}_{2},\dots,\mathbf{u}_{i} \}
+\]</span> for each <span class="math inline">\(1\le i\le k\)</span>. So
+<span class="math inline">\(\{
+\mathbf{v}_{1},\mathbf{v}_{2},\dots,\mathbf{v}_{k} \}\)</span> is an
+orthogonal basis for <span class="math inline">\(W\)</span>.</p>
+<p><strong>DEF. the QR factorization of a matrix</strong></p>
+<h2 id="orthogonal-projections">6.3 Orthogonal Projections</h2>
+<p><strong>DEF. orthogonal complement</strong></p>
+<p>The orthogonal complement of a nonempty subset <span
+class="math inline">\(\mathcal{S}\)</span> of <span
+class="math inline">\(\mathbb{R}^{n}\)</span>, denoted by <span
+class="math inline">\(\mathcal{S}^{\perp}\)</span>, is the set of all
+vectors in <span class="math inline">\(\mathbb{R}^{n}\)</span> that are
+orthogonal to every vector in <span
+class="math inline">\(\mathcal{S}\)</span>. That is, <span
+class="math display">\[
+\mathcal{S}^{\perp} = \{ \mathbf{v} \in \mathbb{R}^{n} \ |\ \mathbf{v}
+\cdot \mathbf{u} = 0 \ \forall \mathbf{u} \in \mathcal{S}  \}
+\]</span></p>
+<p><strong>THR.</strong> orthogonal complement = subspace</p>
+<p>The orthogonal complement of any nonempty subset of <span
+class="math inline">\(\mathbb{R}^{n}\)</span> is a subspace of <span
+class="math inline">\(\mathbb{R}^{n}\)</span>.</p>
+<p><strong>THR.</strong> complement = complement of span</p>
+<p>For any nonempty subset <span
+class="math inline">\(\mathcal{S}\)</span> of <span
+class="math inline">\(\mathbb{R}^{n}\)</span>, we have <span
+class="math display">\[
+\mathcal{S} ^{\perp} = (\text{span}(\mathcal{S} ))^{\perp}.
+\]</span> In particular, the orthogonal complement <strong>of a
+basis</strong> for a subspace is the same as the orthogonal complement
+of the subspace.</p>
+<p><strong>THR.</strong> complement of row = null space</p>
+<p>For any matrix <span class="math inline">\(A\)</span>, the orthogonal
+complement of the row space of <span class="math inline">\(A\)</span> is
+the null space of <span class="math inline">\(A\)</span>; that is, <span
+class="math display">\[
+\text{row}(A)^{\perp} = \text{null}(A).
+\]</span></p>
+<ul>
+<li><strong>COR.</strong> <span
+class="math inline">\(\text{col}(A)^{\perp}
+=\text{row}(A^{T})^{\perp}=\text{null}(A^{T})\)</span></li>
+</ul>
+<p><strong>THR.</strong> orthogonal decomposition theorem</p>
+<p>Let <span class="math inline">\(W\)</span> be a subspace of <span
+class="math inline">\(\mathbb{R}^{n}\)</span>. Then, for any vector
+<span class="math inline">\(\mathbf{u}\)</span> in <span
+class="math inline">\(\mathbb{R}^{n}\)</span>, there exist unique
+vectors <span class="math inline">\(\mathbf{w}\)</span> in <span
+class="math inline">\(W\)</span> and <span
+class="math inline">\(\mathbf{z}\)</span> in <span
+class="math inline">\(W^{\perp}\)</span> such that <span
+class="math display">\[
+\mathbf{u} = \mathbf{w} + \mathbf{z}.
+\]</span> In addition, if <span class="math inline">\(\{ \mathbf{v}_{1},
+\mathbf{v}_{2},\dots,\mathbf{v}_{k} \}\)</span> is an orthonormal basis
+for <span class="math inline">\(W\)</span>, then <span
+class="math display">\[
+\mathbf{w} = (\mathbf{u}\cdot \mathbf{v}_{1}) \mathbf{v_{1}} +
+(\mathbf{u}\cdot \mathbf{v}_{2}) \mathbf{v}_{2} + \dots +
+(\mathbf{u}\cdot \mathbf{v}_{k})\mathbf{v}_{k}.
+\]</span></p>
+<p><strong>THR.</strong></p>
+<p>For any subspace <span class="math inline">\(W\)</span> of <span
+class="math inline">\(\mathbb{R}^{n}\)</span>, <span
+class="math display">\[
+\text{dim}(W) + \text{dim}(W^{\perp}) = n.
+\]</span></p>
+<hr />
+<p><strong>DEF. orthogonal projection</strong></p>
+<p>Let <span class="math inline">\(W\)</span> be a subspace of <span
+class="math inline">\(\mathbb{R}^n\)</span> and <span
+class="math inline">\(\mathbf{u}\)</span> be a vector in <span
+class="math inline">\(\mathbb{R}^n\)</span>. The orthogonal projection
+of <span class="math inline">\(\mathbf{u}\)</span> on <span
+class="math inline">\(W\)</span> is the unique vector <span
+class="math inline">\(\mathbf{w}\)</span> in <span
+class="math inline">\(W\)</span> such that <span
+class="math inline">\(\mathbf{u} - \mathbf{w}\)</span> is in <span
+class="math inline">\(W^\perp\)</span>.</p>
+<p>Furthermore, the function <span class="math inline">\(U_W:
+\mathbb{R}^n \rightarrow \mathbb{R}^n\)</span> such that <span
+class="math inline">\(U_W(\mathbf{u})\)</span> is the orthogonal
+projection of <span class="math inline">\(\mathbf{u}\)</span> on <span
+class="math inline">\(W\)</span> for every <span
+class="math inline">\(\mathbf{u}\)</span> in <span
+class="math inline">\(\mathbb{R}^n\)</span> is called the orthogonal
+projection operator on <span class="math inline">\(W\)</span>.</p>
+<p><strong>THR.</strong></p>
+<p>For any subspace <span class="math inline">\(W\)</span> of <span
+class="math inline">\(\mathbb{R}^{n}\)</span>, the orthogonal projection
+<span class="math inline">\(U_{W}\)</span> is linear.</p>
+<p><strong>DEF. orthogonal projection matrix</strong></p>
+<p>The standard matrix of an orthogonal projection operator <span
+class="math inline">\(U_{W}\)</span> on a subspace <span
+class="math inline">\(W\)</span> of <span
+class="math inline">\(\mathbb{R}^{n}\)</span> is called the orthogonal
+projection matri for <span class="math inline">\(W\)</span> and is
+denoted <span class="math display">\[
+P_{W}.
+\]</span></p>
+<p><strong>LEM.</strong> linear independence =&gt; invertibility</p>
+<p>Let <span class="math inline">\(C\)</span> be a matrix whose columns
+<span class="math inline">\(\text{cols}(C)\)</span> are linearly
+independent. Then <span class="math display">\[
+C^{T}C
+\]</span> is invertible.</p>
+<p><strong>THR.</strong> a way to obtain orthogonal projection
+matrix</p>
+<p>Let <span class="math inline">\(C\)</span> be an <span
+class="math inline">\(n\times k\)</span> matrix whose columns form a
+basis for a subspace <span class="math inline">\(W\)</span> of <span
+class="math inline">\(\mathbb{R}^{n}\)</span>. Then <span
+class="math display">\[
+P_{W} = C(C^{T}C) ^{-1} C^{T}.
+\]</span></p>
+<p><strong>DEF.</strong></p>
+<p>The distance from a vector <span
+class="math inline">\(\mathbf{u}\)</span> in <span
+class="math inline">\(\mathbb{R}^{n}\)</span> to a subspace <span
+class="math inline">\(W\)</span> of <span
+class="math inline">\(\mathbb{R}^{n}\)</span> to be the distance between
+<span class="math inline">\(\mathbf{u}\)</span> and the orthogonal
+projection of <span class="math inline">\(\mathbf{u}\)</span> on <span
+class="math inline">\(W\)</span>.</p>
+<p><strong>THR.</strong> closest vector property</p>
+<p>Let <span class="math inline">\(W\)</span> be a subspace of <span
+class="math inline">\(\mathbb{R}^{n}\)</span> and <span
+class="math inline">\(\mathbf{u}\)</span> be a vector in <span
+class="math inline">\(\mathbb{R}^{n}\)</span>. Among all vectors in
+<span class="math inline">\(W\)</span>, the vector closest to <span
+class="math inline">\(\mathbf{u}\)</span> is the orthogonal projection
+<span class="math inline">\(U_{W}(\mathbf{u})\)</span> of <span
+class="math inline">\(\mathbf{u}\)</span> on <span
+class="math inline">\(W\)</span>.</p>
+<h2
+id="least-squares-approximations-and-orthogonal-projection-matrices">6.4
+Least-Squares Approximations and Orthogonal Projection Matrices</h2>
+<h3 id="least-squares-approximations">Least-Squares Approximations</h3>
+<p><span class="math display">\[
+\mathbf{v}_{1} = \begin{bmatrix}
+1 \\
+1 \\
+\vdots  \\
+1
+\end{bmatrix}, \ \mathbf{v}_{2} = \begin{bmatrix}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{n}
+\end{bmatrix}, \ \mathbf{y} = \begin{bmatrix}
+y_{1} \\
+y_{2} \\
+\vdots \\
+y_{n}
+\end{bmatrix}, \ C = [\mathbf{v}_{1} \ \mathbf{v}_{2}]
+\]</span></p>
+<p>Error sum of squares (naturally) <span class="math display">\[
+E = [y_{1} - (a_{0} + a_{1} x_{1} ]^{2} + [y_{2} - (a_{0} + a_{1}
+x_{2})]^{2} + \dots + [y_{n} - (a_{0} + a_{1} x_{n})]^{2}
+\]</span></p>
+<p>(in terms of vectors) <span class="math display">\[
+E = \lVert \mathbf{y} - (a_{0} \mathbf{v}_{1} + a_{1} \mathbf{v}_{2})
+\rVert ^{2}
+\]</span></p>
+<p>Then note that <span class="math display">\[
+\sqrt{ E } = \text{dist}(\mathbf{y}, a_{0} \mathbf{v}_{1} + a_{1}
+\mathbf{v}_{2})
+\]</span> So we need to make <span class="math display">\[
+\mathbf{w} = a_{0} \mathbf{v}_{1} + a_{1} \mathbf{v}_{2}
+\]</span> as close to <span class="math inline">\(\mathbf{y}\)</span> as
+possible.</p>
+<p>And note that <span class="math display">\[
+\mathbf{w} \in W = \text{span}\{ \mathbf{v}_{1}, \mathbf{v}_{2} \}
+\]</span> Then the closest <span
+class="math inline">\(\mathbf{w}\)</span> to <span
+class="math inline">\(\mathbf{y}\)</span> is the orthogonal projection
+of <span class="math inline">\(\mathbf{y}\)</span> onto <span
+class="math inline">\(W\)</span>.</p>
+<p>Note that the columns of <span class="math inline">\(C\)</span> form
+a basis for <span class="math inline">\(W\)</span>. Then <span
+class="math display">\[
+\begin{aligned}
+P_{W} \mathbf{y} &amp;  = C(C^{T} C^{-1}) C^{T} \mathbf{y} \\
+&amp; = \mathbf{w} = a_{0} \mathbf{v}_{1} + a_{1} \mathbf{v}_{2} =
+C\begin{bmatrix}
+a_{0} \\
+a_{1}
+\end{bmatrix}
+\end{aligned}
+\]</span> <span class="math display">\[
+C\begin{bmatrix}
+a_{0} \\
+a_{1}
+\end{bmatrix} = C(C^{T} C)^{-1} C^{T} \mathbf{y}
+\]</span> and then <span class="math display">\[
+C^{T}C \begin{bmatrix}
+a_{0} \\
+a_{1}
+\end{bmatrix} = C^{T}C(C^{T}C)^{-1} C^{T}\mathbf{y} = C^{T} \mathbf{y}
+\]</span> (normal equations)</p>
+<p>And since columns of <span class="math inline">\(C\)</span> are
+linearly independent, <span class="math inline">\(C^{T}C\)</span> is
+invertible. (<strong>LEM.</strong> linear independence =&gt;
+invertibility)</p>
+<p>Then <span class="math display">\[
+\begin{bmatrix}
+a_{0} \\
+a_{1}
+\end{bmatrix} = (C^{T} C ) C^{T} \mathbf{y}.
+\]</span></p>
+<h3 id="inconsistent-systems-of-linear-equations">Inconsistent Systems
+of Linear Equations</h3>
+<p>A possibly inconsistent equation <span class="math display">\[
+A\mathbf{x} = \mathbf{b}
+\]</span></p>
+<p>We try to obtain <span class="math inline">\(\mathbf{z}\)</span>
+where <span class="math display">\[
+\lVert A\mathbf{z} - \mathbf{b} \rVert
+\]</span> is a minimum.</p>
+<p>Define <span class="math inline">\(W\)</span>: <span
+class="math display">\[
+W : = \{ A\mathbf{u} \}
+\]</span> Then <span class="math inline">\(W\)</span> is the column
+space of <span class="math inline">\(A\)</span>.</p>
+<p>The vector in <span class="math inline">\(W\)</span> that is closest
+to <span class="math inline">\(\mathbf{b}\)</span> is the orthogonal
+projection of <span class="math inline">\(\mathbf{b}\)</span> onto <span
+class="math inline">\(W\)</span>. (<strong>THR.</strong> closest vector
+property)</p>
+<p>Then the vector <span class="math inline">\(\mathbf{z}\)</span>
+minimizes <span class="math inline">\(\lVert A\mathbf{z} - \mathbf{b}
+\rVert\)</span> if and only if <span
+class="math inline">\(\mathbf{z}\)</span> is a solution of <span
+class="math display">\[
+A\mathbf{x} = P_{W} \mathbf{b} .
+\]</span></p>
+<h3 id="solutions-of-least-norm">Solutions of Least Norm</h3>
+
+      </div>
+      
+      
+      
+    </div>
+  <ul class="breadcrumb">
+            <li><a href="/courses/">課程筆記</a></li>
+            <li><a href="/courses/linear-algebra/">LINEAR-ALGEBRA</a></li>
+            <li>CH6</li>
+  </ul>
+
+    
+    
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Blade Yang</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/minstrike520" class="github-corner" title="在 GitHub 上關注我" aria-label="在 GitHub 上關注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

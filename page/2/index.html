@@ -172,7 +172,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -183,7 +183,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -230,6 +230,180 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.blade520.com/posts/arch-pacman/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Blade Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blade's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Blade's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/arch-pacman/" class="post-title-link" itemprop="url">[Notes] Pacman Commands</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2026-01-08 08:57:00" itemprop="dateCreated datePublished" datetime="2026-01-08T08:57:00+08:00">2026-01-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/IT%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">IT筆記</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ul>
+<li><strong>原生/外來套件</strong>：<code>-n</code> (Native),
+<code>-m</code> (Foreign)</li>
+<li><strong>指定/依賴</strong>：<code>-e</code> (Explicit),
+<code>-d</code> (Dependency)</li>
+</ul>
+<p><code>-i</code> 可以顯示套件的所有資訊。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ LANG= pacman -Qi pacman  </span><br><span class="line">Name            : pacman  </span><br><span class="line">Version         : 7.1.0.r7.gb9f7d4a-1  </span><br><span class="line">Description     : A library-based package manager with dependency support  </span><br><span class="line">Architecture    : x86_64  </span><br><span class="line">URL             : https://www.archlinux.org/pacman/  </span><br><span class="line">Licenses        : GPL-2.0-or-later  </span><br><span class="line">Groups          : None  </span><br><span class="line">Provides        : libalpm.so=16-64  </span><br><span class="line">Depends On      : bash  coreutils  curl  libcurl.so=4-64  gawk  gettext  glibc  gnupg  gpgme  libgpgme.so=45-64  grep  libarchive  libarchive.so=13-64  </span><br><span class="line">                 openssl  libcrypto.so=3-64  pacman-mirrorlist  systemd  libmakepkg-dropins  </span><br><span class="line">Optional Deps   : base-devel: required to use makepkg [installed]  </span><br><span class="line">                 perl-locale-gettext: translation support in makepkg-template  </span><br><span class="line">Required By     : archlinux-keyring  base  base-devel  pacseek  yay  </span><br><span class="line">Optional For    : None  </span><br><span class="line">Conflicts With  : None  </span><br><span class="line">Replaces        : None  </span><br><span class="line">Installed Size  : 5.01 MiB  </span><br><span class="line">Packager        : Antonio Rojas &lt;arojas@archlinux.org&gt;  </span><br><span class="line">Build Date      : Fri Dec 12 21:03:39 2025  </span><br><span class="line">Install Date    : Wed Jan 7 10:46:00 2026  </span><br><span class="line">Install Reason  : Installed as a dependency for another package  </span><br><span class="line">Install Script  : No  </span><br><span class="line">Validated By    : Signature</span><br></pre></td></tr></table></figure>
+<p>可以運用 grep 等搜尋機能來進行更細緻的篩選。</p>
+<p>比如，以下指令可以篩選出「屬於 plasma
+群組的套件」。註，<code>grep -B &lt;number&gt;</code>
+的含意是在輸出時把搜尋結果前 <code>&lt;number&gt;</code>
+行的上文也一併輸出。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LANG= pacman -Qi | grep -B 15 <span class="string">&quot;Groups          : plasma&quot;</span> | grep Name</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.blade520.com/posts/arch-packages/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Blade Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blade's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Blade's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/arch-packages/" class="post-title-link" itemprop="url">[Notes] Pacman System</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2026-01-08 08:51:00" itemprop="dateCreated datePublished" datetime="2026-01-08T08:51:00+08:00">2026-01-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/IT%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">IT筆記</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>可以參考 <a target="_blank" rel="noopener" href="https://wiki.archlinuxcn.org/zh-tw/PKGBUILD">Arch
+Wiki: PKGBUILD</a>。</p>
+<p><strong>參考別人的 PKGBUILD</strong></p>
+<p>在 Arch Linux 的 package 或 AUR 包預覽頁面中，有「view
+PKGBUILD」一欄。裡面可以清楚看到這個包的安裝過程做的所有事情，尤其是 AUR
+包可以看到完整的編譯流程。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://blog.blade520.com/posts/vim-tricks/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -266,7 +440,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2026-01-23 09:45:11" itemprop="dateModified" datetime="2026-01-23T09:45:11+08:00">2026-01-23</time>
+      <time title="修改時間：2026-01-27 09:54:27" itemprop="dateModified" datetime="2026-01-27T09:54:27+08:00">2026-01-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1066,224 +1240,6 @@ Port Forwarding。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> \</span><br><span class="line"><span class="string">&quot;Host ssh.mydomain.com</span></span><br><span class="line"><span class="string">	ProxyCommand cloudflared access ssh --hostname %h&quot;</span> \</span><br><span class="line">| <span class="built_in">tee</span> -a <span class="variable">$HOME</span>/.ssh/config &gt; /dev/null</span><br></pre></td></tr></table></figure>
 <p>注意：在沒有設定導流的情況下，對 <code>ssh.mydomain.com</code>
 的連線會毫無回應，SSH 也不會報錯。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.blade520.com/posts/docker-basics/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Blade Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blade's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Blade's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/docker-basics/" class="post-title-link" itemprop="url">Docker Basics</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2025-12-30 16:04:00" itemprop="dateCreated datePublished" datetime="2025-12-30T16:04:00+08:00">2025-12-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2026-01-26 09:49:04" itemprop="dateModified" datetime="2026-01-26T09:49:04+08:00">2026-01-26</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分類於</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/IT%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">IT筆記</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="更新">更新</h2>
-<p>官網有對個別系統的安裝方式做出解釋，比如 <a
-target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/debian/">Debian</a>。</p>
-<h2 id="啟用">啟用</h2>
-<p>啟動 docker.service（使用 systemd 的場合）。這邊也可以執行一次
-<code>enable</code> 或
-<code>enable --now</code>，就會開機自動啟動。不過我個人習慣手動開啟。（應該多少能加快一點開機速度吧？）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
-<h2 id="權限設定">權限設定</h2>
-<p>如果沒有特別設定，Docker 的執行是需要 root
-權限的。但是每次執行指令，就算只是
-<code>docker ps</code>　這樣微不足道的指令也要 root 實在是有點麻煩。為此
-Docker
-有一個特別機制，它會在系統裡面使用「Docker」群組，只要是加入了這個群組的使用者，使用
-<code>docker</code> 指令都不用 <code>sudo</code>。</p>
-<p>首先，檢查系統是否已經有名為 <code>docker</code>
-的群組。如果沒有就手動新增一個：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd docker</span><br></pre></td></tr></table></figure>
-<p>將使用者加入 <code>docker</code> 群組：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker $USER</span><br></pre></td></tr></table></figure>
-<p>系統要重新啟動，設定才會永久生效。如果想要暫時生效，可以臨時以
-<code>docker</code> 群組身份登入（只在當前的 shell 環境有效）：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">newgrp docker</span><br></pre></td></tr></table></figure>
-<h2 id="映像檔管理">映像檔管理</h2>
-<p>從官方「<ruby>映像檔倉庫<rt>registry</rt></ruby>」下載現成的
-image。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull &lt;IMAGE_NAME&gt;</span><br></pre></td></tr></table></figure>
-<p>根據 <code>./Dockerfile</code> 來建置 image。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t &lt;IMAGE_NAME&gt; .</span><br></pre></td></tr></table></figure>
-<p>產生一次性的容器，並在其中執行指令（此處為
-<code>/bin/sh</code>）。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --<span class="built_in">rm</span> -it --entrypoint /bin/sh &lt;IMAGE_NAME&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="容器管理">容器管理</h2>
-<p>啟動非活躍狀態的 container。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start &lt;CONTAINER_NAME&gt;</span><br></pre></td></tr></table></figure>
-<p>中止活躍狀態的 container。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop &lt;CONTAINER_NAME&gt;</span><br></pre></td></tr></table></figure>
-<p>產生一個新的 container 並執行。相當於 <code>docker create</code> 跟
-<code>docker start</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name &lt;CONTAINER_NAME&gt; &lt;IMAGE_NAME&gt; </span><br></pre></td></tr></table></figure>
-<p>執行 container 內的指令。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it &lt;CONTAINER_NAME&gt; &lt;COMMAND ...&gt;</span><br></pre></td></tr></table></figure>
-<p>執行一個新的 container 並指派一個指令，該 container
-會隨著指令結束而自動移除。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --<span class="built_in">rm</span> -it --entrypoint /bin/sh &lt;IMAGE_NAME&gt;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.blade520.com/posts/redroid-notes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Blade Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blade's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Blade's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/redroid-notes/" class="post-title-link" itemprop="url">Redroid: Linux 系統的安卓模擬器</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2025-11-04 00:00:00" itemprop="dateCreated datePublished" datetime="2025-11-04T00:00:00+08:00">2025-11-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2026-01-23 09:09:51" itemprop="dateModified" datetime="2026-01-23T09:09:51+08:00">2026-01-23</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>關於 ADB 跟 scrcpy 的使用方式，可見另一篇：<a
-href="/posts/adb-and-scrcpy/">ADB 的妙用：手機投影與控制</a> 關於 Docker
-的使用方式可見<a href="/posts/docker-basics">Docker Basics</a></p>
-<h2 id="安裝">安裝</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pacman -S linux-zen docker adb scrcpy python lzip</span><br><span class="line"></span><br><span class="line">git clone https://github.com/ayasa520/redroid-script</span><br><span class="line">cd redroid-script</span><br><span class="line"></span><br><span class="line">sudo venv/bin/python redroid.py -a 11.0.0 -gmn</span><br></pre></td></tr></table></figure>
-<h2 id="執行">執行</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -itd --rm --privileged \</span><br><span class="line">    -v ~/data:/data \</span><br><span class="line">    -p 5555:5555 \</span><br><span class="line">    redroid/redroid:11.0.0_gapps_ndk_magisk \</span><br><span class="line">	androidboot.redroid_gpu_mode=host \</span><br><span class="line">	androidboot.redroid_fps=60 \</span><br><span class="line">	androidboot.redroid_width=1080 \</span><br><span class="line">	androidboot.redroid_height=1920 \</span><br><span class="line">	ro.product.cpu.abilist=x86_64,arm64-v8a,x86,armeabi-v7a,armeabi \</span><br><span class="line">    ro.product.cpu.abilist64=x86_64,arm64-v8a \</span><br><span class="line">    ro.product.cpu.abilist32=x86,armeabi-v7a,armeabi \</span><br><span class="line">    ro.dalvik.vm.isa.arm=x86 \</span><br><span class="line">    ro.dalvik.vm.isa.arm64=x86_64 \</span><br><span class="line">    ro.enable.native.bridge.exec=1 \</span><br><span class="line">    ro.vendor.enable.native.bridge.exec=1 \</span><br><span class="line">    ro.vendor.enable.native.bridge.exec64=1 \</span><br><span class="line">    ro.dalvik.vm.native.bridge=libndk_translation.so \</span><br><span class="line">    ro.ndk_translation.version=0.2.3 \</span><br></pre></td></tr></table></figure>
-<h2 id="連接">連接</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adb connect localhost:5555</span><br><span class="line">scrcpy -s localhost:5555 --max-fps=60 --video-bit-rate 2M</span><br></pre></td></tr></table></figure>
-<h2 id="停止">停止</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb disconnect localhost:5555; sudo docker ps -q | xargs sudo docker stop</span><br></pre></td></tr></table></figure>
-<h2 id="其他小工具">其他小工具</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -itd --rm --privileged     --pull always     -v ~/data11:/data     -p 5555:5555     --name redroid12     redroid/redroid:12.0.0-latest androidboot.redroid_gpu_mode=host androidboot.redroid_fps=60</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -itd --rm --privileged \</span><br><span class="line">    -v ~/data:/data \</span><br><span class="line">    -p 5555:5555 \</span><br><span class="line">    redroid/redroid:11.0.0_gapps \</span><br><span class="line">	androidboot.redroid_gpu_mode=host \</span><br><span class="line">	androidboot.redroid_fps=60</span><br></pre></td></tr></table></figure>
 
       
     </div>

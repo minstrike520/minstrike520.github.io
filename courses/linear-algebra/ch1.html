@@ -20,17 +20,19 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.blade520.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":true,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":120,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"path":"search.json"}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="註：本文中行＝row，列＝column。 1.1 Matrices SPEC. Matrix 直排的是 row vector，橫排的是 column vector。 vector 預設為 column vector。 在矩陣 \[ A &#x3D; [a_{i,j}]_{m \times n} \] 中，我們會說 \(m\) 是矩陣的「行數」，而 \(n\) 是「列數」；\(a_{i,j}\) 是矩陣第 \">
+    <meta name="description" content="註：本文中行＝row，列＝column。 1.1 Matrices SPEC. Matrix 直排的是 row vector，橫排的是 column vector。 vector 預設為 column vector。 在矩陣 \[ A &#x3D; [a_{i,j}]_{m \times n} \] 中，我們會說 \(m\) 是矩陣的「行數」，而 \(n\) 是「列數」；\(a_{i,j}\) 是矩陣第">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Linear Algebra - Chapter 1: Matrices and Linear Transformations">
 <meta property="og:url" content="https://blog.blade520.com/courses/linear-algebra/ch1.html">
 <meta property="og:site_name" content="Blade&#39;s Blog">
-<meta property="og:description" content="註：本文中行＝row，列＝column。 1.1 Matrices SPEC. Matrix 直排的是 row vector，橫排的是 column vector。 vector 預設為 column vector。 在矩陣 \[ A &#x3D; [a_{i,j}]_{m \times n} \] 中，我們會說 \(m\) 是矩陣的「行數」，而 \(n\) 是「列數」；\(a_{i,j}\) 是矩陣第 \">
+<meta property="og:description" content="註：本文中行＝row，列＝column。 1.1 Matrices SPEC. Matrix 直排的是 row vector，橫排的是 column vector。 vector 預設為 column vector。 在矩陣 \[ A &#x3D; [a_{i,j}]_{m \times n} \] 中，我們會說 \(m\) 是矩陣的「行數」，而 \(n\) 是「列數」；\(a_{i,j}\) 是矩陣第">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2026-01-08T00:36:32.394Z">
-<meta property="article:modified_time" content="2026-01-08T00:36:32.394Z">
+<meta property="og:image" content="https://blog.blade520.com/courses/linear-algebra/thumb_1.jpg">
+<meta property="article:published_time" content="2026-01-27T06:47:28.564Z">
+<meta property="article:modified_time" content="2026-01-27T06:30:32.062Z">
 <meta property="article:author" content="Blade Yang">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.blade520.com/courses/linear-algebra/thumb_1.jpg">
 
 
 <link rel="canonical" href="https://blog.blade520.com/courses/linear-algebra/ch1">
@@ -179,7 +181,7 @@ Vectors - Vector Space</span></a></li><li class="nav-item nav-level-2"><a class=
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -190,7 +192,7 @@ Vectors - Vector Space</span></a></li><li class="nav-item nav-level-2"><a class=
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -242,7 +244,7 @@ Vectors - Vector Space</span></a></li><li class="nav-item nav-level-2"><a class=
       
       
       <div class="post-body">
-          <p>註：本文中行＝row，列＝column。</p>
+          <p><img src="thumb_1.jpg" /> 註：本文中行＝row，列＝column。</p>
 <h2 id="matrices">1.1 Matrices</h2>
 <p><strong>SPEC.</strong> Matrix 直排的是 row vector，橫排的是 column
 vector。 vector 預設為 column vector。 在矩陣 <span

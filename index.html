@@ -172,7 +172,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -183,7 +183,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -222,6 +222,260 @@
       </div>
     </div>
   </div>
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.blade520.com/posts/ffmpeg/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Blade Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blade's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Blade's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/ffmpeg/" class="post-title-link" itemprop="url">ffmpeg 筆記</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2026-01-27 00:00:00 / 修改時間：15:03:12" itemprop="dateCreated datePublished" datetime="2026-01-27T00:00:00+08:00">2026-01-27</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i input.jpg -quality 80 output.webp</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.blade520.com/posts/vifm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Blade Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blade's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Blade's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/vifm/" class="post-title-link" itemprop="url">Vifm</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2026-01-27 00:00:00 / 修改時間：14:03:43" itemprop="dateCreated datePublished" datetime="2026-01-27T00:00:00+08:00">2026-01-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/IT%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">IT筆記</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a target="_blank" rel="noopener" href="https://wiki.archlinuxcn.org/zh-tw/Vifm">Archlinux Wiki -
+Vifm</a></p>
+<p>今天在用 <a target="_blank" rel="noopener" href="https://github.com/Morganamilo/paru">Paru</a>
+安裝應用程式的時候，覺得 pager 用預設的 less 太單調了想換成 <a
+target="_blank" rel="noopener" href="https://github.com/sharkdp/bat">bat</a>。調了一下他的設定檔（<code>$HOME/.config/paru/paru.conf</code>
+or
+<code>/etc/paru.conf</code>）意外發現它預設的檔案管理員是「<code>vifm</code>」。好奇查了查，發現竟然還是
+TUI 應用。這便引起了我研究的興致。</p>
+<h2 id="概述">概述</h2>
+<p>Vifm 是個為 vim 使用者而生的檔案管理器。不僅是視窗導引與 vim
+相同，連設定檔（<code>vifmrc</code>）、指令稿（如自訂按鍵）等等的設定方式都與
+vim 十分相似。</p>
+<p>更方便的是，vifm 與 GUI
+的檔案管理員不同，開啟檔案時的「體驗」不會中斷：編輯器不用開啟新視窗，手也不用離開鍵盤——應該說，是連操作模式都不用改。</p>
+<p>在需要頻繁切換資料夾時，使用起來會比用 <a
+target="_blank" rel="noopener" href="https://github.com/nvim-tree/nvim-tree.lua">NvimTree</a>
+更順暢。</p>
+<h2 id="檔案管理操作">檔案管理操作</h2>
+<p>Vifm
+既然是個檔案管理器，那就少不了移動、複製貼上、刪除等等的功能。這些功能都有直觀的指令可以達成。</p>
+<p>有趣的是，和 NvimTree 不同，在 Vifm
+中並不會有「檔案暫存區」這種東西。</p>
+<p>Vifm 預設的兩個檢視頁面的作用在此顯現出來：如果輸入了
+<code>:copy</code>，檔案並不會進入「待貼上」的狀態，而是直接從當前頁面的資料夾貼到另一個頁面的資料夾。比如，左邊在
+<code>/etc/</code>，右邊在 <code>~/.config/</code>，我在左邊對著
+<code>vifm/</code> 輸入 <code>:copy</code>，就會立刻執行
+<code>cp /etc/vifm ~/.config/</code>。</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>copy</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>move</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>delete</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>link</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>view</code></td>
+<td>toggle 預覽功能。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="設定檔">設定檔</h2>
+<p>vifm 的設定文件存放在 <code>~/.config/vifm/</code>。主要設定檔是
+<code>vifmrc</code>。</p>
+<h3 id="改變預設編輯器">改變預設編輯器</h3>
+<p>在 <code>vifmrc</code> 中搜尋「edit
+files」應該可以發現有一些預設設定。他最高優先級是使用
+vim。我這樣修改來覆蓋掉他的選項：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="addition">+if 1</span></span><br><span class="line"><span class="addition">+    set vicmd=nvim</span></span><br><span class="line"><span class="addition">+elseif executable(&#x27;vim&#x27;)</span></span><br><span class="line"><span class="deletion">-if executable(&#x27;vim&#x27;)</span></span><br><span class="line">    set vicmd=vim</span><br><span class="line">elseif executable(&#x27;nvim&#x27;)</span><br><span class="line">    set vicmd=nvim</span><br><span class="line">elseif executable(&#x27;elvis&#x27;)</span><br><span class="line">    set vicmd=elvis\ -G\ termcap</span><br><span class="line">elseif executable(&#x27;vile&#x27;)</span><br><span class="line">    set vicmd=vile</span><br><span class="line">elseif $EDITOR != &#x27;&#x27;</span><br><span class="line">    echo &#x27;Note: using `&#x27;.$EDITOR.&#x27;` as an editor&#x27;</span><br><span class="line">    let &amp;vicmd = $EDITOR</span><br><span class="line">endif</span><br></pre></td></tr></table></figure>
+<h3 id="顯示隱藏檔案">顯示隱藏檔案</h3>
+<p><a
+target="_blank" rel="noopener" href="https://codeyarns.com/tech/2014-09-10-how-to-show-hidden-files-in-vifm.html">Code
+Yarn - How to show hidden files in Vifm</a></p>
+<p>視窗指令切換可以用以下熱鍵。注意到（如果沒有設置
+<code>windo</code>）顯示/不顯示的設定會留至下一次啟動
+<code>vifm</code>。</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>za</code></td>
+<td>切換</td>
+</tr>
+<tr>
+<td><code>zo</code></td>
+<td>顯示</td>
+</tr>
+<tr>
+<td><code>zm</code></td>
+<td>不顯示</td>
+</tr>
+</tbody>
+</table>
+<p><a target="_blank" rel="noopener" href="https://github.com/vifm/vifm/issues/5">GitHub/vifm -
+Issue#5: option to set “show hidden/dotfiles” by default</a></p>
+<p>在 <code>vifmrc</code> 中設置 <code>windo</code> 指令可以在 vifm
+啟動時固定開啟/關閉顯示隱藏檔案。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">windo normal zo</span><br></pre></td></tr></table></figure>
+<h3 id="離開時自動-cd-到目錄">離開時自動 cd 到目錄</h3>
+<p><a
+target="_blank" rel="noopener" href="https://wiki.vifm.info/index.php/How_to_set_shell_working_directory_after_leaving_Vifm">Vifm
+Wiki - How to set shell working directory after leaving Vifm</a></p>
+<p>在 <code>.bashrc</code> 加入以下指令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vicd()</span><br><span class="line">&#123;</span><br><span class="line">    local dst=&quot;$(command vifm --choose-dir - &quot;$@&quot;)&quot;</span><br><span class="line">    if [ -z &quot;$dst&quot; ]; then</span><br><span class="line">        echo &#x27;Directory picking cancelled/failed&#x27;</span><br><span class="line">        return 1</span><br><span class="line">    fi</span><br><span class="line">    cd &quot;$dst&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然後，想要造成這個效果時，改使用 <code>vicd</code> 來打開 Vifm。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
 
@@ -340,9 +594,24 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2026-01-26 00:00:00 / 修改時間：13:31:08" itemprop="dateCreated datePublished" datetime="2026-01-26T00:00:00+08:00">2026-01-26</time>
+      <time title="創建時間：2026-01-26 00:00:00" itemprop="dateCreated datePublished" datetime="2026-01-26T00:00:00+08:00">2026-01-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2026-01-27 09:54:45" itemprop="dateModified" datetime="2026-01-27T09:54:45+08:00">2026-01-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/IT%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">IT筆記</span></a>
+        </span>
     </span>
 
   
@@ -1215,180 +1484,6 @@ href="/organization-obsession">昨天</a>談到的一樣，我以往沒有將以
 <code>.tar.gz</code>）：<code>-z</code></li>
 <li><strong>詳細輸出</strong>：<code>-v</code> (Verbose)</li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.blade520.com/posts/arch-pacman/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Blade Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blade's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Blade's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/arch-pacman/" class="post-title-link" itemprop="url">[Notes] Pacman Commands</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2026-01-08 08:57:00" itemprop="dateCreated datePublished" datetime="2026-01-08T08:57:00+08:00">2026-01-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分類於</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/IT%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">IT筆記</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <ul>
-<li><strong>原生/外來套件</strong>：<code>-n</code> (Native),
-<code>-m</code> (Foreign)</li>
-<li><strong>指定/依賴</strong>：<code>-e</code> (Explicit),
-<code>-d</code> (Dependency)</li>
-</ul>
-<p><code>-i</code> 可以顯示套件的所有資訊。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ LANG= pacman -Qi pacman  </span><br><span class="line">Name            : pacman  </span><br><span class="line">Version         : 7.1.0.r7.gb9f7d4a-1  </span><br><span class="line">Description     : A library-based package manager with dependency support  </span><br><span class="line">Architecture    : x86_64  </span><br><span class="line">URL             : https://www.archlinux.org/pacman/  </span><br><span class="line">Licenses        : GPL-2.0-or-later  </span><br><span class="line">Groups          : None  </span><br><span class="line">Provides        : libalpm.so=16-64  </span><br><span class="line">Depends On      : bash  coreutils  curl  libcurl.so=4-64  gawk  gettext  glibc  gnupg  gpgme  libgpgme.so=45-64  grep  libarchive  libarchive.so=13-64  </span><br><span class="line">                 openssl  libcrypto.so=3-64  pacman-mirrorlist  systemd  libmakepkg-dropins  </span><br><span class="line">Optional Deps   : base-devel: required to use makepkg [installed]  </span><br><span class="line">                 perl-locale-gettext: translation support in makepkg-template  </span><br><span class="line">Required By     : archlinux-keyring  base  base-devel  pacseek  yay  </span><br><span class="line">Optional For    : None  </span><br><span class="line">Conflicts With  : None  </span><br><span class="line">Replaces        : None  </span><br><span class="line">Installed Size  : 5.01 MiB  </span><br><span class="line">Packager        : Antonio Rojas &lt;arojas@archlinux.org&gt;  </span><br><span class="line">Build Date      : Fri Dec 12 21:03:39 2025  </span><br><span class="line">Install Date    : Wed Jan 7 10:46:00 2026  </span><br><span class="line">Install Reason  : Installed as a dependency for another package  </span><br><span class="line">Install Script  : No  </span><br><span class="line">Validated By    : Signature</span><br></pre></td></tr></table></figure>
-<p>可以運用 grep 等搜尋機能來進行更細緻的篩選。</p>
-<p>比如，以下指令可以篩選出「屬於 plasma
-群組的套件」。註，<code>grep -B &lt;number&gt;</code>
-的含意是在輸出時把搜尋結果前 <code>&lt;number&gt;</code>
-行的上文也一併輸出。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LANG= pacman -Qi | grep -B 15 <span class="string">&quot;Groups          : plasma&quot;</span> | grep Name</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.blade520.com/posts/arch-packages/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Blade Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blade's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Blade's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/arch-packages/" class="post-title-link" itemprop="url">[Notes] Pacman System</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2026-01-08 08:51:00" itemprop="dateCreated datePublished" datetime="2026-01-08T08:51:00+08:00">2026-01-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分類於</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/IT%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">IT筆記</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>可以參考 <a target="_blank" rel="noopener" href="https://wiki.archlinuxcn.org/zh-tw/PKGBUILD">Arch
-Wiki: PKGBUILD</a>。</p>
-<p><strong>參考別人的 PKGBUILD</strong></p>
-<p>在 Arch Linux 的 package 或 AUR 包預覽頁面中，有「view
-PKGBUILD」一欄。裡面可以清楚看到這個包的安裝過程做的所有事情，尤其是 AUR
-包可以看到完整的編譯流程。</p>
 
       
     </div>

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#1c1d22" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/thumb.jpg" color="#1c1d22">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.blade520.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":true,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":120,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"path":"search.json"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="MQTT Week 3: MQTT Implementation   Figure 1: some of the requests and responses specified in MQTT    Figure 2: a scenario that the broker has to deal with multiple messages “at once”  One way to deal">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blade&#39;s Blog">
+<meta property="og:url" content="https://blog.blade520.com/courses/data-communication/mqtt.html">
+<meta property="og:site_name" content="Blade&#39;s Blog">
+<meta property="og:description" content="MQTT Week 3: MQTT Implementation   Figure 1: some of the requests and responses specified in MQTT    Figure 2: a scenario that the broker has to deal with multiple messages “at once”  One way to deal">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226204401.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226205008.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226205031.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226205059.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226205120.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226205142.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226205619.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226205716.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226205802.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226205819.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251223134941.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226203918.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226203936.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226203957.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226204023.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226204040.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226204059.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226204130.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226204154.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226204228.png">
+<meta property="article:published_time" content="2026-01-27T06:48:26.697Z">
+<meta property="article:modified_time" content="2026-01-27T06:48:26.697Z">
+<meta property="article:author" content="Blade Yang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226204401.png">
+
+
+<link rel="canonical" href="https://blog.blade520.com/courses/data-communication/mqtt">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-TW","comments":true,"permalink":"https://blog.blade520.com/courses/data-communication/mqtt.html","path":"courses/data-communication/mqtt.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | Blade's Blog
+</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blade's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/thumb.jpg" alt="Blade's Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mqtt"><span class="nav-text">MQTT</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#week-3-mqtt-implementation"><span class="nav-text">Week 3: MQTT Implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mqtt-implementation"><span class="nav-text">MQTT Implementation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#callback-functions"><span class="nav-text">Callback Functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#design-vs.-implementation"><span class="nav-text">Design vs. Implementation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#week-3-diving-into-mosquitto-a-c-implementation-of-mqtt"><span class="nav-text">Week 3:
+Diving Into Mosquitto, a C Implementation of MQTT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#platform-specific-implementation"><span class="nav-text">Platform-specific
+Implementation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#main-event-loop"><span class="nav-text">Main Event Loop</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#week-3-the-mqtt-protocol-and-qos"><span class="nav-text">Week 3: The MQTT Protocol and
+QoS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#qos-2-exactly-once-delivery"><span class="nav-text">QoS 2: Exactly-once Delivery</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#qos-consolidation"><span class="nav-text">QoS Consolidation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requestresponse-using-mqtt"><span class="nav-text">Request&#x2F;response Using MQTT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#week-4-evaluating-a-data-communication-system"><span class="nav-text">Week 4:
+Evaluating a Data Communication System</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#outline"><span class="nav-text">Outline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#common-sense"><span class="nav-text">Common Sense</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#routing"><span class="nav-text">Routing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#throughput-and-delay"><span class="nav-text">Throughput and Delay</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#introduction-to-the-idea-of-throughput"><span class="nav-text">Introduction to the Idea
+of “Throughput”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#throughput-and-buffer-of-a-router"><span class="nav-text">Throughput and Buffer of a
+Router</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#measuring-latency"><span class="nav-text">Measuring Latency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ntp-network-time-protocol"><span class="nav-text">NTP, Network Time Protocol</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#downsides-of-ntp"><span class="nav-text">Downsides of NTP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ptp-precision-time-protocol"><span class="nav-text">PTP, Precision Time Protocol</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Blade Yang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/minstrike520" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;minstrike520" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:minstrike520@gmail.com" title="E-Mail → mailto:minstrike520@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/blado.tf" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;blado.tf" rel="noopener me" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-TW"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">
+</h1>
+
+<div class="post-meta-container">
+  <ul class="breadcrumb">
+            <li><a href="/courses/">COURSES</a></li>
+            <li><a href="/courses/data-communication/">DATA-COMMUNICATION</a></li>
+            <li>MQTT</li>
+  </ul>
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="mqtt">MQTT</h1>
+<h2 id="week-3-mqtt-implementation">Week 3: MQTT Implementation</h2>
+<img class="centered-wrapper" src="Pasted image 20251226204401.png"/>
+<center>
+<i>Figure 1: some of the requests and responses specified in MQTT</i>
+</center>
+<p><img class="centered-wrapper" src="Pasted image 20251226205008.png"/></p>
+<center>
+<i>Figure 2: a scenario that the broker has to deal with multiple
+messages “at once”</i>
+</center>
+<p>One way to deal with such a situation is to implement the broker
+program <em>asynchronously</em>. It indeed makes the deal, but it makes
+the program more complicated.<br />
+Another way is to seek support from the operating system. You can look
+up Linux man page select_tut(2), select(2), poll(2), epoll(7).</p>
+<p><img class="centered-wrapper" src="Pasted image 20251226205031.png"/></p>
+<center>
+<i>Image 1: useful notes in select_tut(2)</i>
+</center>
+<h3 id="mqtt-implementation">MQTT Implementation</h3>
+<p><strong>The E-poll (epoll) Facility</strong></p>
+<ul>
+<li>A: interest list (of file descriptors, virtually network
+sockets)<br />
+</li>
+<li>B: ready list</li>
+</ul>
+<p>Note that B is a subset of A.</p>
+<p><strong>Advantages of <code>epoll_wait()</code></strong></p>
+<p><img class="centered-wrapper" src="Pasted image 20251226205059.png"/></p>
+<p><em>Figure 3-1: illustration of actual usage of
+<code>epoll_wait()</code></em><br />
+By introducing <code>epoll_wait()</code>, you can handle MQTT events all
+at once in an application event loop and release CPU (sleep) rather than
+scattering it everywhere in the loop.</p>
+<h3 id="callback-functions">Callback Functions</h3>
+<p><img class="centered-wrapper" src="Pasted image 20251226205120.png"/></p>
+<p><em>Figure 4: callback in practice</em><br />
+As shown in Figure 4, some functions in a client, “callback function”
+for example, may never be called in its own codebase. These functions
+are left for the main program to call. It’s called “callback” functions
+for a reason!</p>
+<h3 id="design-vs.-implementation">Design vs. Implementation</h3>
+<p><img class="centered-wrapper" src="Pasted image 20251226205142.png"/></p>
+<p><em>Figure 5: a scenario where the MQTT QoS 1 design doesn’t specify
+the broker’s behavior</em><br />
+It’s acceptable for the broker both to send PUBACK or forward PUBLISH
+first. It’s not that MQTT has missed something, but it’s not important
+in the design aspect, so the designers leave the right to choose between
+them to whomever implements it.</p>
+<ol type="1">
+<li>for those who want to decrease latency<br />
+</li>
+<li>for those who want to mitigate broker loading</li>
+</ol>
+<h2 id="week-3-diving-into-mosquitto-a-c-implementation-of-mqtt">Week 3:
+Diving Into Mosquitto, a C Implementation of MQTT</h2>
+<p>There are some notable patterns in Mosquitto. Understanding them
+helps us to customize it and write our own feature patches onto it.</p>
+<h3 id="platform-specific-implementation">Platform-specific
+Implementation</h3>
+<p>By using if-else macros, we can include special behaviors for a
+specific setup <strong>in compile time</strong>.</p>
+<p>For example, the filesystem path syntaxes for DOS systems and UNIX
+systems are different. We may want to implement path-related code
+separately.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">// do something  </span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> WIN32  </span></span><br><span class="line">    <span class="comment">// do something only when we are using Windows  </span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>  </span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifdef</span> WITH_EPOLL  </span></span><br><span class="line">    <span class="comment">// use epoll mechanism  </span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span>  </span></span><br><span class="line">    <span class="comment">// use poll mechanism  </span></span><br></pre></td></tr></table></figure>
+<h3 id="main-event-loop">Main Event Loop</h3>
+<p>We define an external variabe to perform as a “flag.” The loop runs
+repeatedly until in some functions it is set as a stop signal.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/loop.c</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> run;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// line 190</span></span><br><span class="line"><span class="keyword">while</span> (run) &#123; </span><br><span class="line">	<span class="comment">// … </span></span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<h2 id="week-3-the-mqtt-protocol-and-qos">Week 3: The MQTT Protocol and
+QoS</h2>
+<h3 id="qos-2-exactly-once-delivery">QoS 2: Exactly-once Delivery</h3>
+<p>In cases such as making purchases, sending launch codes, or
+transferring money, sending that more than one time causes critical
+impact. The goal of QoS-2 is to deal with such problems by eliminating
+duplicated messages.</p>
+<p><img class="centered-wrapper" src="Pasted image 20251226205619.png"/></p>
+<p><strong>3 KEY CHALLENGES</strong></p>
+<ul>
+<li>How do a receiver identify a duplicated message?<br />
+</li>
+<li>When can a sender stop sending duplication?<br />
+</li>
+<li>When can a sender recycle the assignment of a packet
+identifier?</li>
+</ul>
+<p>Useful idea: When a sender receives <code>PUBCOMP</code>, it means
+that “the whole delivery has ended.”</p>
+<h3 id="qos-consolidation">QoS Consolidation</h3>
+<p><strong>Specification of QoS Usage (Which Level to Use)</strong></p>
+<p><em>See MQTT v5 spec., Sec. 3.8.4</em></p>
+<ol type="1">
+<li>The one that a subscriber requests (i.e. can afford)<br />
+</li>
+<li>The one that the broker can use to deliver<br />
+</li>
+<li>The one used in actual message delivery</li>
+</ol>
+<img class="centered-wrapper" src="Pasted image 20251226205716.png"/>
+<center>
+<i>Case 1</i>
+</center>
+<p><img class="centered-wrapper" src="Pasted image 20251226205802.png"/></p>
+<center>
+<i>Case 2</i>
+</center>
+<h3 id="requestresponse-using-mqtt">Request/response Using MQTT</h3>
+<p><img class="centered-wrapper" src="Pasted image 20251226205819.png"/></p>
+<center>
+<i>Figure A: a special method to deal with additional publisher or
+subscriber</i>
+</center>
+<h2 id="week-4-evaluating-a-data-communication-system">Week 4:
+Evaluating a Data Communication System</h2>
+<h3 id="outline">Outline</h3>
+<ul>
+<li>Evaluating a data communication system
+<ul>
+<li>throughput: amount of data[bits] sent per unit of time[kbps].<br />
+</li>
+<li>delay<br />
+</li>
+</ul></li>
+<li>Time Synchronization
+<ul>
+<li>NTP, Network Time Protocol: 1 to 2ms latency<br />
+</li>
+<li>PTP, Precision Time Protocol: under 1ms latency</li>
+</ul></li>
+</ul>
+<h3 id="common-sense">Common Sense</h3>
+<p>Light speed: 300km / ms; distance from TW to LA: 10,000km.<br />
+Theoretical latency of <a
+target="_blank" rel="noopener" href="http://www.google.com"><code>www.google.com</code></a> accessing
+from Taiwan should be around 35ms accordingly. However, with our LAN
+proper enough, we can get lower than 10ms.</p>
+<p>So what happened under the hood? Keyword: CDN, Cache</p>
+<h3 id="routing">Routing</h3>
+<ul>
+<li>Routing algorithms<br />
+</li>
+<li>Network flow problem</li>
+</ul>
+<p>Routing algorithms aim to solve <strong>network flow
+problems</strong> like “what is the possibly shortest path from sender
+to receiver in the network core?”. Studies of routing algorithms,
+without doubt, are very mature, and there are some decent tools about
+them. <strong>However,</strong> routing algorithms focus on relatively
+static systems; meanwhile, in the real world, routing systems in
+practice are very dynamic. For example, any node could be temporarily
+unreachable; also, it’s impossible for us to implement the theoretically
+optimal configuration for the real, complex system. We need a different
+model that is more flexible.</p>
+<h3 id="throughput-and-delay">Throughput and Delay</h3>
+<h4 id="introduction-to-the-idea-of-throughput">Introduction to the Idea
+of “Throughput”</h4>
+<p>Let’s take a look at a node.</p>
+<center>
+<i>Figure: illustration of a node</i>
+</center>
+<p>Throughput is somewhat related to delay. We can use water tube as an
+analogy:</p>
+<img class="centered-wrapper" src="Pasted image 20251223134941.png"/>
+<center>
+<i>Figure: an analogy</i>
+</center>
+<p>When the bandwidth consumption of a node reaches its maximum
+bandwidth, delay should increase.</p>
+<p>Now let’s take a look at a simple illustration of actual flow control
+mechanics.</p>
+<img class="centered-wrapper" src="Pasted image 20251226203918.png"/>
+<center>
+<i>Graph: flow control system</i>
+</center>
+<img class="centered-wrapper" src="Pasted image 20251226203936.png"/>
+<center>
+<i>Chart: throughput-delay relationship</i>
+</center>
+<p>Since we want more throughput under the same delay, the blue curve in
+the chart shows better routing mechanics than the red one.</p>
+<p>What we do here is to <em>characterize</em> how this system
+functions.</p>
+<h4 id="throughput-and-buffer-of-a-router">Throughput and Buffer of a
+Router</h4>
+<p><img class="centered-wrapper" src="Pasted image 20251226203957.png"/></p>
+<center>
+<i>Figure: a network system </i>
+</center>
+<p><img class="centered-wrapper" src="Pasted image 20251226204023.png"/></p>
+<center>
+<i>Figure A: total throughput (close, but not reaching 1.8)</i>
+</center>
+<p><img class="centered-wrapper" src="Pasted image 20251226204040.png"/></p>
+<center>
+<i>Figure B: limited-size buffer of a router</i>
+</center>
+<p>In figure A, we find that the throughput decreases. That is because
+after flow 2 exceeds the size of the buffer router R allocated for it,
+some of the packets from A to B drops.</p>
+<h3 id="measuring-latency">Measuring Latency</h3>
+<img class="centered-wrapper" src="Pasted image 20251226204059.png"/>
+<center>
+<i>Figure C</i>
+</center>
+<p>As shown in Figure C, we could put additional information, named
+timestamp, in the header of the packet.</p>
+<p>However, the clocks in different machines could differ. In some
+cases, latency calculated by such a method will even be a negative
+value. Especially in many embedded systems, the machine doesn’t have
+batteries that keeps the internal clock up, so their clocks aren’t
+expected to be correct.</p>
+<h3 id="ntp-network-time-protocol">NTP, Network Time Protocol</h3>
+<ul>
+<li>shortest path spanning tree<br />
+</li>
+<li>Bellman-Ford minimum spanning tree</li>
+</ul>
+<p>The reference clock is like the root of a tree. Using the shortest
+path spanning tree is meant to minimize the overhead.</p>
+<img class="centered-wrapper" src="Pasted image 20251226204130.png"/>
+<center>
+<i>Flow Chart: time synchronization in progress</i>
+</center>
+<p>Symbols</p>
+<ul>
+<li><span class="math inline">\(\delta\)</span>: round-trip delay
+between A and B<br />
+</li>
+<li><span class="math inline">\(\theta\)</span>: time offset of B
+relative to A<br />
+</li>
+<li>Note that <span class="math inline">\(t_{1}\)</span> and <span
+class="math inline">\(t_{4}\)</span> are not absolute time but off-set
+(by <span class="math inline">\(\theta\)</span>) timestamps marked by
+machine A.</li>
+</ul>
+<p><span class="math display">\[
+\delta = (t_{4} - t_{1}) - (t_{3} - t_{2})
+\]</span></p>
+<p>Representing <span class="math inline">\(t_{2}\)</span> and <span
+class="math inline">\(t_{3}\)</span> as functions of <span
+class="math inline">\(\theta\)</span> and <span
+class="math inline">\(\delta\)</span>:</p>
+<p><span class="math display">\[
+\left\{\begin{aligned}
+&amp; t_{2} = t_{1} - \theta + \frac{\delta}{2} \\
+&amp; t_{3} = t_{4} - \theta - \frac{\delta}{2} &amp;
+\end{aligned}\right.
+\]</span></p>
+<p>Solve them as a system of equations:</p>
+<p><span class="math display">\[
+\theta = \frac{1}{2} ( (t_{2} - t_{1}) + t_{3} - t_{4})
+\]</span></p>
+<h4 id="downsides-of-ntp">Downsides of NTP</h4>
+<p>After all the hustles we had in NTP, we still have 1 to 2
+milliseconds of synchronization error.</p>
+<ol type="1">
+<li>Time spans from t1 to t2 and t3 to t4 are assumed to be the same,
+but it is not true.<br />
+</li>
+<li>Internal clocks inside the machines also have latencies. For
+example, the NTP program may be preamped by the system due to the
+emergence of other programs with higher priority.<br />
+</li>
+<li>If the data is retransmitted in the TCP layer, the time span from t1
+to t2 and that from t3 to t4 is not <em>delta</em> / 2 even in
+theory.</li>
+</ol>
+<p><em>Lessons here: if you want to spot problems in your theory, you
+need to have proper knowledge of many aspects involved.</em></p>
+<h3 id="ptp-precision-time-protocol">PTP, Precision Time Protocol</h3>
+<p>p.d.f, probability density function</p>
+<p><img class="centered-wrapper" src="Pasted image 20251226204154.png"/></p>
+<center>
+<i>Chart: probability density function</i>
+</center>
+<p>Note that precision and accuracy are two different ideas.<br />
+PTP aims to reduce <em>jitters</em>. Jitters are time variations that
+exist in data transfer in practice.<br />
+The key idea of PTP is: if a PTP-supported switch has some latency, it
+will attach additional messages to tell receivers to take its exact
+latency value into calculation.</p>
+<p><img class="centered-wrapper" src="Pasted image 20251226204228.png"/></p>
+<center>
+<i>Figure: internal latencies that produce jitters, and how we could
+deal with it
+</center>
+<p></i></p>
+
+      </div>
+      
+      
+      
+    </div>
+  <ul class="breadcrumb">
+            <li><a href="/courses/">COURSES</a></li>
+            <li><a href="/courses/data-communication/">DATA-COMMUNICATION</a></li>
+            <li>MQTT</li>
+  </ul>
+
+    
+    
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Blade Yang</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

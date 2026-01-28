@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#1c1d22" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/thumb.jpg" color="#1c1d22">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.blade520.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":true,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":120,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"path":"search.json"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="Queueing Theory Week 5: The Queueing Model  A Proof for The Queueing Formula: L &#x3D; lambda W.    Figure: Illustration of a Simple Queueing Model    Model of A Load Balancer    A Simple Sewer  This is th">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blade&#39;s Blog">
+<meta property="og:url" content="https://blog.blade520.com/courses/data-communication/queueing-theory.html">
+<meta property="og:site_name" content="Blade&#39;s Blog">
+<meta property="og:description" content="Queueing Theory Week 5: The Queueing Model  A Proof for The Queueing Formula: L &#x3D; lambda W.    Figure: Illustration of a Simple Queueing Model    Model of A Load Balancer    A Simple Sewer  This is th">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226210019.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226210033.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_18.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226210122.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226210137.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226210151.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226210210.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226210222.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226210239.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226210319.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226210346.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226210420.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226210510.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_0.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_1.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_2.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_3.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_4.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_5.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_6.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_7.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_8.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_9.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_10.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_11.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_12.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Screenshot_2025-11-12-16-41-14-350_com.android.chrome-edit.jpg">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_13.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_14.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_15.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_16.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/img_composed_note_17.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251112120647.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Screenshot_2025-10-30-10-41-06-334_jp.ne.ibis.ibispaintx.app.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Screenshot_2025-10-30-10-59-07-824_jp.ne.ibis.ibispaintx.app.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Screenshot_2025-10-30-11-16-16-686_jp.ne.ibis.ibispaintx.app.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251112120647.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Screenshot_2025-10-30-10-41-06-334_jp.ne.ibis.ibispaintx.app.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Screenshot_2025-10-30-10-59-07-824_jp.ne.ibis.ibispaintx.app.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/Screenshot_2025-10-30-11-16-16-686_jp.ne.ibis.ibispaintx.app.png">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/IMG_20251226_212443.webp">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/IMG_20251226_212451.webp">
+<meta property="og:image" content="https://blog.blade520.com/courses/data-communication/IMG_20251226_212504.webp">
+<meta property="article:published_time" content="2026-01-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-28T00:51:40.369Z">
+<meta property="article:author" content="Blade Yang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.blade520.com/courses/data-communication/Pasted%20image%2020251226210019.png">
+
+
+<link rel="canonical" href="https://blog.blade520.com/courses/data-communication/queueing-theory">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-TW","comments":true,"permalink":"https://blog.blade520.com/courses/data-communication/queueing-theory.html","path":"courses/data-communication/queueing-theory.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | Blade's Blog
+</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","mhchem":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blade's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/thumb.jpg" alt="Blade's Blog">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜尋..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#queueing-theory"><span class="nav-text">Queueing Theory</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#week-5-the-queueing-model"><span class="nav-text">Week 5: The Queueing Model</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#example-3"><span class="nav-text">Example 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#example-4"><span class="nav-text">Example 4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#analysing-a-queueing-system"><span class="nav-text">Analysing a Queueing System</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#terminologies"><span class="nav-text">Terminologies</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#performance-metrics"><span class="nav-text">Performance Metrics</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#utilization-law"><span class="nav-text">Utilization Law</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#littles-law"><span class="nav-text">Little’s Law</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#derivation"><span class="nav-text">Derivation</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#week-6-the-mm1-system-and-the-markov-chain"><span class="nav-text">Week 6: The M&#x2F;M&#x2F;1
+System and the Markov Chain</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#the-mm1-system"><span class="nav-text">The M&#x2F;M&#x2F;1 System</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transition-probability-matrix"><span class="nav-text">Transition probability
+Matrix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#limiting-distribution"><span class="nav-text">Limiting Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stationary-distribution"><span class="nav-text">Stationary Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#binomial-distribution"><span class="nav-text">Binomial Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poisson-distribution"><span class="nav-text">Poisson Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exponential-distribution"><span class="nav-text">Exponential Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poisson-process"><span class="nav-text">Poisson Process</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#notation"><span class="nav-text">Notation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#recall-binomial-distribution"><span class="nav-text">(Recall) Binomial
+Distribution</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exponential-distribution-1"><span class="nav-text">Exponential Distribution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poisson-process-1"><span class="nav-text">Poisson Process</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#terms"><span class="nav-text">Terms</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#markov-chain"><span class="nav-text">Markov Chain</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#markovian-property-and-dtmc"><span class="nav-text">Markovian Property and DTMC</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ctmc"><span class="nav-text">CTMC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#definition"><span class="nav-text">Definition</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#diving-into-mm1"><span class="nav-text">Diving into M&#x2F;M&#x2F;1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#the-mm1-system-1"><span class="nav-text">The M&#x2F;M&#x2F;1 System</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#applying-theory-of-markov-chain"><span class="nav-text">Applying Theory of Markov
+Chain</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#the-arrivalservice-statistics-for-mm1"><span class="nav-text">The Arrival&#x2F;Service
+Statistics for M&#x2F;M&#x2F;1</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#week-8-the-aloha-system"><span class="nav-text">Week 8: The Aloha System</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#initial-story"><span class="nav-text">Initial Story</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stationary-probabilities"><span class="nav-text">Stationary Probabilities</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#minimum-resource-requirement"><span class="nav-text">Minimum Resource Requirement</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#week-9-beyond-queueing-systems"><span class="nav-text">Week 9: Beyond Queueing
+Systems</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#analyzing-mmkk"><span class="nav-text">Analyzing M&#x2F;M&#x2F;k&#x2F;k</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stationary-probabilities-1"><span class="nav-text">Stationary Probabilities</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#week-10-error-detection"><span class="nav-text">Week 10: Error Detection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#week-11-tolerating-host-failures"><span class="nav-text">Week 11: Tolerating Host
+Failures</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#spof-single-point-of-failures"><span class="nav-text">SPoF, Single Point of
+Failures</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#strategies"><span class="nav-text">Strategies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#state-machine-approach"><span class="nav-text">State Machine Approach</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Blade Yang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/minstrike520" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;minstrike520" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:minstrike520@gmail.com" title="E-Mail → mailto:minstrike520@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/blado.tf" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;blado.tf" rel="noopener me" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-TW"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">
+</h1>
+
+<div class="post-meta-container">
+  <ul class="breadcrumb">
+            <li><a href="/courses/">COURSES</a></li>
+            <li><a href="/courses/data-communication/">DATA-COMMUNICATION</a></li>
+            <li>QUEUEING-THEORY</li>
+  </ul>
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="queueing-theory">Queueing Theory</h1>
+<h2 id="week-5-the-queueing-model">Week 5: The Queueing Model</h2>
+<ul>
+<li>A Proof for The Queueing Formula: L = lambda W.</li>
+</ul>
+<img class="centered-wrapper" src="Pasted image 20251226210019.png"/>
+<center>
+<i>Figure: Illustration of a Simple Queueing Model</i>
+</center>
+<p><img class="centered-wrapper" src="Pasted image 20251226210033.png"/></p>
+<center>
+<i>Model of A Load Balancer</i>
+</center>
+<p><img class="centered-wrapper" src="img_composed_note_18.png"/></p>
+<center>
+<i>A Simple Sewer</i>
+</center>
+<p>This is the simplest implementation of the queueing model. All it has
+is just a conceptual server and a queue attached to it.</p>
+<h3 id="example-3">Example 3</h3>
+<p><img class="centered-wrapper" src="Pasted image 20251226210122.png"/></p>
+<p>Note: <strong><em>r</em></strong> here stands for
+<strong>rate</strong>.</p>
+<h3 id="example-4">Example 4</h3>
+<p><img class="centered-wrapper" src="Pasted image 20251226210137.png"/></p>
+<p>Requirement: in &gt; S1 &gt;S2 &gt; S3 &gt; S2 &gt; out</p>
+<p>Imagine a processing line in a factory. S3 may be quality checkers to
+make sure that the product is okay before output.<br />
+Here’s one advantage of the model. If we know the input rate and rates
+of every server, then it’s easy for us to analyse the output rate
+without being distracted by other aspects of the system.</p>
+<h3 id="analysing-a-queueing-system">Analysing a Queueing System</h3>
+<p>For the simplest system in Example 2, we are curious about how long
+it will take from in to out.</p>
+<h4 id="terminologies">Terminologies</h4>
+<p><img class="centered-wrapper" src="Pasted image 20251226210151.png"/></p>
+<p><strong><em>mu</em></strong>: mean service rate<br />
+<strong><em>lambda</em></strong>: job size<br />
+<strong><em>X</em></strong>: Throughput</p>
+<p>As shown in the figure, the average service rate is determined by
+some actual data, supporting the idea that we actually determine the
+rate by performing some experiments on the system.</p>
+<p><img class="centered-wrapper" src="Pasted image 20251226210210.png"/></p>
+<p><img class="centered-wrapper" src="Pasted image 20251226210222.png"/></p>
+<p>Note that the “response time” here is different from what it refers
+to in terms of operating system.</p>
+<h4 id="performance-metrics">Performance Metrics</h4>
+<p><img class="centered-wrapper" src="Pasted image 20251226210239.png"/></p>
+<ol type="1">
+<li>Processing Time<br />
+</li>
+<li>Queueing Time<br />
+</li>
+<li>Transmission Time<br />
+</li>
+<li>Propagation Time</li>
+<li><em>Response Time / Latency (<strong>T</strong>)</em><br />
+</li>
+<li><em>Throughput (<strong>X</strong>)</em><br />
+</li>
+<li>*Utilization<br />
+</li>
+<li><em>Propagation Time</em></li>
+</ol>
+<p>Propagation time means how long it will take to send one single
+bit.</p>
+<h4 id="utilization-law">Utilization Law</h4>
+<p><img class="centered-wrapper" src="Pasted image 20251226210319.png"/></p>
+<p><em>Proof: throughput (X) = average service rate (mu) x utilization
+(rho)</em></p>
+<p><strong><em>B</em></strong>: amount of time the system is busy<br />
+<strong><em>C</em></strong>: amount of items the system processed.<br />
+<strong><em>T</em></strong>: how long the users will actually wait,
+effectively determining the user experience.</p>
+<p>Let’s consider that if the arrival rate (lambda) becomes twice as
+much, but the response time needs to keep the same, how fast should the
+mean response time (mu) be?</p>
+<p><img class="centered-wrapper" src="Pasted image 20251226210346.png"/></p>
+<p><em>should the new mean service rate be
+<strong>2-mu</strong>?</em><br />
+Note that we usually have an implicit assumption: the system is not
+overwhelmed; statistically, output rate is ~eq to input rate, i.e. X ~=
+lambda.<br />
+<strong>ANALOGY</strong>: “mu” is like capacity; “X” is like the actual
+bandwidth.<br />
+Therefore the new m.s.r. <strong>does not necessarily</strong> be twice
+as much as the original value.</p>
+<p><img class="centered-wrapper" src="Pasted image 20251226210420.png"/></p>
+<p><em>Figure: Analysing the system provided in Example 4.</em></p>
+<h3 id="littles-law">Little’s Law</h3>
+<p>E[N] = lambda E[T]<br />
+<strong><em>lambda</em></strong>: arrival rate<br />
+<strong><em>T</em></strong>: response time<br />
+<strong><em>N</em></strong>: amount of data in system<br />
+Usage 1: we can calculate the response time of a system by monitoring
+the other two metrics.<br />
+Usage 2 (analogy):
+餐廳：如果知道客戶量跟翻桌率，則可以計算需要的座位數量<br />
+Usage 3 (analogy): 碩博實驗室：目前有幾個 / 一年收幾個 =
+每個人待的時間</p>
+<h4 id="derivation">Derivation</h4>
+<p><strong><em>N(t)</em></strong>: amount of items in the system at
+<strong><em>t</em></strong>.<br />
+<strong><em>alpha(t)</em></strong>: amount of items arrived in interval
+[0, <strong><em>t</em></strong>]<br />
+<em><strong>beta(t)</strong>:</em> amount of items departed in [0,
+<strong><em>t</em></strong>]<br />
+<strong><em>T_i</em></strong>: response time of the
+<strong><em>i</em></strong>-th arriving item.</p>
+<p><img class="centered-wrapper" src="Pasted image 20251226210510.png"/></p>
+<p><em>Graph: Derivation Details</em></p>
+<p>**</p>
+<h2 id="week-6-the-mm1-system-and-the-markov-chain">Week 6: The M/M/1
+System and the Markov Chain</h2>
+<h3 id="the-mm1-system">The M/M/1 System</h3>
+<p>M: Interarrival time follows exponential distribution.</p>
+<p>M: Service time follows exponential distribution.</p>
+<p>1: There’s only one server.</p>
+<p>The Kendall notation</p>
+<p><img class="centered-wrapper" src="img_composed_note_0.png"/></p>
+<p>Figure: Interarrival Time Distribution.</p>
+<p><img class="centered-wrapper" src="img_composed_note_1.png"/></p>
+<p>States of Each (Discrete) Time.</p>
+<p><img class="centered-wrapper" src="img_composed_note_2.png"/></p>
+<p>State Machine and Probabilities of Transition.</p>
+<p><img class="centered-wrapper" src="img_composed_note_3.png"/></p>
+<p>A probability of transition is denoted as P_ij.</p>
+<p>The Markovian Property: The conditional distribution of any future
+state is independent of past states and only depends on the present
+state.</p>
+<p><img class="centered-wrapper" src="img_composed_note_4.png"/></p>
+<p>Definition of the Markovian property.</p>
+<p>(!) Linear Time-invariant, LTI</p>
+<p>It makes it easier to analyze the system to assume the system is
+LTI.</p>
+<h3 id="transition-probability-matrix">Transition probability
+Matrix</h3>
+<p>Diving into how the states transit.</p>
+<p>It turns out that matrix multiplications describe such transitions
+pretty well.</p>
+<p>Note that it’s “轉移矩陣” in Chinese. It’s taught in math class in
+senior high, especially about the systems that only have two states.</p>
+<p><img class="centered-wrapper" src="img_composed_note_5.png"/></p>
+<p><img class="centered-wrapper" src="img_composed_note_6.png"/></p>
+<p>Since we have the Markovian Property, every event is independent of
+each other. Therefore, the probability of a series of events is the
+product of the transformation matrix of each of them.</p>
+<p><img class="centered-wrapper" src="img_composed_note_7.png"/></p>
+<p>This is also taught in senior high.</p>
+<h3 id="limiting-distribution">Limiting Distribution</h3>
+<p>P_inf = lim(n-&gt;infinity) P_n.</p>
+<p><img class="centered-wrapper" src="img_composed_note_8.png"/></p>
+<p>We have the special case of M=2.</p>
+<p><img class="centered-wrapper" src="img_composed_note_9.png"/></p>
+<h3 id="stationary-distribution">Stationary Distribution</h3>
+<p><img class="centered-wrapper" src="img_composed_note_10.png"/></p>
+<p>pi_n: The probability of a system to transit to state n.</p>
+<h3 id="binomial-distribution">Binomial Distribution</h3>
+<p>Bernoulli trials b(k; n, p)</p>
+<p>k: amount of successes</p>
+<p>n: amount of trails</p>
+<p>p: probability that the trial successes.</p>
+<p>C(n,k) p^k q^(n-k)</p>
+<h3 id="poisson-distribution">Poisson Distribution</h3>
+<p>It’s a nice approximation since exponentiation has some nice
+properties.</p>
+<p>lambda’: the sharp symbol is here just to distinguish it from another
+lambda later.</p>
+<p><img class="centered-wrapper" src="img_composed_note_11.png"/></p>
+<p><img class="centered-wrapper" src="img_composed_note_12.png"/></p>
+<p>Proof.</p>
+<h3 id="exponential-distribution">Exponential Distribution</h3>
+<h3 id="poisson-process">Poisson Process</h3>
+<p>Independent increment - number of arrivals in disjoint time intervals
+are independent</p>
+<p>Stationary increment - number of arrivals in any intervals of length
+tao is Poisson distributed with parameter lambda tao.</p>
+<p>(distributions: stationary, limiting, binomial &amp; poisson,
+exponential); poisson process; markov chain; CTMC ### Distributions ####
+Transition Matrix Transition Probability Matrix <span
+class="math display">\[
+\begin{bmatrix}
+0.7 &amp; 0.3 \\
+0.8 &amp; 0.2
+\end{bmatrix}
+\]</span> Transform Probability from state <span
+class="math inline">\(s_{1}\)</span> to state <span
+class="math inline">\(s_{2}\)</span> <span class="math display">\[
+P_{s_{1}s_{2}}
+\]</span></p>
+<h4 id="notation">Notation</h4>
+<p>A probability distribution <span class="math display">\[
+\vec{\pi} = (\pi_{0}, \pi_{1}, \dots)
+\]</span> #### Stationary Distribution Stationary Distrbution with
+Transition Probability Matrix <span
+class="math inline">\(\mathbf{P}\)</span> and Probability Distribution
+<span class="math inline">\(\vec{\pi}=(\pi_{0}, \pi_{1}, \dots, \pi_{M -
+1})\)</span></p>
+<p><span class="math display">\[
+\vec{\pi} \cdot \mathbf{P} =  \vec{\pi} \ \land \ \sum ^{M - 1}_{i =
+0}  \pi_{i} = 1
+\]</span> #### Limiting Distribution Limiting Distribution <span
+class="math display">\[
+P_{\text{inf}} = \lim_{ n \to \infty } P_{n}
+\]</span> If the state machine follows the limiting distribution, then
+for any <span class="math inline">\(i\)</span> other than <span
+class="math inline">\(j\)</span>, the probability to transform from
+state <span class="math inline">\(i\)</span> to state <span
+class="math inline">\(j\)</span> follows <span class="math display">\[
+\pi_{j} = (P_{\text{inf}})_{ij}
+\]</span></p>
+<h4 id="recall-binomial-distribution">(Recall) Binomial
+Distribution</h4>
+<p>Bernouli Trials <span class="math display">\[
+P\{ S_{n} = k \} = b(k; n, p)
+\]</span> - <span class="math inline">\(k\)</span>: amount of sucesses -
+<span class="math inline">\(n\)</span>: amount of trials - <span
+class="math inline">\(p\)</span>: probability of sucess of single event
+- <span class="math inline">\(S_{n}\)</span>: random variable that
+represents Bernouli trial with <span class="math inline">\(n\)</span>
+trials</p>
+<p>Probability Evaluation <span class="math display">\[
+b(k; n, p) = C^{n}_{k} p^{k} q^{n - k}
+\]</span> #### Poisson Distribution Poisson Distribution <span
+class="math display">\[
+p(k; \lambda&#39;) = \frac{\lambda&#39; ^{k}}{k!} \cdot e^{-
+\lambda&#39;}
+\]</span> - <span class="math inline">\(k\)</span>: amount of successes
+- <span class="math inline">\(\lambda&#39;\)</span>: rate</p>
+<p>Derivation Let <span class="math inline">\(\lambda&#39; = n \cdot
+p\)</span>. When <span class="math inline">\(n\)</span> is very large
+and <span class="math inline">\(p\)</span> is very small, <span
+class="math display">\[
+b(k; n, p) \simeq \frac{\lambda&#39;^{k}}{k!} e^{-\lambda&#39;}.
+\]</span> Then we define such approximated relationship as Poisson
+distribution.</p>
+<p><em>The proof is not yet here.</em></p>
+<h4 id="exponential-distribution-1">Exponential Distribution</h4>
+<p>P.D.F. <span class="math inline">\(f(x)\)</span> is defined: <span
+class="math display">\[
+f(x) = \left\{\begin{aligned}
+&amp; \lambda e ^{\lambda x}   &amp; &amp; \text{if} \ x \ge 0\\
+&amp; 0  &amp; &amp; \text{otherwise}
+\end{aligned}\right.
+\]</span> C.D.F. <span class="math inline">\(F(x)\)</span> can be
+derived: <span class="math display">\[
+F(s) = P\{ X \le x \} = \int ^{x}_{-\infty} f(x) \ \text{d}x = 1 -
+e^{-\lambda s}
+\]</span> We take the compliment of the above relationship (<span
+class="math inline">\(P{\{ X \le x \}} \to P\{ X&gt;x \}\)</span>):
+<span class="math display">\[
+P\{ X &gt; x \} = e^{-\lambda s}
+\]</span> Expected Value of Random Variable <span
+class="math inline">\(X\)</span>: <span class="math display">\[
+\mathbf{E}[X] = \int ^{\infty}_{-\infty} x f(x) \ \text{d}x =
+\frac{1}{\lambda}
+\]</span> Theorem. If <span class="math inline">\(X\)</span> follows the
+exponential distribution, then <span class="math display">\[
+P\{ X &gt; s + t \ | \ X &gt; s \} = P\{ X &gt; t \}.
+\]</span></p>
+<p><strong>Proof</strong>.</p>
+<p>Left = <span class="math display">\[
+\frac{P\{ X &gt; s + t \}}{P\{ X &gt; s \}} = \frac{e^{-\lambda(s +
+t)}}{e^{-\lambda s}} = e^{\lambda t}
+\]</span> = Right. <span class="math inline">\(\blacksquare\)</span></p>
+<h3 id="poisson-process-1">Poisson Process</h3>
+<h4 id="terms">Terms</h4>
+<ul>
+<li>Poisson process is a stochastic process</li>
+<li>Poisson process follows the Poisson distribution</li>
+<li><span class="math inline">\(A(t)\)</span>: amount of arrivals in
+time interval <span class="math inline">\([0, t]\)</span>
+<ul>
+<li>Naturally, <span class="math inline">\(A(0) = 0\)</span></li>
+</ul></li>
+<li><span class="math inline">\(\lambda\)</span>: rate</li>
+</ul>
+<p>Following the Poisson distribution: <span class="math display">\[
+P\{ A(t + \tau) - A(t) = k \} = p(k; \lambda \tau)
+\]</span> and it evaluates to <span class="math display">\[
+e^{-\lambda \tau} \frac{(\lambda \tau)^{k}}{k!}
+\]</span> #### Properties - Property 1: the interarrival times of a
+Poisson process are independent and exponentially distributed with rate
+<span class="math inline">\(\lambda\)</span>. - Property 2: if two or
+more independent Poisson processes <span
+class="math inline">\(A_{1},\dots, A_{n}\)</span> are merged into a
+single process <span class="math inline">\(A = A_{1} + A_{2} + \dots +
+A_{n}\)</span>, then <span class="math inline">\(A\)</span> is a Poisson
+process with a rate equal to the sum of the rates of Ai for <span
+class="math inline">\(i = 1\dots n\)</span>.</p>
+<h3 id="markov-chain">Markov Chain</h3>
+<h4 id="markovian-property-and-dtmc">Markovian Property and DTMC</h4>
+<p>The Markovian Property: The next state <span
+class="math inline">\(X_{n + 1}\)</span> from present only depends on
+the present state <span class="math inline">\(X_{n}\)</span>, or <span
+class="math display">\[
+\begin{aligned}
+&amp;P \{ X_{n + 1} = j \ | \ X_{n} = i, X_{n - 1} = i_{n - 1}, \dots,
+X_{1} = i_{1}, X_{0} = i_{0} \} \\
+&amp; = P \{ X_{n +1 } = j \ | \  X_{n} = i \}.
+\end{aligned}
+\]</span> We denote the transition probability in DTMC by <span
+class="math display">\[
+P_{ij} = P \{ N_{k + 1} =j\ | \ N_{k}= i\}
+\]</span></p>
+<p>DTMC is a stochastic (aka random) process that satisfies the
+Markovian property.</p>
+<p><em>(Keyword?) Linear Time-Invariant</em></p>
+<h3 id="ctmc">CTMC</h3>
+<h4 id="definition">Definition</h4>
+<p><span class="math inline">\(N(t)\)</span>: numbers of messages in
+system at time <span class="math inline">\(t\)</span> CTMC: <span
+class="math display">\[
+\{ N(t)\ | \ t &gt; 0 \}
+\]</span></p>
+<h3 id="diving-into-mm1">Diving into M/M/1</h3>
+<h4 id="the-mm1-system-1">The M/M/1 System</h4>
+<p>The Kendall Notation: a X/Y/Z queueing system - X: the distribution
+of interarrival times for the arrival process - Y: the distribution of
+the service time - Z: the number of servers</p>
+<ol type="1">
+<li>Arrival Statistics (X = M)
+<ul>
+<li>Data arrives according to the <strong>Poisson process</strong> with
+rate <span class="math inline">\(\lambda\)</span>.</li>
+<li>The interarrival times follow an <strong>exponential
+distribution</strong>.</li>
+</ul></li>
+<li>Service Statistics (Y = M): The data service times follow an
+<strong>exponential distribution</strong> with rate <span
+class="math inline">\(\mu\)</span>. With 1. and 2., the number of data
+items in the next moment will only depend on the current <strong>number
+of data items</strong> in the systems.</li>
+</ol>
+<p>Thus, to analyze the probability for a system to have <span
+class="math inline">\(N\)</span> data items, here we can apply theory of
+Markov chain.</p>
+<h4 id="applying-theory-of-markov-chain">Applying Theory of Markov
+Chain</h4>
+<p>Take CTMC with <span class="math inline">\(N(t)\)</span>. We start
+from DTMC and then derive to CTMC. Consider time points <span
+class="math display">\[
+0, \delta, 2\delta, \dots,
+\]</span> and let <span class="math display">\[
+N_{k} = N(k \delta)
+\]</span> denote the number of messages in the system at moment <span
+class="math inline">\(k\delta\)</span>. Then, <span
+class="math display">\[
+\{ N_{k} \ | \ k = 0, 1, \dots \}
+\]</span> is a DTMC. Then apply <span class="math inline">\(\delta \to
+0\)</span> (limit) to derive to CTMC.</p>
+<p><span class="math display">\[
+P_{ij} = \{  N_{k + 1} = j \ | \ N_{k} = i \}
+\]</span> <span class="math display">\[
+= \{ N((k + 1) \delta) = j \ | \ N(k\delta) = i \}
+\]</span> <span class="math display">\[
+= \{  \}
+\]</span></p>
+<h4 id="the-arrivalservice-statistics-for-mm1">The Arrival/Service
+Statistics for M/M/1</h4>
+<ol type="1">
+<li>Messages arrival ~ Poisson process (<span
+class="math inline">\(A(t)\)</span>)</li>
+<li>Interarrival times ~ Exponential Distribution (<span
+class="math inline">\(\lambda\)</span>)</li>
+</ol>
+<ul>
+<li><span class="math inline">\(\tau_{n}\)</span>: <span
+class="math inline">\(n\)</span>-th to <span
+class="math inline">\(n+1\)</span>-th</li>
+</ul>
+<p><span class="math display">\[
+P\{ \tau_{n} \le \delta \} = 1  - e^{-\lambda\delta}
+\]</span> See [[#Poisson Process]].</p>
+<p><img class="centered-wrapper" src="Screenshot_2025-11-12-16-41-14-350_com.android.chrome-edit.jpg"/>
+Determining <span class="math inline">\(P_{ij}\)</span>: (TODO) <span
+class="math display">\[
+P_{ij} = \{ N_{k + 1} = j \ | \ N_{k} = i\}
+\]</span> <span class="math display">\[
+= \{ N \}
+\]</span></p>
+<h2 id="week-8-the-aloha-system">Week 8: The Aloha System</h2>
+<h3 id="initial-story">Initial Story</h3>
+<ul>
+<li><p>Centralized System: Multiple Sender, One Receiver</p></li>
+<li><p>RF Communication</p></li>
+<li><p>Concept of “Time Slot”</p>
+<ul>
+<li>the fact that messages received in the same time slot “collides” and
+are invalid.</li>
+</ul></li>
+</ul>
+<p><img class="centered-wrapper" src="img_composed_note_13.png"/></p>
+<p>One way to prevent collision is TDMA, Time Division Multiple
+Access.</p>
+<p>But here comes the down side. </p>
+<ul>
+<li><p>What if one specific sender has so many messages to
+send?</p></li>
+<li><p>If we have m senders, the average waiting time is about
+m/2.</p></li>
+</ul>
+<p><img class="centered-wrapper" src="img_composed_note_14.png"/></p>
+<p>Key factors of efficiency of the aloha system</p>
+<ul>
+<li><p>rate of transmission</p></li>
+<li><p>rate of re-transmission</p></li>
+<li><p>amount of senders</p></li>
+</ul>
+<p>e.g. if the rate of transmission is high, then it’s more likely to
+collide, then it’s more likely to re-transmit too.</p>
+<p><img class="centered-wrapper" src="img_composed_note_15.png"/></p>
+<p>Note that we can apply the queueing model here!
+<img class="centered-wrapper" src="img_composed_note_16.png"/></p>
+<p>However, since the existence of re-transmission, the situation is
+kind of complicated. We will break it into two models, ones describing
+the worst and the best cases.</p>
+<p><img class="centered-wrapper" src="img_composed_note_17.png"/></p>
+<p>We view re-transmissions as separate nodes.</p>
+<ol type="1">
+<li><p>Worst-case assumption (m -&gt; infinity)</p></li>
+<li><p>Best-case assumption (no buffering)</p></li>
+</ol>
+<p>The backlogged node, the node that is experiencing collision.</p>
+<p>We use the Markov chain here, labeling each state with numbers of
+“the backlogged nodes”.</p>
+<p><img class="centered-wrapper" src="Pasted image 20251112120647.png"/></p>
+<p><span class="math display">\[
+X_{i} \sim \text{Exp} (v_{i} p_{i j}) \]</span></p>
+<p><img class="centered-wrapper" src="Screenshot_2025-10-30-10-41-06-334_jp.ne.ibis.ibispaintx.app.png"/>
+## Week 9: Beyond Queueing Systems ### Analyzing M/M/k/k The CTMC for a
+M/M/k/k is a <strong>birth-death process</strong>:</p>
+<p><img class="centered-wrapper" src="Screenshot_2025-10-30-10-59-07-824_jp.ne.ibis.ibispaintx.app.png"/></p>
+<p>At one moment there is at most one departure and one arrival.</p>
+<p>Here <span class="math inline">\(\pi_{i}\)</span> means the
+<strong>steady-state probability</strong> that the system has <span
+class="math inline">\(i\)</span> items.</p>
+<p><span class="math display">\[
+\begin{array}
+. \text{Time-reversibility equation}  &amp;  \text{Simplified
+equation}\\
+\pi_{0} \lambda = \pi \mu  &amp; \pi_{1} = \frac{\lambda}{\mu}  \pi_{0}
+\\
+\pi_{1}\lambda = \pi_{2} 2 \mu  &amp; \pi_{2} = \left(
+\frac{\lambda}{\mu} \right)^2 \frac{1}{2!} \pi_{0} \\
+\dots \\
+\pi_{k - 1} \lambda = \pi_{k} k \mu  &amp; \pi_{k} \left(
+\frac{\lambda}{\mu} \right) ^{k} \frac{1}{k!} \pi_{0}
+\end{array}
+\]</span> Here, <span class="math display">\[
+\pi_{i-1} \lambda = \pi_{i} i \mu
+\]</span> means the “flow” from state <span class="math inline">\(i -
+1\)</span> must equals that from state <span
+class="math inline">\(i\)</span>, which is supported by the fact that
+(…)</p>
+<p><span class="math display">\[
+\sum ^{\infty}_{i = 1} i \cdot (G\dots) = \sum ^{\infty}_{i = 1} i \cdot
+(D \dots)
+\]</span> - Global Balance Equation -&gt; Balance Equation - Detailed
+Balance Equation -&gt; Time Reversibility Equation</p>
+<p>With this, we are able to acquire <span
+class="math inline">\(\pi_{i}\)</span>.</p>
+<p><span class="math display">\[
+\pi_{i} = \frac{\left( \frac{\lambda}{\mu} \right)^{i} / i!}{\sum
+^{k}_{j = 0} \left( \frac{\lambda}{\mu} \right)^{j} \frac{1}{j!}}
+\]</span> for <span class="math inline">\(1 \le i \le k\)</span>.
+(<strong>Erlang-B Formula</strong>)</p>
+<p>Blocking probability, <span
+class="math inline">\(P_{\text{block}}\)</span> <span
+class="math display">\[
+P_{\text{block}} = \frac{P \{ X = k \}}{P \{  X \le k \}}
+\]</span>
+<img class="centered-wrapper" src="Screenshot_2025-10-30-11-16-16-686_jp.ne.ibis.ibispaintx.app.png"/></p>
+<h3 id="stationary-probabilities">Stationary Probabilities</h3>
+(from about page 13:) $$ _i =
+<span class="math display">\[\begin{cases}
+\frac{(\lambda/\mu)^i}{i!} \pi_0 &amp; \text{if } i \leq k \\
+\frac{(\lambda/\mu)^i}{k! k^{i-k}} \pi_0 &amp; \text{if } i &gt; k
+\end{cases}\]</span>
+<p>$$</p>
+<p><span class="math display">\[
+\pi_0 = \left[ \sum_{i=0}^{k-1} \frac{(k\rho)^i}{i!} +
+\frac{(k\rho)^k}{k!(1-\rho)} \right]^{-1}
+\]</span></p>
+<h4 id="minimum-resource-requirement">Minimum Resource Requirement</h4>
+<p>We have <span class="math display">\[
+\rho = \frac{\lambda}{k \mu}
+\]</span> viewing from total service capacity, and <span
+class="math display">\[
+\frac{\lambda / k}{\mu}
+\]</span> viewing from each single server.</p>
+<p>Here <span class="math inline">\(\rho\)</span> means utilization.</p>
+<p>Expected number of busy servers, <span
+class="math inline">\(R\)</span>, is acquired by <span
+class="math display">\[
+R = \sum ^{k}_{i = 0} i \cdot P \{ i\ \text{jobs in service} \}.
+\]</span></p>
+Probability for an arriving job to be queued, <span
+class="math inline">\(P_{Q}\)</span>, can be described as that for the
+event when <strong>an arrival finds all servers busy</strong> and when
+<strong>an arrival finds at least</strong> <span
+class="math inline">\(k\)</span> <strong>jobs in the system</strong>.
+Then we have <em>Erlang-C formula</em> stating that $$
+<span class="math display">\[\begin{aligned}
+
+P_{Q} &amp;= \sum ^{\infty}_{i = } \pi_{i}\ (\text{by PASTA})\\  &amp; =
+\frac{(k \rho)^{k} \pi_{0}}{k! (1 - p)}.
+\end{aligned}\]</span>
+<p>$$</p>
+<p><span class="math display">\[
+E[N_{Q}] = E[N_{Q} \ | \ \text{queueing}] \cdot P \{  \text{queueing} \}
+\dots
+\]</span></p>
+<h2 id="week-9-beyond-queueing-systems">Week 9: Beyond Queueing
+Systems</h2>
+<p><img class="centered-wrapper" src="Pasted image 20251112120647.png"/></p>
+<p><span class="math display">\[
+X_{i} \sim \text{Exp} (v_{i} p_{i j})
+\]</span></p>
+<p><img class="centered-wrapper" src="Screenshot_2025-10-30-10-41-06-334_jp.ne.ibis.ibispaintx.app.png"/></p>
+<h3 id="analyzing-mmkk">Analyzing M/M/k/k</h3>
+<p>The CTMC for a M/M/k/k is a <strong>birth-death process</strong>:</p>
+<p><img class="centered-wrapper" src="Screenshot_2025-10-30-10-59-07-824_jp.ne.ibis.ibispaintx.app.png"/></p>
+<p>At one moment there is at most one departure and one arrival.</p>
+<p>Here <span class="math inline">\(\pi_{i}\)</span> means the
+<strong>steady-state probability</strong> that the system has <span
+class="math inline">\(i\)</span> items.</p>
+<p><span class="math display">\[
+\begin{array}
+. \text{Time-reversibility equation}  &amp;  \text{Simplified
+equation}\\
+\pi_{0} \lambda = \pi \mu  &amp; \pi_{1} = \frac{\lambda}{\mu}  \pi_{0}
+\\
+\pi_{1}\lambda = \pi_{2} 2 \mu  &amp; \pi_{2} = \left(
+\frac{\lambda}{\mu} \right)^2 \frac{1}{2!} \pi_{0} \\
+\dots \\
+\pi_{k - 1} \lambda = \pi_{k} k \mu  &amp; \pi_{k} \left(
+\frac{\lambda}{\mu} \right) ^{k} \frac{1}{k!} \pi_{0}
+\end{array}
+\]</span></p>
+<p>Here,</p>
+<p><span class="math display">\[
+\pi_{i-1} \lambda = \pi_{i} i \mu
+\]</span></p>
+<p>means the “flow” from state <span class="math inline">\(i -
+1\)</span> must equals that from state <span
+class="math inline">\(i\)</span>, which is supported by the fact that
+(…)</p>
+<hr />
+<p><span class="math display">\[
+\sum ^{\infty}_{i = 1} i \cdot (G\dots) = \sum ^{\infty}_{i = 1} i \cdot
+(D \dots)
+\]</span></p>
+<ul>
+<li>Global Balance Equation -&gt; Balance Equation</li>
+<li>Detailed Balance Equation -&gt; Time Reversibility Equation</li>
+</ul>
+<p>With this, we are able to acquire <span
+class="math inline">\(\pi_{i}\)</span>.</p>
+<p><span class="math display">\[
+\pi_{i} = \frac{\left( \frac{\lambda}{\mu} \right)^{i} / i!}{\sum
+^{k}_{j = 0} \left( \frac{\lambda}{\mu} \right)^{j} \frac{1}{j!}}
+\]</span></p>
+<p>for <span class="math inline">\(1 \le i \le k\)</span>.
+(<strong>Erlang-B Formula</strong>)</p>
+<p>Blocking probability, <span
+class="math inline">\(P_{\text{block}}\)</span></p>
+<p><span class="math display">\[
+P_{\text{block}} = \frac{P \{ X = k \}}{P \{  X \le k \}}
+\]</span></p>
+<p><img class="centered-wrapper" src="Screenshot_2025-10-30-11-16-16-686_jp.ne.ibis.ibispaintx.app.png"/></p>
+<h3 id="stationary-probabilities-1">Stationary Probabilities</h3>
+<p>(from about page 13:)</p>
+$$ _i =
+<span class="math display">\[\begin{cases}
+\frac{(\lambda/\mu)^i}{i!} \pi_0 &amp; \text{if } i \leq k \\
+\frac{(\lambda/\mu)^i}{k! k^{i-k}} \pi_0 &amp; \text{if } i &gt; k
+\end{cases}\]</span>
+<p>$$</p>
+<p><span class="math display">\[
+\pi_0 = \left[ \sum_{i=0}^{k-1} \frac{(k\rho)^i}{i!} +
+\frac{(k\rho)^k}{k!(1-\rho)} \right]^{-1}
+\]</span></p>
+<p><strong>Minimum Resource Requirement</strong></p>
+<p>We have</p>
+<p><span class="math display">\[
+\rho = \frac{\lambda}{k \mu}
+\]</span></p>
+<p>viewing from total service capacity, and</p>
+<p><span class="math display">\[
+\frac{\lambda / k}{\mu}
+\]</span></p>
+<p>viewing from each single server.</p>
+<p>Here <span class="math inline">\(\rho\)</span> means utilization.</p>
+<p>Expected number of busy servers, <span
+class="math inline">\(R\)</span>, is acquired by</p>
+<p><span class="math display">\[
+R = \sum ^{k}_{i = 0} i \cdot P \{ i\ \text{jobs in service} \}.
+\]</span></p>
+<p>Probability for an arriving job to be queued, <span
+class="math inline">\(P_{Q}\)</span>, can be described as that for the
+event when <strong>an arrival finds all servers busy</strong> and when
+<strong>an arrival finds at least</strong> <span
+class="math inline">\(k\)</span> <strong>jobs in the system</strong>.
+Then we have <em>Erlang-C formula</em> stating that</p>
+<p><span class="math display">\[
+\begin{aligned}
+P_{Q} &amp;= \sum ^{\infty}_{i = } \pi_{i}\ (\text{by PASTA})\\  &amp; =
+\frac{(k \rho)^{k} \pi_{0}}{k! (1 - p)}.
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+E[N_{Q}] = E[N_{Q} \ | \ \text{queueing}] \cdot P \{  \text{queueing} \}
+\dots
+\]</span></p>
+<h2 id="week-10-error-detection">Week 10: Error Detection</h2>
+<ol type="1">
+<li>Cyclic Redundant Check</li>
+<li>Error Correction Code </li>
+</ol>
+<p>S(D): Polynomial for the information</p>
+<p>C(D): Polynomial for the parity checks</p>
+<p>X(D): Polynomial for the message sent</p>
+<p>g(D): a generator polynomial</p>
+<h2 id="week-11-tolerating-host-failures">Week 11: Tolerating Host
+Failures</h2>
+<h3 id="spof-single-point-of-failures">SPoF, Single Point of
+Failures</h3>
+<p>e.g. <span class="math display">\[
+\text{publishers}\to  \cancel{\text{single server}} \to
+\text{subscribers}
+\]</span></p>
+<h3 id="strategies">Strategies</h3>
+<ol type="1">
+<li>State Machine Approach, aka Active Replication</li>
+<li>Primary Backup Approach, aka Passive Replication</li>
+</ol>
+<h3 id="state-machine-approach">State Machine Approach</h3>
+<p>The key point is clients want to only 1. updates data for server 2.
+fetch data from server. So we want to “mask failures.” Solution: Add
+more servers in the service.</p>
+<hr />
+<p><img class="centered-wrapper" src="IMG_20251226_212443.webp"/></p>
+<p><img class="centered-wrapper" src="IMG_20251226_212451.webp"/></p>
+<p><img class="centered-wrapper" src="IMG_20251226_212504.webp"/></p>
+
+      </div>
+      
+      
+      
+    </div>
+  <ul class="breadcrumb">
+            <li><a href="/courses/">COURSES</a></li>
+            <li><a href="/courses/data-communication/">DATA-COMMUNICATION</a></li>
+            <li>QUEUEING-THEORY</li>
+  </ul>
+
+    
+    
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Blade Yang</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
